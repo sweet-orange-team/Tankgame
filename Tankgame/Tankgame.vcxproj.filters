@@ -18,5 +18,27 @@
     <ClCompile Include="检测按键和鼠标位置.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyTest.h">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\基于C++实现的坦克大战游戏\Release\Tank.wav">
+      <Filter>资源文件</Filter>
+    </Media>
+    <Media Include="..\..\基于C++实现的坦克大战游戏\Release\Tank_dead.wav">
+      <Filter>资源文件</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Console.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

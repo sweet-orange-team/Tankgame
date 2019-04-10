@@ -1,3 +1,4 @@
+/*
 //获得鼠标X，Y数据和按键的按下与弹起
 #include <stdio.h> 
 #include <windows.h> 
@@ -29,3 +30,4 @@ int main(void)
 	UnhookWindowsHookEx(g_kb_hook);
 	return 0;
 };
+*/
