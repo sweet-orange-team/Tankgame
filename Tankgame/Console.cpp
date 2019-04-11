@@ -6,9 +6,9 @@
 using namespace std;
 #include"Console.h"
 
-Console::Console(const char* const &name)
+Console::Console()
 {
-	system("title 图书管理系统-by charon and Yvein");	//设置控制台标题
+	system("title TankGame-by charon and Yvein");		//设置控制台标题
 	system("mode con cols=100 lines=35");				//设置宽和高
 	cursorSee(false);									//初始化光标隐藏
 }
