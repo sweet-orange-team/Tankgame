@@ -13,12 +13,11 @@ using namespace std;
 class Console										//控制台类,用于修改控制台各项参数
 {
 public:
-	Console();
+	Console();										//以指定条件初始化窗口
 	~Console();
 	void cursorPosition(const int x, const int y);	//设置光标位置
 	void cursorSee(bool _flag);						//显示或隐藏光标
-	void setColor(char flag);
-	void color(int a);								//改变输出的颜色，比system("color x")快得多
+	void color(int a);								//改变输出的颜色，字体或背景颜色
 	int check(char c);								//检测某个按键是否按下，按下就改变输出颜色
 private:
 
