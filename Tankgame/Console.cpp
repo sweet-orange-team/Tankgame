@@ -1,23 +1,21 @@
-#include<iostream>										//这一页老是报错.............但还跑得通？？？？
-#include<string>										//没找到这是什么神秘错误，反正能跑......
-#include<cstring>										//
-#include <windows.h>									//
-#include <stdio.h>										//
+#include<iostream>										//这一页老是报错.............但还跑得通？？？？										//
+#include <windows.h>									//									//
 using namespace std;
 #include"Console.h"
 
 Console::Console()
 {
 	system("title TankGame-by charon and Yvein");		//设置控制台标题
-	system("mode con cols=100 lines=35");				//设置宽和高
-	cursorSee(false);									//初始化光标隐藏
+	system("mode con cols=160 lines=50");				//设置长160和宽45
+	setCursorSee(false);								//初始化光标隐藏
+	system("chcp 65001");								//设置支持unicode
 }
 
 Console::~Console()
 {
 }
 
-void Console::cursorPosition(const int x, const int y)	//设置光标位置
+void Console::setCursorPosition(const int x, const int y)	//设置光标位置
 {
 	COORD position;
 	position.X = x * 2;
@@ -25,7 +23,7 @@ void Console::cursorPosition(const int x, const int y)	//设置光标位置
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), position);
 }
 
-void Console::cursorSee(bool flag)					//显示或者隐藏光标
+void Console::setCursorSee(bool flag)					//显示或者隐藏光标
 {
 	HANDLE h_GAME = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_CURSOR_INFO cursor_info;
@@ -35,8 +33,8 @@ void Console::cursorSee(bool flag)					//显示或者隐藏光标
 }
 
 
-void Console::color(int a) {//改变输出的颜色，比system("color x")快得多
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), a);
+void Console::setColor(int number) {					//改变输出的颜色，比system("color x")快得多
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), number);
 	/*	这边设置字的颜色						这边设置背景颜色
 	字
 		1	深蓝色		9	浅蓝色	||||	背景
@@ -51,18 +49,18 @@ void Console::color(int a) {//改变输出的颜色，比system("color x")快得多
 	*/
 }
 
-int Console::check(char c) {			//检测某个按键是否按下(传入大写字母），按下就改变输出颜色
+int Console::checkKey(char key) {			//检测某个按键是否按下(传入大写字母），按下就改变输出颜色
 	int re = 0;							//		while (1) {
-	if (!KEY_DOWN(c)) {					//			if (console.check('Q')) {
-		color(7);						//				cout << "你好啊！" << endl;
+	if (!KEY_DOWN(key)) {					//			if (console.check('Q')) {
+		setColor(7);						//				cout << "你好啊！" << endl;
 		re = 0;							//			};
 	}									//			
 	else { 								//			Sleep(20);//循环时间间隔，防止太占内存
-		color(112); 					//			//system("cls");//清屏 
+		setColor(112); 					//			//system("cls");//清屏 
 		re = 1;							//		}
 	}									//
 	//printf("  %c  ", c);				//
-	color(7);							//
+	setColor(7);							//
 	return re;							//
 }
 

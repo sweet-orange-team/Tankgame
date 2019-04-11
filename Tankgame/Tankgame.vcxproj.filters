@@ -33,6 +33,9 @@
     <ClCompile Include="Control.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Media Include="..\..\基于C++实现的坦克大战游戏\Release\Tank.wav">
@@ -47,6 +50,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Control.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

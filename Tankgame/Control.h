@@ -3,11 +3,18 @@
 #define _CONTROL_H
 
 #include<iostream>	
-#include <stdio.h> 
-#include <windows.h>
 using namespace std;
 #include"Console.h"
 
+class Control
+{
+public:
+	Control(int _flag=0);
+	~Control();
+	int start();				//主程序开始
+private:
+	int flag;
+};
 
 
 #endif // !_CONTROL_H
