@@ -15,17 +15,20 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="检测按键和鼠标位置.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="KeyTest.h">
-      <Filter>头文件</Filter>
-    </ClCompile>
     <ClCompile Include="Console.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="检测按键和鼠标位置.cpp">
+      <Filter>资源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="windowsAPI解析.cpp">
+      <Filter>资源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyTest.cpp">
+      <Filter>资源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

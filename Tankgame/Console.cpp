@@ -1,16 +1,14 @@
 #include<iostream>//这一页老是报错.............但还跑得通？？？？
 #include<string>
 #include<cstring>
+#include <windows.h>
+#include <stdio.h>
 using namespace std;
 #include"Console.h"
 
 Console::Console(const char* const &name)
 {
-	SetConsoleTitle(name);								//设置控制台标题
-	/*（神秘报错，error “BOOL GetComputerNameW(LPWSTR,LPDWORD)”: 无法将参数 1 从“char [255]”转换为“LPCWSTR” 解决）
-	当获取当前计算机名称，当前账户名称，或者读入一个文件夹里面所有的图片的文件名。因为在TLD， CT算法里面都是会遇到的。会遇到这样的错误。
-	解决的方式是：选中项目属性——>配置属性——>常规——>字符集，就字符集选为“使用多字节字符集"即可编译通过。
-	*/
+	system("title 图书管理系统-by charon and Yvein");	//设置控制台标题
 	system("mode con cols=100 lines=35");				//设置宽和高
 	cursor(true);										//初始化光标隐藏
 }
@@ -52,3 +50,33 @@ void Console::setColor(char flag)		//设置字体颜色
 	}
 }
 
+void Console::color(int a) {//改变输出的颜色，比system("color x")快得多
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), a);
+	/*
+	<span style="white-space:pre">	</span>字
+		1	深蓝色		9	浅蓝色		背景
+		2	深绿色		10	浅绿色		1~15	黑色		128~143 	灰色
+		3	深青色		11	浅青色		16~31	深蓝色		144~159 	浅蓝色
+		4	深红色		12	浅红色		32~47	深绿色		160~175 	浅绿色
+		5	深粉色		13	浅粉色		48~63	深青色		176~191 	浅青色
+		6	黄色		14	浅黄色		64~79	深红色		192~207 	浅红色
+		7	深白色		15	浅白色		80~95	深粉色		208~223 	浅粉色
+		8	灰色						96~111	深黄色		224~239 	浅黄色
+										112~127 深白色		240~255 	浅白色							
+	*/
+}
+
+int Console::check(char c) {			//检测某个按键是否按下(传入大写字母），按下就改变输出颜色
+	int re = 0;
+	if (!KEY_DOWN(c)) {
+		color(7);
+		re = 0;
+	}
+	else { 
+		color(112); 
+		re = 1;
+	}
+	//printf("  %c  ", c);
+	color(7);
+	return re;
+}

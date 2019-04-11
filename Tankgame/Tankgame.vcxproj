@@ -140,8 +140,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Console.cpp" />
-    <ClCompile Include="KeyTest.h" />
+    <ClCompile Include="KeyTest.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="windowsAPI解析.cpp" />
     <ClCompile Include="检测按键和鼠标位置.cpp" />
   </ItemGroup>
   <ItemGroup>
