@@ -1,13 +1,14 @@
-ï»¿#include<iostream>
+#include<iostream>
 using namespace std;
 #include"Map.h"
+#include"Console.h"
 
-Map::Map()							//åˆå§‹åŒ–ä½œæˆ˜åœ°å›¾  80*50
+Map::Map()							//³õÊ¼»¯×÷Õ½µØÍ¼  80*50
 {
 	for (int i = 0; i < 45; i++) {
 		for (int j = 0; j < 100; j++) {
-			if (i == 0 || j == 0 || j == 99 || i == 44) {
-				map[i][j] = 1;
+			if (i == 0 || j == 0 || j == 97 || i == 44) {			//97ÉèÖÃÎª1ÊÇÒòÎªÄÇ¸öÇ½Ìå×Ö·ûÕ¼Á½¸öÎ»ÖÃ£¬µÚÒ»Î»¶à³öÀ´Ò»¸ö£¬
+				map[i][j] = 1;												//ËùÒÔÒÀ´ÎÍùºóÒÆ¶¯Ò»Î»£¬×îºóµÄÒ²Õ¼Á½¸ñ
 			}
 			else
 			{
@@ -22,23 +23,28 @@ Map::~Map()
 }
 
 
-void Map::showmap() {
-	char map_map[45][100];
+void Map::showmap() {						//Ç§Íò±ğ¶¯Õâ¸ö¶«Î÷£¬ÓĞ¶¾
+	char* n = u8"¡ö"; int jishu = 0;
 	for (int i = 0; i < 45; i++) {
 		for (int j = 0; j < 100; j++) {
 			if (map[i][j] == 1) {
-				map_map[i][j] = '+';
+				if ((i == 0 || i == 44)) {
+					if (jishu % 2 == 0) {
+						cout << Console::U2G(n);
+					}
+					jishu++;
+				}
+				else
+				{
+					cout << Console::U2G(n);
+				}
 			}
 			else if(map[i][j] == 0){
-				map_map[i][j] = ' ';
+				cout << " ";
 			}
 			
 		}
-	}
-	for (int i = 0; i < 45; i++) {
-		for (int j = 0; j < 100; j++) {
-			cout << map_map[i][j];
-		}
 		cout << "\n";
 	}
+	
 }
