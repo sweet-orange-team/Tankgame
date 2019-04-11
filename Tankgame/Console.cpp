@@ -1,8 +1,8 @@
-#include<iostream>//这一页老是报错.............但还跑得通？？？？
-#include<string>
-#include<cstring>
-#include <windows.h>
-#include <stdio.h>
+#include<iostream>										//这一页老是报错.............但还跑得通？？？？
+#include<string>										//没找到这是什么神秘错误，反正能跑......
+#include<cstring>										//
+#include <windows.h>									//
+#include <stdio.h>										//
 using namespace std;
 #include"Console.h"
 
@@ -10,14 +10,22 @@ Console::Console(const char* const &name)
 {
 	system("title 图书管理系统-by charon and Yvein");	//设置控制台标题
 	system("mode con cols=100 lines=35");				//设置宽和高
-	cursor(true);										//初始化光标隐藏
+	cursorSee(false);									//初始化光标隐藏
 }
 
 Console::~Console()
 {
 }
 
-void Console::cursor(bool flag)//显示或者隐藏光标
+void Console::cursorPosition(const int x, const int y)	//设置光标位置
+{
+	COORD position;
+	position.X = x * 2;
+	position.Y = y;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), position);
+}
+
+void Console::cursorSee(bool flag)					//显示或者隐藏光标
 {
 	HANDLE h_GAME = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_CURSOR_INFO cursor_info;
@@ -26,7 +34,7 @@ void Console::cursor(bool flag)//显示或者隐藏光标
 	SetConsoleCursorInfo(h_GAME, &cursor_info);
 }
 
-void Console::setColor(char flag)		//设置字体颜色
+void Console::setColor(char flag)					//设置字体颜色
 {
 	/*enum color
 	{
@@ -67,16 +75,17 @@ void Console::color(int a) {//改变输出的颜色，比system("color x")快得多
 }
 
 int Console::check(char c) {			//检测某个按键是否按下(传入大写字母），按下就改变输出颜色
-	int re = 0;
-	if (!KEY_DOWN(c)) {
-		color(7);
-		re = 0;
-	}
-	else { 
-		color(112); 
-		re = 1;
-	}
-	//printf("  %c  ", c);
-	color(7);
-	return re;
+	int re = 0;							//while (1) {
+	if (!KEY_DOWN(c)) {					//	if (console.check('Q')) {
+		color(7);						//		cout << "你好啊！" << endl;
+		re = 0;							//	};
+	}									//	
+	else { 								//	Sleep(20);//循环时间间隔，防止太占内存
+		color(112); 					//	//system("cls");//清屏 
+		re = 1;							//}
+	}									//
+	//printf("  %c  ", c);				//
+	color(7);							//
+	return re;							//
 }
+

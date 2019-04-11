@@ -15,7 +15,8 @@ class Console		//控制台类,用于修改控制台各项参数
 public:
 	Console(const char* const &name = "图书管理系统-by charon and Yvein");
 	~Console();
-	void cursor(bool _flag);					//显示或隐藏光标
+	void cursorPosition(const int x, const int y);//设置光标位置
+	void cursorSee(bool _flag);					//显示或隐藏光标
 	void setColor(char flag);
 	void color(int a);							//改变输出的颜色，比system("color x")快得多
 	int check(char c);							//检测某个按键是否按下，按下就改变输出颜色
