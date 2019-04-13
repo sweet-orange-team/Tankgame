@@ -13,7 +13,7 @@ Control::~Control()
 }
 
 
-int Control::start() {						//主程序开始
+int Control::start() {						//主程序开始（最后完善）
 
 	return 1;
 }

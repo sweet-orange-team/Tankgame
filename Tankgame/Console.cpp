@@ -1,5 +1,5 @@
 #include<iostream>										//这一页老是报错.............但还跑得通？？？？										//
-#include <windows.h>									//									//
+#include <windows.h>
 using namespace std;
 #include"Console.h"
 
@@ -45,32 +45,34 @@ void Console::setColor(int number) {					//改变输出的颜色，比system("color x")快
 		6	黄色		14	浅黄色	||||	64~79	深红色		192~207 	浅红色
 		7	深白色		15	浅白色	||||	80~95	深粉色		208~223 	浅粉色
 		8	灰色					||||	96~111	深黄色		224~239 	浅黄色
-									||||	112~127 深白色		240~255 	浅白色							
+									||||	112~127 深白色		240~255 	浅白色
 	*/
 }
 
 int Console::checkKey(char key) {			//检测某个按键是否按下(传入大写字母），按下就改变输出颜色
-	int re = 0;							//		while (1) {
-	if (!KEY_DOWN(key)) {					//			if (console.check('Q')) {
-		setColor(7);						//				cout << "你好啊！" << endl;
-		re = 0;							//			};
-	}									//			
-	else { 								//			Sleep(20);//循环时间间隔，防止太占内存
-		setColor(112); 					//			//system("cls");//清屏 
-		re = 1;							//		}
-	}									//
-	//printf("  %c  ", c);				//
+	int re = 0;								//	while (1) {
+	if (!KEY_DOWN(key)) {					//		if (console.check('Q')) {
+		setColor(7);						//			cout << "你好啊！" << endl;
+		re = 0;								//		};
+	}										//		
+	else { 									//		Sleep(20);//循环时间间隔，防止太占内存
+		setColor(112); 						//		//system("cls");//清屏 
+		re = 1;								//	}
+	}										//
+	//printf("  %c  ", c);					//
 	setColor(7);							//
-	return re;							//
+	return re;								//
 }
 
-char* Console::U2G(char* utf8)			//神仙的uft-8，转换！
+char* Console::U2G(char* utf8)			//神仙的UTF-8，转换！
 {
 	int len = MultiByteToWideChar(CP_UTF8, 0, utf8, -1, NULL, 0);
 	wchar_t* wstr = new wchar_t[len + 1]; memset(wstr, 0, len + 1);
 	MultiByteToWideChar(CP_UTF8, 0, utf8, -1, wstr, len);
 	len = WideCharToMultiByte(CP_ACP, 0, wstr, -1, NULL, 0, NULL, NULL);
-	char* str = new char[len + 1]; memset(str, 0, len + 1);
+	char* str = new char[len + 1]; 
+	memset(str, 0, len + 1);
 	WideCharToMultiByte(CP_ACP, 0, wstr, -1, str, len, NULL, NULL);
-	if (wstr) delete[] wstr; return str;
+	if (wstr) delete[] wstr; 
+	return str;
 }
