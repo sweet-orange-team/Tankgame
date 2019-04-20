@@ -6,8 +6,7 @@ class Map
 public:
 	Map();
 	~Map();
-	void showmap();
-private:
+	void show();
 	int map[45][100];
 };
 

@@ -17,7 +17,7 @@ public:
 	static char* U2G(char* utf8);						//utf-8转换到GBK输出
 	void setCursorPosition(const int x, const int y);	//设置光标位置
 	void setCursorSee(bool _flag);						//显示或隐藏光标
-	void setColor(int number);							//改变输出的颜色，字体或背景颜色
+	void setColor(int number);							//改变字体或背景颜色
 	int checkKey(char key);								//检测某个按键是否按下，按下就改变输出颜色
 private:
 

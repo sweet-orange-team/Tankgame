@@ -6,7 +6,7 @@ using namespace std;
 Console::Console()
 {
 	system("title TankGame-by charon and Yvein");		//ÉèÖÃ¿ØÖÆÌ¨±êÌâ
-	system("mode con cols=160 lines=50");				//ÉèÖÃ³¤160ºÍ¿í45
+	system("mode con cols=160 lines=50");				//ÉèÖÃ³¤160ºÍ¿í50
 	setCursorSee(false);								//³õÊ¼»¯¹â±êÒş²Ø
 	//system("chcp 65001");								//ÉèÖÃÖ§³Öunicode--Êä³öutf-8×Ö·ûÊ±ÓÃÕâ¸ö»á±¨´í
 }
@@ -46,6 +46,7 @@ void Console::setColor(int number) {					//¸Ä±äÊä³öµÄÑÕÉ«£¬±Èsystem("color x")¿ì
 		7	Éî°×É«		15	Ç³°×É«	||||	80~95	Éî·ÛÉ«		208~223 	Ç³·ÛÉ«
 		8	»ÒÉ«					||||	96~111	Éî»ÆÉ«		224~239 	Ç³»ÆÉ«
 									||||	112~127 Éî°×É«		240~255 	Ç³°×É«
+		15ÊÇÄ¬ÈÏ×ÖÌåÑÕÉ«£¬Ä¬ÈÏ±³¾°ÊÇºÚÉ«
 	*/
 }
 
@@ -64,7 +65,7 @@ int Console::checkKey(char key) {			//¼ì²âÄ³¸ö°´¼üÊÇ·ñ°´ÏÂ(´«Èë´óĞ´×ÖÄ¸£©£¬°´ÏÂ¾
 	return re;								//
 }
 
-char* Console::U2G(char* utf8)			//ÉñÏÉµÄUTF-8£¬×ª»»£¡
+char* Console::U2G(char* utf8)			//ÉñÏÉµÄUTF-8×ª»»£¡
 {
 	int len = MultiByteToWideChar(CP_UTF8, 0, utf8, -1, NULL, 0);
 	wchar_t* wstr = new wchar_t[len + 1]; memset(wstr, 0, len + 1);
