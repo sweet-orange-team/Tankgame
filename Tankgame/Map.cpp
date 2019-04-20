@@ -23,8 +23,9 @@ Map::~Map()
 }
 
 
-void Map::showmap() {						//千万别动这个东西，有毒
-	char* n = u8"■"; int jishu = 0;
+void Map::show() {							//千万别动这个东西，有毒
+	system("cls");
+	char* n = u8"■"; int jishu = 0;		//jishu用来隔两个输出一个■符号
 	for (int i = 0; i < 45; i++) {
 		for (int j = 0; j < 100; j++) {
 			if (map[i][j] == 1) {
