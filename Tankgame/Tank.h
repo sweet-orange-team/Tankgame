@@ -9,7 +9,7 @@ using namespace std;
 enum Color {					//枚举颜色变量
 	yellow, gray, white, pink, red
 };
-class Tank
+class Tank						//坦克基类
 {
 public:
 	Tank(Color color = yellow, int direction = 0, int blood = 100, int speed = 1, int armour = 50);
