@@ -11,6 +11,8 @@ Tank::Tank(Color color, int direction, int blood, int speed, int armour) {
 	this->armour = armour;
 }
 
+Tank::Tank(){}
+
 Tank::~Tank()
 {
 }

@@ -13,6 +13,7 @@ class Tank						//坦克基类
 {
 public:
 	Tank(Color color, int direction , int blood , int speed , int armour );
+    Tank();
 	~Tank();
 	//void show(Console console, int direction=0, int x=40, int y=50);			//在地图上输出坦克||不行，控制台不能插入输出
 	void append(Map &Map, int x = 40, int y = 50);
@@ -54,7 +55,7 @@ protected:
 
 class Tank_Users :public Tank {             //己方坦克子类
 public:
-    Tank_Users(Color color = yellow, int direction = 0, int blood = 100, int speed = 1, int armour = 50, int id=0);
+    Tank_Users(Color color, int direction , int blood , int speed , int armour , int id );
     ~Tank_Users();
     int getID();
 private:
@@ -63,7 +64,7 @@ private:
 
 class Tank_Enemies :public Tank {             //敌方坦克子类
 public:
-    Tank_Enemies(Color color , int direction , int blood , int speed, int armour , int id = 1);
+    Tank_Enemies(Color color , int direction , int blood , int speed, int armour , int id );
     ~Tank_Enemies();
     int getID();
 private:
@@ -72,12 +73,12 @@ private:
 
 class Tank_Ordinary :public Tank_Enemies {             //普通敌方坦克子类
 public:
-    Tank_Ordinary( int direction = 0, int blood = 30, int speed = 1, int armour = 10, int id = 1);
+    Tank_Ordinary( int direction , int blood , int speed , int armour , int id );
     ~Tank_Ordinary();
 };
 
 class Tank_Boss :public Tank_Enemies {             //BOSS敌方坦克子类
 public:
-    Tank_Boss::Tank_Boss( int direction = 0, int blood = 30, int speed = 1, int armour = 10, int id = 1) :Tank_Enemies(color, direction, blood, speed, armour, id) {}
-    Tank_Boss::~Tank_Boss() { }
+    Tank_Boss::Tank_Boss(int direction , int blood , int speed , int armour , int id );
+    Tank_Boss::~Tank_Boss();
 };
