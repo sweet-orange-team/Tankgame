@@ -47,7 +47,7 @@ int Tank_Enemies::getID() {
 
 //普通敌人
 Tank_Ordinary::Tank_Ordinary( int direction = 0, int blood = 30, int speed = 1, int armour = 10, int id = 1) :Tank_Enemies( color, direction, blood, speed, armour, id ) {
-    if (rand() % 2) color = white;        //报错，我也不知道为什么
+    if (rand() % 2) color = white;        
     else color = gray;
 }
 
