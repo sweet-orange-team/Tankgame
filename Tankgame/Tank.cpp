@@ -2,8 +2,10 @@
 #include"Console.h"
 #include"ctime"
 using namespace std;
+
+
 //基类
-Tank::Tank(Color color, int direction, int blood, int speed, int armour) {
+Tank::Tank(int blood, int armour, int speed , Color color, int direction) {
 	this->color = color;
 	this->direction = direction;
 	this->blood = blood;
@@ -11,7 +13,6 @@ Tank::Tank(Color color, int direction, int blood, int speed, int armour) {
 	this->armour = armour;
 }
 
-Tank::Tank(){}
 
 Tank::~Tank()
 {
@@ -21,12 +22,16 @@ void Tank::append(Map& Map, int x, int y)
 {
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 6; j++) {
-			Map.map[x + i][y + j] = this->body[this->direction][i][j];
+			Map.map[x + i][y + j][0] = this->body[this->direction][i][j];
+			Map.map[x + i][y + j][1] = color;
 		}
 	}
 }
+
+
+
 //己方
-Tank_Users::Tank_Users(Color color = yellow, int direction = 0, int blood = 100, int speed = 1, int armour = 50, int id = 0) :Tank(color, direction, blood, speed, armour) {
+Tank_Users::Tank_Users( int id, int blood, int armour, int speed, Color color, int direction) :Tank(blood,armour, speed, color,direction) {
     this->identification = id;
 }
 
@@ -36,8 +41,10 @@ int Tank_Users::getID() {
     return this->identification;
 }
 
+
+
 //敌方
-Tank_Enemies::Tank_Enemies(Color color , int direction, int blood , int speed , int armour , int id = 1) :Tank(color, direction, blood, speed, armour) {
+Tank_Enemies::Tank_Enemies(int id, int blood, int armour, int speed, Color color, int direction) :Tank(blood, armour, speed, color, direction) {
     this->identification = id;
 }
 
@@ -47,16 +54,20 @@ int Tank_Enemies::getID() {
     return this->identification;
 }
 
+
+
 //普通敌人
-Tank_Ordinary::Tank_Ordinary( int direction = 0, int blood = 30, int speed = 1, int armour = 10, int id = 1) :Tank_Enemies( color, direction, blood, speed, armour, id ) {
+Tank_Ordinary::Tank_Ordinary(int id, int blood, int armour, int speed, Color color, int direction) :Tank_Enemies(id, blood, armour, speed, color, direction) {
     if (rand() % 2) color = white;        
     else color = gray;
 }
 
 Tank_Ordinary::~Tank_Ordinary(){ }
 
+
+
 //BOSS
-Tank_Boss::Tank_Boss( int direction = 0, int blood = 30, int speed = 1, int armour = 10, int id = 1) : Tank_Enemies(color, direction, blood, speed, armour, id) {
+Tank_Boss::Tank_Boss(int id, int blood, int armour, int speed, Color color, int direction) : Tank_Enemies(id, blood, armour, speed, color, direction) {
     if (rand() % 2) color = red;        
     else color = pink;
 }
