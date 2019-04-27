@@ -2,6 +2,7 @@
 using namespace std;
 #include"Map.h"
 #include"Console.h"
+#include"Tank.h"
 
 int Map::life = 5;
 int Map::score = 0;
@@ -27,18 +28,8 @@ Map::Map()								//初始化作战地图  45*100
 	}
 	{
 		map[14][120][0] = 2;
-		map[11][124][0] = 1;
-		map[11][125][0] = 1;
-		map[12][122][0] = 1;
-		map[12][123][0] = 1;
-		map[12][124][0] = 1;
-		map[12][125][0] = 1;
-		map[12][126][0] = 1;
-		map[12][127][0] = 1;
-		map[13][122][0] = 1;
-		map[13][123][0] = 1;
-		map[13][126][0] = 1;
-		map[13][127][0] = 1;
+		Tank tank(100, 0, 1, yellow);
+		tank.append(*this, 10, 122);
 	}
 	map[30][120][0] = 3;
 }
