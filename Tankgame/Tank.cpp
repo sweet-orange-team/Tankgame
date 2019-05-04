@@ -29,6 +29,47 @@ void Tank::append(Map& Map, int x, int y)
 }
 
 
+void Tank::move(char c, Map& Map, int x ,int y) {
+    switch (c) {
+    case('w' || ' W'): {
+        y++;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 6; j++) {
+                Map.map[x + i][y + j][0] = this->body[this->direction][i][j];
+                Map.map[x + i][y + j][1] = color;
+            }
+        }
+        }
+    case('s'||'S'): {
+        y--;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 6; j++) {
+                Map.map[x + i][y + j][0] = this->body[this->direction][i][j];
+                Map.map[x + i][y + j][1] = color;
+            }
+        }
+    }
+    case('a' || ' A'): {
+        x--;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 6; j++) {
+                Map.map[x + i][y + j][0] = this->body[this->direction][i][j];
+                Map.map[x + i][y + j][1] = color;
+            }
+        }
+    }
+    case('d' || ' D'): {
+        x++;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 6; j++) {
+                Map.map[x + i][y + j][0] = this->body[this->direction][i][j];
+                Map.map[x + i][y + j][1] = color;
+            }
+        }
+    }
+    }
+}
+
 
 //¼º·½
 Tank_Users::Tank_Users( int id, int blood, int armour, int speed, Color color, int direction) :Tank(blood,armour, speed, color,direction) {

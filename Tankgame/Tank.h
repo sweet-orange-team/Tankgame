@@ -18,6 +18,7 @@ public:
 	~Tank();
 	//void show(Console console, int direction=0, int x=40, int y=50);			//在地图上输出坦克||不行，控制台不能插入输出
 	void append(Map &Map, int x = 40, int y = 50);
+    void move(char,Map& Map,int,int);
 protected:
 	const char body[4][3][6] = {
 		// 上
