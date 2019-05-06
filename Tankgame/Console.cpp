@@ -9,6 +9,21 @@ Console::Console()
 	system("mode con cols=160 lines=50");				//设置长160和宽50
 	setCursorSee(false);								//初始化光标隐藏
 	//system("chcp 65001");								//设置支持unicode--输出utf-8字符时用这个会报错
+														//创建新的控制台缓冲区
+	hOutBuf = CreateConsoleScreenBuffer(
+		GENERIC_WRITE,									//定义进程可以往缓冲区写数据
+		FILE_SHARE_WRITE,								//定义缓冲区可共享写权限
+		NULL,
+		CONSOLE_TEXTMODE_BUFFER,
+		NULL
+	);
+	hOutput = CreateConsoleScreenBuffer(
+		GENERIC_WRITE,									//定义进程可以往缓冲区写数据
+		FILE_SHARE_WRITE,								//定义缓冲区可共享写权限
+		NULL,
+		CONSOLE_TEXTMODE_BUFFER,
+		NULL
+	);
 }
 
 Console::~Console()

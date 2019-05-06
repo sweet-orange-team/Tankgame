@@ -9,6 +9,8 @@
 #include <windows.h> 
 using namespace std;
 
+
+
 class Console											//控制台类,用于修改控制台各项参数
 {
 public:
@@ -20,7 +22,10 @@ public:
 	void setColor(int number);							//改变字体或背景颜色
 	int checkKey(char key);								//检测某个按键是否按下，按下就改变输出颜色
 private:
-
+	HANDLE hOutput, hOutBuf;//控制台屏幕缓冲区句柄
+	COORD coord = { 0,0 };
+	//双缓冲处理显示
+	DWORD bytes = 0;	
 };
 
 

@@ -1,4 +1,5 @@
 #include<iostream>
+#include<stdio.h>
 using namespace std;
 #include"Map.h"
 #include"Console.h"
@@ -6,6 +7,7 @@ using namespace std;
 
 int Map::life = 5;
 int Map::score = 0;
+int Map::handle = 1;
 
 Map::Map()								//初始化作战地图  45*100
 {
@@ -49,19 +51,19 @@ void Map::show() {							//千万别动这个东西，有毒
 			if (map[i][j][0] == 1) {
 				if (map[i][j][1] == 0) {
 					console.setColor(6);
-					cout << Console::U2G(n);
+					printf(Console::U2G(n));
 					j++;
 					console.setColor(15);
 				}
 				else if (map[i][j][1] == 2) {
 					console.setColor(7);
-					cout << Console::U2G(n);
+					printf(Console::U2G(n));
 					j++;
 					console.setColor(15);
 				}
 				else
 				{
-					cout << Console::U2G(n);
+					printf(Console::U2G(n));
 					j++;
 				}
 				

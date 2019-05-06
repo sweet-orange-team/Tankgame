@@ -4,6 +4,7 @@
 class Map
 {
 public:
+	static int handle;
 	Map();						//map[][][]说明：
 	~Map();						//	前两个维度定坐标，第三个维度定颜色
 	void show();				//	在map[i][j][0]中
