@@ -8,7 +8,7 @@ using namespace std;
 #include"Map.h"
 
 enum Color {					//枚举颜色变量
-	yellow, gray, white, pink, red
+	yellow=6, gray=8, white=7, pink=13, red=4,green=10,bulue=9,black=15
 };
 
 class Tank						//坦克基类
@@ -17,7 +17,7 @@ public:
 	Tank(int blood = 100, int armour = 0, int speed = 1, Color color = white, int direction = 0);
 	~Tank();
 	//void show(Console console, int direction=0, int x=40, int y=50);			//在地图上输出坦克||不行，控制台不能插入输出
-	void append(Map &Map, int x = 40, int y = 50);
+	void append(Map &Map, int x = 25, int y = 25);
     void move(char,Map& Map,int,int);
 protected:
 	const char body[4][3][6] = {
