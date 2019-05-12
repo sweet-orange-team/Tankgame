@@ -3,6 +3,8 @@
 using namespace std;
 #include"Console.h"
 
+#define KEY_DOWN(VK_NONAME) ((GetAsyncKeyState(VK_NONAME) & 0x8000) ? 1:0)
+
 Console::Console()
 {
 	system("title TankGame-by charon and Yvein");		//设置控制台标题
@@ -65,19 +67,54 @@ void Console::setColor(int number) {					//改变输出的颜色，比system("color x")快
 	*/
 }
 
-int Console::checkKey(char key) {			//检测某个按键是否按下(传入大写字母），按下就改变输出颜色
-	int re = 0;								//	while (1) {
-	if (!KEY_DOWN(key)) {					//		if (console.check('Q')) {
-		setColor(7);						//			cout << "你好啊！" << endl;
-		re = 0;								//		};
-	}										//		
-	else { 									//		Sleep(20);//循环时间间隔，防止太占内存
-		setColor(112); 						//		//system("cls");//清屏 
-		re = 1;								//	}
-	}										//
-	//printf("  %c  ", c);					//
-	setColor(7);							//
-	return re;								//
+/*
+//			cout << "你好啊！" << endl;			 	setColor(red);
+//		};										 	re = 0;
+//												 }
+
+//	while (1) {									 int re = 0;
+//		if (console.check('Q')) {				 if (!KEY_DOWN(key)) {
+//			cout << "你好啊！" << endl;			 	setColor(red);
+//		};										 	re = 0;
+//												 }
+//		Sleep(20);//循环时间间隔，防止太占内存	else {
+	//		//system("cls");//清屏 			   	setColor(white);
+//	}											 	re = 1;
+//												 }
+//												 printf("  %c  ", key);
+//												 setColor(7);
+//												 return re;
+*/
+void Console::checkKey(Tank &mytank) {			//检测某个按键是否按下(传入大写字母），按下就改变输出颜色
+	while (true)
+	{
+		if (KEY_DOWN('W')) {
+			mytank.move(0);
+			Sleep(150);
+		}else 
+		if (KEY_DOWN('S')) {
+			//cout << "S";
+			mytank.move(1);
+			Sleep(150);
+		}else 
+		if (KEY_DOWN('A')) {
+			mytank.move(2);
+			Sleep(150);
+		}else 
+		if (KEY_DOWN('D')) {
+			mytank.move(3);
+			Sleep(150);
+		}else 
+		if (KEY_DOWN(' ')) {
+			cout << " ";
+			Sleep(150);
+		}else 
+		if (KEY_DOWN('Z')) {
+			break;
+		}
+		else continue;
+
+	}
 }
 
 char* Console::U2G(char* utf8)			//神仙的UTF-8转换！
@@ -86,9 +123,9 @@ char* Console::U2G(char* utf8)			//神仙的UTF-8转换！
 	wchar_t* wstr = new wchar_t[len + 1]; memset(wstr, 0, len + 1);
 	MultiByteToWideChar(CP_UTF8, 0, utf8, -1, wstr, len);
 	len = WideCharToMultiByte(CP_ACP, 0, wstr, -1, NULL, 0, NULL, NULL);
-	char* str = new char[len + 1]; 
+	char* str = new char[len + 1];
 	memset(str, 0, len + 1);
 	WideCharToMultiByte(CP_ACP, 0, wstr, -1, str, len, NULL, NULL);
-	if (wstr) delete[] wstr; 
+	if (wstr) delete[] wstr;
 	return str;
 }

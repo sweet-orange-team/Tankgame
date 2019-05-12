@@ -1,4 +1,4 @@
-#pragma once							//统筹游戏运行
+#pragma once					//统筹游戏运行
 #ifndef _CONTROL_H
 #define _CONTROL_H
 

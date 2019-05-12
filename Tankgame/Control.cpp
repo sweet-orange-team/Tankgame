@@ -25,11 +25,10 @@ int Control::start() {				//主程序开始
 	Console console;				//初始化控制台
 	Map map;						//初始化地图
 	map.show();
-	console.setCursorPosition(7, 90);
-	console.setColor(red);
-	cout << "Game Start!";
+	Tank mytank = Tank();
+	console.checkKey(mytank);
 
-
+	cout << "check结束" << endl;
 	system("pause");
 	return 0;
 }

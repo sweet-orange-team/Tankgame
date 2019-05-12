@@ -9,7 +9,7 @@ int Map::life = 5;
 int Map::score = 0;
 int Map::handle = 1;
 
-Map::Map()								//初始化作战地图  30*100
+Map::Map()								//初始化作战地图  29*79
 {
 	for (int i = 0; i < 30; i++) {
 		for (int j = 0; j < 80; j++) {			//勾勒出初始地图
@@ -74,10 +74,14 @@ void Map::show() {							//千万别动这个东西，有毒
 
 			}
 			else if (map[i][j][0] == 2) {
+				Console::setColor(red);
 				cout << "剩余生命：" << life;
+				Console::setColor(15);
 			}
 			else if (map[i][j][0] == 3) {
+				Console::setColor(green);
 				cout << "总积分：" << score;
+				Console::setColor(15);
 			}
 			else if (map[i][j][0] == 0)
 			{
