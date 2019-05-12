@@ -20,6 +20,7 @@ public:
 	virtual void append(Map &Map);
 	virtual void append(Map &Map, int a, int b);
 	virtual void move(int direction);           //移动坦克
+	virtual void shoot();
 	int getDir();           //返回方向
 	int getX();
 	int getY();

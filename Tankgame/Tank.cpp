@@ -125,7 +125,7 @@ void Tank::move(int d)                                                          
 			Console::setCursorPosition(this->x - 1, this->y - 2);
 			cout << Console::U2G(n) << Console::U2G(n) << "  ";
 			Console::setCursorPosition(this->x + 0, this->y - 2);
-			cout << "  " << Console::U2G(n)  << Console::U2G(n);
+			cout << "  " << Console::U2G(n) << Console::U2G(n);
 			Console::setCursorPosition(this->x + 1, this->y - 2);
 			cout << Console::U2G(n) << Console::U2G(n) << "  ";
 		}
@@ -133,6 +133,19 @@ void Tank::move(int d)                                                          
 	}
 	}
 	Console::setColor(black);
+}
+
+//todo ÓÃBulletÌæ´ú×Ö·û
+void Tank::shoot(){
+	char *n = u8"¡ô";
+	switch (this->direction)
+	{
+	case 0:
+		Console::setCursorPosition(this->x - 2, this->y);
+		cout << Console::U2G(n);
+	default:
+		break;
+	}
 }
 
 

@@ -106,7 +106,7 @@ void Console::checkKey(Tank &mytank) {			//检测某个按键是否按下(传入大写字母），
 			Sleep(150);
 		}else 
 		if (KEY_DOWN(' ')) {
-			cout << " ";
+			mytank.shoot();
 			Sleep(150);
 		}else 
 		if (KEY_DOWN('Z')) {
