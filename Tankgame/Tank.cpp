@@ -7,7 +7,7 @@ using namespace std;
 
 //基类
 
-Tank::Tank(Map &map, int x, int y, int blood, int armour, int speed, Color color, int direction)                                //构造函数，初始化坦克默认参数
+Tank::Tank(Map &map, int x, int y,  Color color, int direction)                                //构造函数，初始化坦克默认参数
 {
 	this->mainMap = map;
 	this->color = color;
@@ -59,7 +59,7 @@ void Tank::append()                                                 //在地图上输
 
 void Tank::move(int d)                                                                              //移动坦克
 {
-	Console::setColor(yellow);
+	Console::setColor(this->color);
 	this->direction = d;
 	bulletMove();
 	switch (d) {
@@ -134,7 +134,7 @@ void Tank::clear() {
 }
 
 void Tank::show() {
-	Console::setColor(yellow);
+	Console::setColor(this->color);
 	Console::setCursorPosition(this->x - 1, this->y - 2);
 	cout << "  " << Console::U2G(n) << "  ";
 	Console::setCursorPosition(this->x + 0, this->y - 2);

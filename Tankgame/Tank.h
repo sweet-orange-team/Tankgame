@@ -14,7 +14,7 @@ enum Color {					//枚举颜色变量
 class Tank						//坦克基类
 {
 public:
-	Tank(Map &map,int x=20,int y=50,int blood = 100, int armour = 0, int speed = 1, Color color = white, int direction = 0);
+	Tank(Map &map,int x=20,int y=50,Color color = yellow, int direction = 0);
 	~Tank();
 	virtual void append();						//添加进地图
 	virtual void move(int direction);           //移动坦克
@@ -22,7 +22,7 @@ public:
 	virtual void clear();
 	virtual void shoot();
 	void bulletMove();
-	int getDir();           //返回方向
+	int getDir();								 //返回方向
 	int getX();
 	int getY();
 protected:
@@ -71,47 +71,47 @@ protected:
 
 
 //Tank_Enemies
-class Tank_Enemies :public Tank                                                                                                   //敌方坦克子类
-{
-public:
-	Tank_Enemies(Map &map, int id, int blood = 100, int armour = 0, int speed = 1, Color color = white, int direction = 0);
-	~Tank_Enemies();
-	int getID();
-private:
-	int identification;
-};
-
-
-
-class Tank_Ordinary :public Tank_Enemies                                                                                          //普通敌方坦克子类
-{
-public:
-	Tank_Ordinary(Map &map, int id, int blood = 100, int armour = 0, int speed = 1, Color color = white, int direction = 0);
-	~Tank_Ordinary();
-};
-
-
-
-class Tank_Boss :public Tank_Enemies                                                                                              //BOSS敌方坦克子类
-{
-public:
-	Tank_Boss::Tank_Boss(Map &map, int id, int blood = 100, int armour = 0, int speed = 1, Color color = white, int direction = 0);
-	Tank_Boss::~Tank_Boss();
-};
-
-
-
-
-//Tank_Users
-class Tank_Users :public Tank                                                                                                    //定义己方坦克子类
-{
-public:
-	Tank_Users(Map &map,int id, int blood = 100, int armour = 0, int speed = 1, Color color = white, int direction = 0);
-	~Tank_Users();
-	int getID();
-private:
-	int identification;
-};
+//class Tank_Enemies :public Tank                                                                                                   //敌方坦克子类
+//{
+//public:
+//	Tank_Enemies(Map &map, int id, int blood = 100, int armour = 0, int speed = 1, Color color = white, int direction = 0);
+//	~Tank_Enemies();
+//	int getID();
+//private:
+//	int identification;
+//};
+//
+//
+//
+//class Tank_Ordinary :public Tank_Enemies                                                                                          //普通敌方坦克子类
+//{
+//public:
+//	Tank_Ordinary(Map &map, int id, int blood = 100, int armour = 0, int speed = 1, Color color = white, int direction = 0);
+//	~Tank_Ordinary();
+//};
+//
+//
+//
+//class Tank_Boss :public Tank_Enemies                                                                                              //BOSS敌方坦克子类
+//{
+//public:
+//	Tank_Boss::Tank_Boss(Map &map, int id, int blood = 100, int armour = 0, int speed = 1, Color color = white, int direction = 0);
+//	Tank_Boss::~Tank_Boss();
+//};
+//
+//
+//
+//
+////Tank_Users
+//class Tank_Users :public Tank                                                                                                    //定义己方坦克子类
+//{
+//public:
+//	Tank_Users(Map &map,int id, int blood = 100, int armour = 0, int speed = 1, Color color = white, int direction = 0);
+//	~Tank_Users();
+//	int getID();
+//private:
+//	int identification;
+//};
 
 
 #endif // !_TANK_H
