@@ -14,13 +14,13 @@ enum Color {					//枚举颜色变量
 class Tank						//坦克基类
 {
 public:
-	Tank(Map &map,int x=20,int y=50,Color color = yellow, int direction = 0);
+	Tank(int x=20,int y=50,Color color = yellow, int direction = 0);
 	~Tank();
-	virtual void append();						//添加进地图
-	virtual void move(int direction);           //移动坦克
-	virtual void show();
-	virtual void clear();
-	virtual void shoot();
+	void append();						//添加进地图
+	void move(int direction);           //移动坦克
+	void show();
+	void clear();
+	void shoot();
 	void bulletMove();
 	int getDir();								 //返回方向
 	int getX();
@@ -60,7 +60,6 @@ protected:
 	int armour;
 	int x, y;                     //x,y取九宫格中点
 	char* n = u8"■";
-	Map mainMap;
 	Bullet *bullet1;
 	Bullet *bullet2;
 	Bullet *bullet3;
@@ -69,17 +68,36 @@ protected:
 	int bulletNum=0;
 };
 
+class TankEnemy:public Tank
+{
+public:
+	TankEnemy(int x = 4, int y = 50, Color color = pink, int direction = 1);
+	~TankEnemy();
+	void move();
+	int isAlive();
+private:
+	int Alive = 1;
+};
 
-//Tank_Enemies
-//class Tank_Enemies :public Tank                                                                                                   //敌方坦克子类
-//{
-//public:
-//	Tank_Enemies(Map &map, int id, int blood = 100, int armour = 0, int speed = 1, Color color = white, int direction = 0);
-//	~Tank_Enemies();
-//	int getID();
-//private:
-//	int identification;
-//};
+
+
+class Tank_Enemies                                                                                                   //敌方坦克子类
+{
+public:
+	Tank_Enemies();
+	~Tank_Enemies();
+	void allEnemyMove();
+	void del();
+	void add();
+private:
+	Map mainMap;
+	TankEnemy* enemy1;
+	TankEnemy* enemy2;
+	TankEnemy* enemy3;
+	TankEnemy* enemy4;
+	TankEnemy* enemy5;
+	int enemyNum = 0;
+};
 //
 //
 //

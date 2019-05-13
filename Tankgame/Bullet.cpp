@@ -1,14 +1,14 @@
 #include"Tank.h"
 #include"Console.h"
 #include"Bullet.h"
+#include"Map.h"
 using namespace std;
 
-Bullet::Bullet(Map &map, int x, int y, int dir, int isSee)                            //³õÊ¼»¯×Óµ¯ÊôÐÔ
+Bullet::Bullet(int x, int y, int dir, int isSee)                            //³õÊ¼»¯×Óµ¯ÊôÐÔ
 {
 	this->x = x;
 	this->y = y;
 	this->direction = dir;
-	this->mainMap = map;
 	this->isSee = isSee;
 }
 Bullet::~Bullet() { }
@@ -23,9 +23,9 @@ void Bullet::clear() {
 	Console::setCursorPosition(x, y);
 	cout << "  ";
 }
-void Bullet::append()                                                         //ÔÚÆÁÄ»ÉÏÏÔÊ¾×Óµ¯
+void Bullet::append()                                                        //ÔÚµØÍ¼ÉÏ¸üÐÂ×Óµ¯
 {
-	mainMap.map[this->x][this->y][0] = 3;
+	Map::map[this->x][this->y][0] = 3;
 }
 
 void Bullet::move(int step)                                                  //×Óµ¯ÒÆ¶¯
@@ -35,7 +35,7 @@ void Bullet::move(int step)                                                  //×
 	{
 	case 0:
 		if (this->x >= step * 2) {
-			mainMap.map[this->x][this->y][0] = 0;
+			Map::map[this->x][this->y][0] = 0;
 			this->x -= step;
 			append();
 			this->show();
@@ -43,7 +43,7 @@ void Bullet::move(int step)                                                  //×
 		}
 		else
 		{
-			mainMap.map[this->x][this->y][0] = 0;
+			Map::map[this->x][this->y][0] = 0;
 			clear();
 		}
 	default:

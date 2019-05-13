@@ -9,7 +9,7 @@ using namespace std;
 class Bullet                                                     //×Óµ¯»ùÀà
 {
 public:
-    Bullet(Map &map, int x,int y,int direction,int isSee=1);
+    Bullet(int x,int y,int direction,int isSee=1);
     ~Bullet();
 	virtual void show();
 	virtual void clear();
@@ -21,7 +21,6 @@ public:
 protected:
     int direction;
     int x, y;
-	Map mainMap;
 };
 
 #endif !_BULLET_H

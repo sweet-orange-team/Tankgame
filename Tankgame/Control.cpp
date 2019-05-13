@@ -21,12 +21,16 @@ int Control::start() {				//主程序开始
 	Console console;				//初始化控制台
 	Map map;						//初始化地图
 	map.show();
-	Tank mytank = Tank(map);
+	Tank mytank = Tank();
+	TankEnemy enemies = TankEnemy();
+	enemies.show();
 	mytank.show();
 	while (true)
 	{
 		console.checkKey(mytank);
 		mytank.bulletMove();
+ 		enemies.move();
+		map.refresh();
 		Sleep(100);
 	}
 

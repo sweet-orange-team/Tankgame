@@ -101,6 +101,12 @@ void Console::checkKey(Tank &mytank) {			//检测某个按键是否按下(传入大写字母），
 		if (KEY_DOWN(' ')) {
 			mytank.shoot();
 		}
+		else
+		{
+			if (KEY_DOWN('P')) {
+				system("pause");
+			}
+		}
 }
 
 char* Console::U2G(char* utf8)			//神仙的UTF-8转换！
