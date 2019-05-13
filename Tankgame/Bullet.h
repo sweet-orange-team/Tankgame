@@ -3,9 +3,8 @@
 #define _BULLET_H
 
 #include<iostream>
-using namespace std;
-#include"Console.h"
 #include"Map.h"
+using namespace std;
 
 class Bullet                                                     //×Óµ¯»ùÀà
 {

@@ -7,7 +7,6 @@ using namespace std;
 
 int Map::life = 5;
 int Map::score = 0;
-int Map::handle = 1;
 
 Map::Map()								//初始化作战地图  29*79
 {

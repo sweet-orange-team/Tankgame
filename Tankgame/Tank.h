@@ -3,17 +3,12 @@
 #define _TANK_H
 
 #include<iostream>
-using namespace std;
 #include"Map.h"
+#include"Bullet.h"
+using namespace std;
 
 enum Color {					//枚举颜色变量
 	yellow = 6, gray = 7, white = 15, pink = 12, red = 4, black = 15, green = 2
-};
-struct bulletArray				//控制所有子弹
-{
-	int x;
-	int y;
-	int isSee;
 };
 
 class Tank						//坦克基类
@@ -21,9 +16,9 @@ class Tank						//坦克基类
 public:
 	Tank(Map &map,int x=20,int y=50,int blood = 100, int armour = 0, int speed = 1, Color color = white, int direction = 0);
 	~Tank();
-	//void show(Console console, int direction=0, int x=40, int y=50);			//在地图上输出坦克||不行，控制台不能插入输出
-	virtual void append();
+	virtual void append();						//添加进地图
 	virtual void move(int direction);           //移动坦克
+	virtual void show();
 	virtual void clear();
 	virtual void shoot();
 	void bulletMove();
@@ -63,9 +58,15 @@ protected:
 	int blood;
 	int speed;
 	int armour;
-	int x, y;                     //x,y必须取九宫格中点
+	int x, y;                     //x,y取九宫格中点
 	char* n = u8"■";
 	Map mainMap;
+	Bullet *bullet1;
+	Bullet *bullet2;
+	Bullet *bullet3;
+	Bullet *bullet4;
+	Bullet *bullet5;
+	int bulletNum=0;
 };
 
 

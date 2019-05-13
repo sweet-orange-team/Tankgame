@@ -17,6 +17,11 @@ Tank::Tank(Map &map, int x, int y, int blood, int armour, int speed, Color color
 	this->armour = armour;
 	this->x = x;
 	this->y = y;
+	bullet1=new Bullet(map,0,0,0);
+	bullet2=new Bullet(map,0,0,0);
+	bullet3=new Bullet(map,0,0,0);
+	bullet4=new Bullet(map,0,0,0);
+	bullet5=new Bullet(map,0,0,0);
 }
 
 
@@ -56,6 +61,7 @@ void Tank::move(int d)                                                          
 {
 	Console::setColor(yellow);
 	this->direction = d;
+	bulletMove();
 	switch (d) {
 	case 0: {
 		if (this->x >= 3) {
@@ -111,7 +117,6 @@ void Tank::move(int d)                                                          
 	}
 	}
 	append();
-	bulletMove();
 	Console::setColor(black);
 }
 
@@ -128,6 +133,16 @@ void Tank::clear() {
 	}
 }
 
+void Tank::show() {
+	Console::setColor(yellow);
+	Console::setCursorPosition(this->x - 1, this->y - 2);
+	cout << "  " << Console::U2G(n) << "  ";
+	Console::setCursorPosition(this->x + 0, this->y - 2);
+	cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
+	Console::setCursorPosition(this->x + 1, this->y - 2);
+	cout << Console::U2G(n) << "  " << Console::U2G(n);
+	Console::setColor(black);
+}
 
 void Tank::shoot() {
 
@@ -135,9 +150,18 @@ void Tank::shoot() {
 	{
 	case 0:
 	{
-		
-		
-		break; 
+		switch (bulletNum%5)
+		{
+		case 0: bullet1 =new  Bullet(this->mainMap, this->x - 2, this->y, 0); (*bullet1).show(); break;
+		case 1: bullet2 =new  Bullet(this->mainMap, this->x - 2, this->y, 0); (*bullet2).show(); break;
+		case 2: bullet3 =new  Bullet(this->mainMap, this->x - 2, this->y, 0); (*bullet3).show(); break;
+		case 3: bullet4 =new  Bullet(this->mainMap, this->x - 2, this->y, 0); (*bullet4).show(); break;
+		case 4: bullet5 =new  Bullet(this->mainMap, this->x - 2, this->y, 0); (*bullet5).show(); break;
+		default:
+			break;
+		}
+		bulletNum++;
+		break;
 	}
 	default:
 		break;
@@ -146,7 +170,11 @@ void Tank::shoot() {
 
 void Tank::bulletMove()
 {
-	
+	(*bullet1).move();
+	(*bullet2).move();
+	(*bullet3).move();
+	(*bullet4).move();
+	(*bullet5).move();
 }
 
 

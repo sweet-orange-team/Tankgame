@@ -3,7 +3,7 @@
 #include"Bullet.h"
 using namespace std;
 
-Bullet::Bullet(Map &map,int x,int y,int dir,int isSee)                            //³õÊ¼»¯×Óµ¯ÊôÐÔ
+Bullet::Bullet(Map &map, int x, int y, int dir, int isSee)                            //³õÊ¼»¯×Óµ¯ÊôÐÔ
 {
 	this->x = x;
 	this->y = y;
@@ -14,14 +14,16 @@ Bullet::Bullet(Map &map,int x,int y,int dir,int isSee)                          
 Bullet::~Bullet() { }
 
 void Bullet::show() {
-	Console::setCursorPosition(x, y);
-	cout << this->getBody();
+	if (isSee) {
+		Console::setCursorPosition(x, y);
+		cout << this->getBody();
+	}
 }
 void Bullet::clear() {
 	Console::setCursorPosition(x, y);
 	cout << "  ";
 }
-void Bullet:: append()                                                         //ÔÚÆÁÄ»ÉÏÏÔÊ¾×Óµ¯
+void Bullet::append()                                                         //ÔÚÆÁÄ»ÉÏÏÔÊ¾×Óµ¯
 {
 	mainMap.map[this->x][this->y][0] = 3;
 }
@@ -32,29 +34,21 @@ void Bullet::move(int step)                                                  //×
 	switch (direction)
 	{
 	case 0:
-		mainMap.map[this->x][this->y][0] = 0;
-		this->x-=step;
-		mainMap.map[this->x][this->y][0] = 3;
-		break;
-	case 1:
-		mainMap.map[this->x][this->y][0] = 0;
-		this->x+=step;
-		mainMap.map[this->x ][this->y][0] = 3;
-		break;
-	case 2:
-		mainMap.map[this->x][this->y][0] = 0;
-		this->y-=step;
-		mainMap.map[this->x][this->y][0] = 3;
-		break;
-	case 3:
-		mainMap.map[this->x][this->y][0] = 0;
-		this->y += step;
-		mainMap.map[this->x][this->y][0] = 3;
-		break;
+		if (this->x >= step * 2) {
+			mainMap.map[this->x][this->y][0] = 0;
+			this->x -= step;
+			append();
+			this->show();
+			break;
+		}
+		else
+		{
+			mainMap.map[this->x][this->y][0] = 0;
+			clear();
+		}
 	default:
 		break;
 	}
-	this->show();
 }
 
 char * Bullet::getBody()

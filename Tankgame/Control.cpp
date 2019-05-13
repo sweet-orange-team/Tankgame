@@ -22,10 +22,12 @@ int Control::start() {				//主程序开始
 	Map map;						//初始化地图
 	map.show();
 	Tank mytank = Tank(map);
+	mytank.show();
 	while (true)
 	{
 		console.checkKey(mytank);
-		Sleep(150);
+		mytank.bulletMove();
+		Sleep(100);
 	}
 
 	system("pause");

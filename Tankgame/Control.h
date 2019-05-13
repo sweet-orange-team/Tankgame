@@ -3,8 +3,8 @@
 #define _CONTROL_H
 
 #include<iostream>	
-using namespace std;
 #include"Console.h"
+using namespace std;
 
 class Control
 {

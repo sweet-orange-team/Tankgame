@@ -86,39 +86,21 @@ void Console::setColor(int number) {					//改变输出的颜色，比system("color x")快
 //												 return re;
 */
 void Console::checkKey(Tank &mytank) {			//检测某个按键是否按下(传入大写字母），按下就改变输出颜色
-	while (true)
-	{
 		if (KEY_DOWN('W')) {
 			mytank.move(0);
-			break;
-			//Sleep(150);
 		}else 
 		if (KEY_DOWN('S')) {
 			mytank.move(1);
-			break;
-			//Sleep(150);
 		}else 
 		if (KEY_DOWN('A')) {
 			mytank.move(2);
-			break;
-			//Sleep(150);
 		}else 
 		if (KEY_DOWN('D')) {
 			mytank.move(3);
-			break;
-			//Sleep(150);
 		}else 
 		if (KEY_DOWN(' ')) {
 			mytank.shoot();
-			break;
-			//Sleep(150);
-		}else 
-		if (KEY_DOWN('Z')) {
-			break;
 		}
-		else continue;
-
-	}
 }
 
 char* Console::U2G(char* utf8)			//神仙的UTF-8转换！
