@@ -1,13 +1,15 @@
 #include"Tank.h"
 #include"Console.h"
 #include"ctime"
+#include"Bullet.h"
 using namespace std;
 
 
 //基类
 
-Tank::Tank(int x, int y, int blood, int armour, int speed, Color color, int direction)                                //构造函数，初始化坦克默认参数
+Tank::Tank(Map &map, int x, int y, int blood, int armour, int speed, Color color, int direction)                                //构造函数，初始化坦克默认参数
 {
+	this->mainMap = map;
 	this->color = color;
 	this->direction = direction;
 	this->blood = blood;
@@ -22,7 +24,7 @@ Tank::~Tank()
 {
 }
 
-int Tank::getDir()                                                                                         //返回坦克方向
+int Tank::getDir()                              //返回坦克方向
 {
 	return direction;
 }
@@ -39,76 +41,56 @@ int Tank::getY()
 
 
 
-void Tank::append(Map& Map)                                                                                 //在地图上输出坦克 
+void Tank::append()                                                 //在地图上输出坦克 
 {
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 6; j++) {
-			Map.map[this->x + i][this->y + j][0] = this->body[this->direction][i][j];
-			Map.map[this->x + i][this->y + j][1] = color;
+	for (int i = -1; i <= 1; i++) {
+		for (int j = -2; j <= 3; j++) {
+			mainMap.map[x + i][y + j][0] = 2;
+			mainMap.map[x + i][y + j][1] = color;
 		}
 	}
 }
 
-void Tank::append(Map &Map, int a, int b)                                                                    //重载
-{
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 6; j++) {
-			Map.map[a + i][b + j][0] = this->body[this->direction][i][j];
-			Map.map[a + i][b + j][1] = color;
-		}
-	}
-}
 
 void Tank::move(int d)                                                                              //移动坦克
 {
 	Console::setColor(yellow);
 	this->direction = d;
-	char* n = u8"■";
-
 	switch (d) {
 	case 0: {
 		if (this->x >= 3) {
-			for (int i = -1; i <= 1; i++) {
-				Console::setCursorPosition(this->x + i, this->y - 2);
-				cout << "      ";
-			}
+			this->clear();
 			this->x -= 1;
-			Console::setCursorPosition(this->x - 1, this->y-2);
+			Console::setCursorPosition(this->x - 1, this->y - 2);
 			cout << "  " << Console::U2G(n) << "  ";
-			Console::setCursorPosition(this->x + 0, this->y-2);
+			Console::setCursorPosition(this->x + 0, this->y - 2);
 			cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
-			Console::setCursorPosition(this->x + 1, this->y-2);
+			Console::setCursorPosition(this->x + 1, this->y - 2);
 			cout << Console::U2G(n) << "  " << Console::U2G(n);
 		}
 		break;
 	}
 	case 1: {
 		if (this->x <= 26) {
-			for (int i = -1; i <= 1; i++) {
-				Console::setCursorPosition(this->x + i, this->y - 2);
-				cout << "      ";
-			}
+			this->clear();
 			this->x += 1;
-			Console::setCursorPosition(this->x - 1, this->y-2);
+			Console::setCursorPosition(this->x - 1, this->y - 2);
 			cout << Console::U2G(n) << "  " << Console::U2G(n);
-			Console::setCursorPosition(this->x + 0, this->y-2);
+			Console::setCursorPosition(this->x + 0, this->y - 2);
 			cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
-			Console::setCursorPosition(this->x + 1, this->y-2);
+			Console::setCursorPosition(this->x + 1, this->y - 2);
 			cout << "  " << Console::U2G(n) << "  ";
 		}
 		break;
 	}
 	case 2: {
 		if (this->y >= 6) {
-			for (int i = -1; i <= 1; i++) {
-				Console::setCursorPosition(this->x + i, this->y - 2);
-				cout << "      ";
-			}
+			this->clear();
 			this->y -= 2;
 			Console::setCursorPosition(this->x - 1, this->y - 2);
 			cout << "  " << Console::U2G(n) << Console::U2G(n);
 			Console::setCursorPosition(this->x + 0, this->y - 2);
-			cout << Console::U2G(n) << Console::U2G(n)<< "  " ;
+			cout << Console::U2G(n) << Console::U2G(n) << "  ";
 			Console::setCursorPosition(this->x + 1, this->y - 2);
 			cout << "  " << Console::U2G(n) << Console::U2G(n);
 		}
@@ -116,11 +98,7 @@ void Tank::move(int d)                                                          
 	}
 	case 3: {
 		if (this->y <= 73) {
-			for (int i = -1; i <= 1; i++) {
-				Console::setCursorPosition(this->x + i, this->y - 2);
-				cout << "      ";
-			}
-			char* n = u8"■";
+			this->clear();
 			this->y += 2;
 			Console::setCursorPosition(this->x - 1, this->y - 2);
 			cout << Console::U2G(n) << Console::U2G(n) << "  ";
@@ -132,20 +110,43 @@ void Tank::move(int d)                                                          
 		break;
 	}
 	}
+	append();
+	bulletMove();
 	Console::setColor(black);
 }
 
-//todo 用Bullet替代字符
-void Tank::shoot(){
-	char *n = u8"◆";
-	switch (this->direction)
+void Tank::clear() {
+	for (int i = -1; i <= 1; i++) {
+		Console::setCursorPosition(this->x + i, this->y - 2);
+		cout << "      ";
+	}
+	for (int i = -1; i <= 1; i++) {
+		for (int j = -2; j <= 3; j++) {
+			mainMap.map[x + i][y + j][0] = 0;
+			mainMap.map[x + i][y + j][1] = color;
+		}
+	}
+}
+
+
+void Tank::shoot() {
+
+	switch (direction)
 	{
 	case 0:
-		Console::setCursorPosition(this->x - 2, this->y);
-		cout << Console::U2G(n);
+	{
+		
+		
+		break; 
+	}
 	default:
 		break;
 	}
+}
+
+void Tank::bulletMove()
+{
+	
 }
 
 

@@ -37,8 +37,8 @@ Map::Map()								//初始化作战地图  29*79
 
 		map[7][90][0] = 2;
 		map[13][90][0] = 3;
-		Tank tank(100, 0, 1, yellow);
-		tank.append(*this, 1, 91);
+		/*Tank tank(*this,20,30,100, 0, 1, yellow);
+		tank.append();*/
 	}
 }
 

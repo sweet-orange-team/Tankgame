@@ -90,24 +90,28 @@ void Console::checkKey(Tank &mytank) {			//检测某个按键是否按下(传入大写字母），
 	{
 		if (KEY_DOWN('W')) {
 			mytank.move(0);
-			Sleep(150);
+			break;
+			//Sleep(150);
 		}else 
 		if (KEY_DOWN('S')) {
-			//cout << "S";
 			mytank.move(1);
-			Sleep(150);
+			break;
+			//Sleep(150);
 		}else 
 		if (KEY_DOWN('A')) {
 			mytank.move(2);
-			Sleep(150);
+			break;
+			//Sleep(150);
 		}else 
 		if (KEY_DOWN('D')) {
 			mytank.move(3);
-			Sleep(150);
+			break;
+			//Sleep(150);
 		}else 
 		if (KEY_DOWN(' ')) {
 			mytank.shoot();
-			Sleep(150);
+			break;
+			//Sleep(150);
 		}else 
 		if (KEY_DOWN('Z')) {
 			break;
