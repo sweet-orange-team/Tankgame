@@ -7,7 +7,8 @@ using namespace std;
 
 
 //基类
-
+int Tank::blood = 5;
+int Tank::score = 0;
 Tank::Tank(int x, int y,  Color color, int direction)                                //构造函数，初始化坦克默认参数
 {
 	this->color = color;
@@ -17,6 +18,7 @@ Tank::Tank(int x, int y,  Color color, int direction)                           
 	this->armour = armour;
 	this->x = x;
 	this->y = y;
+	append();
 	bullet1=new Bullet(0,0,0);
 	bullet2=new Bullet(0,0,0);
 	bullet3=new Bullet(0,0,0);
@@ -175,8 +177,16 @@ void Tank::bulletMove()
 	(*bullet5).move();
 }
 
-TankEnemy::TankEnemy(int x , int y , Color color , int direction ):Tank(x,y,color,direction)
+int Tank::isAlive()
 {
+	if (Tank::blood == 0)return false;
+	else return true;
+}
+
+TankEnemy::TankEnemy(int x , int y , Color color , int direction,int score ):Tank(x,y,color,direction)
+{
+	this->score = score;
+	append();
 }
 
 TankEnemy::~TankEnemy()
@@ -197,24 +207,47 @@ void TankEnemy::move()
 			Console::setCursorPosition(this->x + 1, this->y - 2);
 			cout << "  " << Console::U2G(n) << "  ";
 		}
+		else
+		{
+			Tank::blood--;
+			clear();
+			x = 2; y = 94;
+			Alive = 0;
+			show();
+		}
 		append();
 		Console::setColor(black);
 	}
 	else
 	{
-		if (x != 0) {
-			clear();
-			x = 2; y = 94;
-			show();
+		clear();
+		x = 2; y = 94;
+		show();
+		append();
+		Console::setColor(black);
+	}
+}
+
+void TankEnemy::append()
+{
+	for (int i = -1; i <= 1; i++) {
+		for (int j = -2; j <= 3; j++) {
+			Map::map[x + i][y + j][0] = 4;
+			Map::map[x + i][y + j][1] = color;
 		}
 	}
 }
 
 int TankEnemy::isAlive()
 {
-	for (int i = this->x - 1; i <= this->x + 1; i++) {
+	for (int i = this->x - 1; i <= this->x + 2; i++) {
 		for (int j = this->y - 2; j <= this->y + 3; j++) {
-			if (Map::map[i][j][0] == 3) { Alive = 0; Map::score += 5; break; }
+			if (Map::map[i][j][0] == 3) { 
+				Alive = 0; Tank::score += this->score; break; 
+			}
+			if (Map::map[i][j][0] == 2) {
+				Alive = 0; Tank::blood--; break;
+			}
 		}
 	}
 	return Alive;

@@ -36,9 +36,19 @@ void Bullet::move(int step)                                                  //×
 	case 0:
 		if (this->x >= step * 2) {
 			Map::map[this->x][this->y][0] = 0;
-			this->x -= step;
-			append();
-			this->show();
+			if (Map::map[x-1][y][0] != 0) {			//ÅÐ¶ÏÇ°ÃæÓÐÃ»ÓÐÌ¹¿Ë
+				this->x -= step;
+				append();
+				clear();
+				this->x = 0;
+				this->y = 90;
+			}
+			else
+			{
+				this->x -= step;
+				append();
+				show();
+			}
 			break;
 		}
 		else
