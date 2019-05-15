@@ -16,12 +16,15 @@ class Tank						//坦克基类
 public:
 	Tank(int x=20,int y=50,Color color = yellow, int direction = 0);
 	~Tank();
+	static int blood;
+	static int score;
 	void append();						//添加进地图
 	void move(int direction);           //移动坦克
 	void show();
 	void clear();
 	void shoot();
 	void bulletMove();
+	int isAlive();
 	int getDir();								 //返回方向
 	int getX();
 	int getY();
@@ -55,7 +58,6 @@ protected:
 protected:
 	Color color;
 	int direction;
-	int blood;
 	int speed;
 	int armour;
 	int x, y;                     //x,y取九宫格中点
@@ -71,12 +73,14 @@ protected:
 class TankEnemy:public Tank
 {
 public:
-	TankEnemy(int x = 4, int y = 50, Color color = pink, int direction = 1);
+	TankEnemy(int x = 4, int y = 50, Color color = pink, int direction = 1,int score=5);
 	~TankEnemy();
 	void move();
+	void append();
 	int isAlive();
 private:
 	int Alive = 1;
+	int score;
 };
 
 
@@ -90,7 +94,6 @@ public:
 	void del();
 	void add();
 private:
-	Map mainMap;
 	TankEnemy* enemy1;
 	TankEnemy* enemy2;
 	TankEnemy* enemy3;

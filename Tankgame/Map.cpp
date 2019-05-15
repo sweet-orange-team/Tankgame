@@ -5,9 +5,6 @@ using namespace std;
 #include"Console.h"
 #include"Tank.h"
 
-int Map::life = 5;
-int Map::score = 0;
-
 
 int Map::map[30][106][2] = { { {0} } };
 
@@ -32,10 +29,10 @@ Map::Map()								//初始化作战地图  29*79
 	}
 	{							//设置副栏分隔线
 		for (int i = 82; i < 106; i++)map[4][i][0] = 1;
-		for (int i = 82; i < 106; i++)map[10][i][0]  = 1;
-		for (int i = 82; i < 106; i++)map[16][i][0]  = 1;
-		for (int i = 82; i < 106; i++)map[22][i][0]  = 1;
-		for (int i = 82; i < 106; i++)map[29][i][0]  = 1;
+		for (int i = 82; i < 106; i++)map[10][i][0] = 1;
+		for (int i = 82; i < 106; i++)map[16][i][0] = 1;
+		for (int i = 82; i < 106; i++)map[22][i][0] = 1;
+		for (int i = 82; i < 106; i++)map[29][i][0] = 1;
 
 		map[7][90][0] = 2;
 		map[13][90][0] = 3;
@@ -54,17 +51,17 @@ void Map::show() {							//千万别动这个东西，有毒
 	for (int i = 0; i < 30; i++) {
 		for (int j = 0; j < 106; j++) {
 			if (map[i][j][0] == 1) {
-			printf(Console::U2G(n));
-			j++;
+				printf(Console::U2G(n));
+				j++;
 			}
 			else if (map[i][j][0] == 2) {
 				Console::setColor(red);
-				cout << "剩余生命：" << life;
+				cout << "剩余生命：" << Tank::blood;
 				Console::setColor(15);
 			}
 			else if (map[i][j][0] == 3) {
 				Console::setColor(green);
-				cout << "总积分：" << score;
+				cout << "总积分：" << Tank::score;
 				Console::setColor(15);
 			}
 			else if (map[i][j] == 0)
@@ -84,10 +81,17 @@ void Map::refresh()
 {
 	Console::setCursorPosition(7, 90);
 	Console::setColor(red);
-	cout << "剩余生命：" << life;
+	cout << "剩余生命：" << Tank::blood;
 	Console::setColor(15);
 	Console::setCursorPosition(13, 90);
 	Console::setColor(green);
-	cout << "总积分：" << score;
+	cout << "总积分：" << Tank::score;
 	Console::setColor(15);
+	for (int i = 0; i < 30; i++) {
+		for (int j = 0; j < 106; j++) {
+			for (int k = 0; k < 2; k++) {
+				privateMap[i][j][k] = Map::map[i][j][k];
+			}
+		}
+	}
 }
