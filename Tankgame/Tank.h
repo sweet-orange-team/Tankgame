@@ -101,6 +101,10 @@ private:
 	TankEnemy* enemy5;
 	int enemyNum = 0;
 };
+
+class Tank_Users {
+
+};
 //
 //
 //

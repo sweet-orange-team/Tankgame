@@ -1,16 +1,19 @@
 #pragma once
 #ifndef _PROP_H
 
-class Prop 
+#include<iostream>
+#include"Map.h"
+
+class Prop                                           //道具基类
 {
 public:
     Prop(int x, int y, int isSee=0);
     ~Prop();
+   virtual void isGet(Tank&Tank) = 0;
    virtual void showProp();
    virtual void clearProp();
    virtual void append();
    virtual char* getBody();
-   virtual void isGet(Tank&Tank);
 protected:
     int x, y;
     int isSee;
