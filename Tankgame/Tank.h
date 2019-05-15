@@ -81,7 +81,7 @@ private:
 
 
 
-class Tank_Enemies                                                                                                   //敌方坦克子类
+class Tank_Enemies                                                                                                   //敌方坦克类
 {
 public:
 	Tank_Enemies();
