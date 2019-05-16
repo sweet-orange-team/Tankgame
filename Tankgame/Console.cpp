@@ -85,7 +85,7 @@ void Console::setColor(int number) {					//改变输出的颜色，比system("color x")快
 //												 setColor(7);
 //												 return re;
 */
-void Console::checkKey(Tank &mytank) {			//检测某个按键是否按下(传入大写字母），按下就改变输出颜色
+void Console::checkKey(TankUser &mytank) {			//检测某个按键是否按下(传入大写字母），按下就改变输出颜色
 		if (KEY_DOWN('W')) {
 			mytank.move(0);
 		}else 

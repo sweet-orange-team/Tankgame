@@ -3,7 +3,7 @@
 using namespace std;
 #include"Map.h"
 #include"Console.h"
-#include"Tank.h"
+#include"Tank.h" 
 
 
 int Map::map[30][106][2] = { { {0} } };
@@ -56,12 +56,12 @@ void Map::show() {							//千万别动这个东西，有毒
 			}
 			else if (map[i][j][0] == 2) {
 				Console::setColor(red);
-				cout << "剩余生命：" << Tank::blood;
+				cout << "剩余生命：" << TankUser::blood;
 				Console::setColor(15);
 			}
 			else if (map[i][j][0] == 3) {
 				Console::setColor(green);
-				cout << "总积分：" << Tank::score;
+				cout << "总积分：" << TankUser::score;
 				Console::setColor(15);
 			}
 			else if (map[i][j] == 0)
@@ -81,11 +81,11 @@ void Map::refresh()
 {
 	Console::setCursorPosition(7, 90);
 	Console::setColor(red);
-	cout << "剩余生命：" << Tank::blood;
+	cout << "剩余生命：" << TankUser::blood;
 	Console::setColor(15);
 	Console::setCursorPosition(13, 90);
 	Console::setColor(green);
-	cout << "总积分：" << Tank::score;
+	cout << "总积分：" << TankUser::score;
 	Console::setColor(15);
 	for (int i = 0; i < 30; i++) {
 		for (int j = 0; j < 106; j++) {

@@ -20,7 +20,7 @@ public:
 	static void setCursorPosition(const int x, const int y);	//设置光标位置
 	static void setCursorSee(bool _flag);						//显示或隐藏光标
 	static void setColor(int number);							//改变字体或背景颜色
-	static void checkKey(Tank &mytank);							//检测某个按键是否按
+	static void checkKey(TankUser &mytank);							//检测某个按键是否按
 	HANDLE hOutput, hOutBuf;							//控制台屏幕缓冲区句柄
 	COORD coord = { 0,0 };
 	//双缓冲处理显示

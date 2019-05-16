@@ -1,6 +1,7 @@
 #include"Tank.h"
 #include"Console.h"
 #include"ctime"
+#include"Control.h"
 using namespace std;
 
 //µÐ·½Ì¹¿ËÈº
@@ -23,6 +24,7 @@ void Tank_Enemies::allEnemyMove()
 
 void Tank_Enemies::del()
 {
+
 }
 
 void Tank_Enemies::add()
@@ -39,7 +41,6 @@ void Tank_Enemies::add()
 		break;
 	}
 }
-
 //int Tank_Enemies::getID() 
 //{
 //    return this->identification;

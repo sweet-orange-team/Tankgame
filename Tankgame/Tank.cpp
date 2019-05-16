@@ -7,59 +7,95 @@ using namespace std;
 
 
 //基类
-int Tank::blood = 5;
-int Tank::score = 0;
-Tank::Tank(int x, int y,  Color color, int direction)                                //构造函数，初始化坦克默认参数
+Tank::Tank(int x, int y, Color color, int direction)
+{
+    this->color = color;
+    this->direction = direction;
+    this->x = x;
+    this->y = y;
+}
+
+Tank::~Tank(){ }
+
+void Tank::show() {
+    Console::setColor(color);
+    Console::setCursorPosition(this->x - 1, this->y - 2);
+    cout << "  " << Console::U2G(n) << "  ";
+    Console::setCursorPosition(this->x + 0, this->y - 2);
+    cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
+    Console::setCursorPosition(this->x + 1, this->y - 2);
+    cout << Console::U2G(n) << "  " << Console::U2G(n);
+    Console::setColor(white);
+}
+
+void Tank::append()                                                 //在地图上输出坦克 
+{
+    for (int i = -1; i <= 1; i++) {
+        for (int j = -2; j <= 3; j++) {
+            Map::map[x + i][y + j][0] = 2;
+            Map::map[x + i][y + j][1] = color;
+        }
+    }
+}
+
+void Tank::clear() {
+    for (int i = -1; i <= 1; i++) {
+        Console::setCursorPosition(this->x + i, this->y - 2);
+        cout << "      ";
+    }
+    for (int i = -1; i <= 1; i++) {
+        for (int j = -2; j <= 3; j++) {
+            Map::map[x + i][y + j][0] = 0;
+        }
+    }
+}
+
+int Tank::getX()
+{
+    return this->x;
+}
+
+int Tank::getY()
+{
+    return this->y;
+}
+
+//用户类
+int TankUser::blood = 5;
+int TankUser::score = 0;
+int TankUser::attack = 1;
+TankUser::TankUser(int x, int y,  Color color, int direction) :Tank(x, y, color, direction)          //构造函数，初始化坦克默认参数
 {
 	this->color = color;
 	this->direction = direction;
 	this->blood = blood;
 	this->speed = speed;
 	this->armour = armour;
+    this->attack = attack;
 	this->x = x;
 	this->y = y;
 	append();
-	bullet1=new Bullet(0,0,0);
-	bullet2=new Bullet(0,0,0);
-	bullet3=new Bullet(0,0,0);
-	bullet4=new Bullet(0,0,0);
-	bullet5=new Bullet(0,0,0);
+    for (int i = 0; i < 100; i++)
+    {
+        bullet[i] = new Bullet(0, 0, 0);
+    }
+	//bullet1=new Bullet(0,0,0);
+	//bullet2=new Bullet(0,0,0);
+	//bullet3=new Bullet(0,0,0);
+	//bullet4=new Bullet(0,0,0);
+	//bullet5=new Bullet(0,0,0);
 }
 
-
-Tank::~Tank()
+TankUser::~TankUser()
 {
 }
 
-int Tank::getDir()                              //返回坦克方向
+int TankUser::getDir()                              //返回坦克方向
 {
 	return direction;
 }
 
-int Tank::getX()
-{
-	return this->x;
-}
-
-int Tank::getY()
-{
-	return this->y;
-}
-
-
-
-void Tank::append()                                                 //在地图上输出坦克 
-{
-	for (int i = -1; i <= 1; i++) {
-		for (int j = -2; j <= 3; j++) {
-			Map::map[x + i][y + j][0] = 2;
-			Map::map[x + i][y + j][1] = color;
-		}
-	}
-}
-
-
-void Tank::move(int d)                                                                              //移动坦克
+void TankUser::move(int d)                                                                              //移动坦克
 {
 	Console::setColor(this->color);
 	this->direction = d;
@@ -121,71 +157,65 @@ void Tank::move(int d)                                                          
 	Console::setColor(black);
 }
 
-void Tank::clear() {
-	for (int i = -1; i <= 1; i++) {
-		Console::setCursorPosition(this->x + i, this->y - 2);
-		cout << "      ";
-	}
-	for (int i = -1; i <= 1; i++) {
-		for (int j = -2; j <= 3; j++) {
-			Map::map[x + i][y + j][0] = 0;
-		}
-	}
+void TankUser::shoot() {
+
+    switch (direction)
+    {
+    case 0:
+    {
+        bullet[bulletNum%100] = new  Bullet(this->x - 2, this->y, 0); bullet[bulletNum % 100]->show();
+        bulletNum++;
+        break;
+
+           // switch (bulletNum % 5)
+           // {
+           // case 0: bullet1 = new  Bullet(this->x - 2, this->y, 0); (*bullet1).show(); break;
+           // case 1: bullet2 = new  Bullet(this->x - 2, this->y, 0); (*bullet2).show(); break;
+           // case 2: bullet3 = new  Bullet(this->x - 2, this->y, 0); (*bullet3).show(); break;
+           // case 3: bullet4 = new  Bullet(this->x - 2, this->y, 0); (*bullet4).show(); break;
+           // case 4: bullet5 = new  Bullet(this->x - 2, this->y, 0); (*bullet5).show(); break;
+           // default:
+           //     break;
+           // }
+    }
+    default:
+        break;
+    }
 }
 
-void Tank::show() {
-	Console::setColor(color);
-	Console::setCursorPosition(this->x - 1, this->y - 2);
-	cout << "  " << Console::U2G(n) << "  ";
-	Console::setCursorPosition(this->x + 0, this->y - 2);
-	cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
-	Console::setCursorPosition(this->x + 1, this->y - 2);
-	cout << Console::U2G(n) << "  " << Console::U2G(n);
-	Console::setColor(white);
-}
-
-void Tank::shoot() {
-
-	switch (direction)
-	{
-	case 0:
-	{
-		switch (bulletNum%5)
-		{
-		case 0: bullet1 =new  Bullet( this->x - 2, this->y, 0); (*bullet1).show(); break;
-		case 1: bullet2 =new  Bullet( this->x - 2, this->y, 0); (*bullet2).show(); break;
-		case 2: bullet3 =new  Bullet( this->x - 2, this->y, 0); (*bullet3).show(); break;
-		case 3: bullet4 =new  Bullet( this->x - 2, this->y, 0); (*bullet4).show(); break;
-		case 4: bullet5 =new  Bullet( this->x - 2, this->y, 0); (*bullet5).show(); break;
-		default:
-			break;
-		}
-		bulletNum++;
-		break;
-	}
-	default:
-		break;
-	}
-}
-
-void Tank::bulletMove()
+void TankUser::bulletMove()
 {
-	(*bullet1).move();
-	(*bullet2).move();
-	(*bullet3).move();
-	(*bullet4).move();
-	(*bullet5).move();
+    for (int i = 0; i < 100; i++)
+    {
+        this->bullet[i]->move();
+    }
+
+	//(*bullet1).move();
+	//(*bullet2).move();
+	//(*bullet3).move();
+	//(*bullet4).move();
+	//(*bullet5).move();
 }
 
-int Tank::isAlive()
+int TankUser::isAlive()
 {
-	if (Tank::blood == 0)return false;
+	if (TankUser::blood == 0)return false;
 	else return true;
 }
 
-TankEnemy::TankEnemy(int x , int y , Color color , int direction,int score ):Tank(x,y,color,direction)
+Bullet** TankUser::getBullet()
+{
+    return bullet;
+}
+
+//TankEnemy
+
+int TankEnemy::selfboom = 1;
+
+TankEnemy::TankEnemy(int x , int y , Color color , int direction,int score, int blood ):Tank(x,y,color,direction)
 {
 	this->score = score;
+    this->blood = blood;
 	append();
 }
 
@@ -209,7 +239,7 @@ void TankEnemy::move()
 		}
 		else
 		{
-			Tank::blood--;
+			TankUser::blood--;
 			clear();
 			x = 2; y = 94;
 			Alive = 0;
@@ -238,17 +268,42 @@ void TankEnemy::append()
 	}
 }
 
+void TankEnemy::isShot(TankUser&Tank)                                                //判断敌人是否被击中
+{
+    for (int n = 0; n < 100; n++)
+    {
+        for (int i = this->x - 1; i <= this->x + 2; i++) {
+            for (int j = this->y - 2; j <= this->y + 3; j++) {
+                if (Map::map[i][j][0] == 3) {
+                    this->blood-=Tank.attack; 
+                }
+            }
+        }
+        //for (int i = -1; i < 2; i++)
+        //{
+        //    for (int j = -2; j < 4; j++)
+        //    {
+        //        if ( (Tank.getBullet()[n]->getX()== this->getX() + i) || (Tank.getBullet()[n]->getX() + 1 == Tank.getX() + i) && (Tank.getBullet()[n]->getY()==this->getY() + j)) this->blood--;
+        //    }
+        //}
+    }
+}
+
 int TankEnemy::isAlive()
 {
-	for (int i = this->x - 1; i <= this->x + 2; i++) {
-		for (int j = this->y - 2; j <= this->y + 3; j++) {
-			if (Map::map[i][j][0] == 3) { 
-				Alive = 0; Tank::score += this->score; break; 
-			}
-			if (Map::map[i][j][0] == 2) {
-				Alive = 0; Tank::blood--; break;
-			}
-		}
-	}
+	//for (int i = this->x - 1; i <= this->x + 2; i++) {
+	//	for (int j = this->y - 2; j <= this->y + 3; j++) {
+	//		if (Map::map[i][j][0] == 3) { 
+	//			Alive = 0; TankUser::score += this->score; break;
+	//		}
+    for (int i = this->x - 1; i <= this->x + 2; i++) {
+        for (int j = this->y - 2; j <= this->y + 3; j++) {
+            if (Map::map[i][j][0] == 2) {
+                Alive = 0; TankUser::blood-=this->selfboom; break;
+            }
+        }
+    }
+    if (blood == 0)Alive = 0;
+
 	return Alive;
 }

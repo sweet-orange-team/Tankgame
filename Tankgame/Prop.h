@@ -9,7 +9,6 @@ class Prop                                           //道具基类
 public:
     Prop(int x, int y, int isSee=0);
     ~Prop();
-   virtual void isGet(Tank&Tank) = 0;
    virtual void showProp();
    virtual void clearProp();
    virtual void append();
@@ -24,7 +23,9 @@ protected:
 class BulletProp :public Prop                         //高级子弹
 {
 public:
-    void isGet(Tank&Tank);
+    BulletProp(int x, int y, int isSee);
+    ~BulletProp();
+    void isGet(TankUser&Tank);
 protected:
     char*body = u8"▲";
 };
@@ -32,9 +33,24 @@ protected:
 class InvincibleProp :public Prop                     //无敌
 {
 public:
-    void isGet(Tank&Tank);
+    InvincibleProp(int x, int y, int isSee);
+    ~InvincibleProp();
+    void isGet(TankUser&Tank,TankEnemy&tank);
 protected:
     char*body = u8"★";
+};
+
+
+class prop {
+public:
+    prop();
+    ~prop();
+    static int propNum;
+    void del();
+    void add(int x, int y);
+private:
+    BulletProp*prop1;
+    InvincibleProp*prop2;
 };
 
 #endif // !_PROP_H

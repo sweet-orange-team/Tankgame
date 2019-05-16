@@ -11,79 +11,87 @@ enum Color {					//枚举颜色变量
 	yellow = 6, gray = 7, white = 15, pink = 12, red = 4, black = 15, green = 2
 };
 
-class Tank						//坦克基类
+class Tank                                      //坦克基类
 {
 public:
-	Tank(int x=20,int y=50,Color color = yellow, int direction = 0);
-	~Tank();
+    Tank(int x , int y , Color color , int direction );
+    ~Tank();
+    virtual void append();						//添加进地图
+    virtual void show();
+    virtual void clear();
+    int getX();
+    int getY();
+protected:
+    const char body[4][3][6] = {
+        // 上
+        {
+            { 0, 0, 1, 1, 0, 0 },			//地图输出的时候一个■占了两个位置，被侵占的位置跳过输出，因此设置成这个样子
+            { 1, 1, 1, 1, 1, 1, },			//  ■
+            { 1, 1, 0, 0, 1, 1 },			//■■■
+        },									//■  ■
+                                            // 下
+        {
+            { 1, 1, 0, 0, 1, 1 },
+            { 1, 1, 1, 1, 1, 1 },
+            { 0, 0, 1, 1, 0, 0 },
+        },
+        // 左
+        {
+            { 0, 0, 1, 1, 1, 1 },
+            { 1, 1, 1, 1, 0, 0 },
+            { 0, 0, 1, 1, 1, 1 },
+        },
+        // 右
+        {
+            { 1, 1, 1, 1, 0, 0 },
+            { 0, 0, 1, 1, 1, 1 },
+            { 1, 1, 1, 1, 0, 0 },
+        }
+    };
+    Color color;
+    int x, y;                                //x,y取九宫格中点
+    int direction;
+    char* n = u8"■";
+
+};
+
+class TankUser:public Tank					 //坦克用户类
+{
+public:
+	TankUser(int x=20,int y=50,Color color = yellow, int direction = 0);
+	~TankUser();
 	static int blood;
 	static int score;
-	void append();						//添加进地图
-	void move(int direction);           //移动坦克
-	void show();
-	void clear();
+    static int attack;
+	void move(int direction);                //移动坦克
 	void shoot();
 	void bulletMove();
 	int isAlive();
-	int getDir();								 //返回方向
-	int getX();
-	int getY();
-protected:
-	const char body[4][3][6] = {
-		// 上
-		{
-			{ 0, 0, 1, 1, 0, 0 },			//地图输出的时候一个■占了两个位置，被侵占的位置跳过输出，因此设置成这个样子
-			{ 1, 1, 1, 1, 1, 1,},			//  ■
-			{ 1, 1, 0, 0, 1, 1 },			//■■■
-		},									//■  ■
-		// 下
-		{
-			{ 1, 1, 0, 0, 1, 1 },
-			{ 1, 1, 1, 1, 1, 1 },
-			{ 0, 0, 1, 1, 0, 0 },
-		},
-		// 左
-		{
-			{ 0, 0, 1, 1, 1, 1 },
-			{ 1, 1, 1, 1, 0, 0 },
-			{ 0, 0, 1, 1, 1, 1 },
-		},
-		// 右
-		{
-			{ 1, 1, 1, 1, 0, 0 },
-			{ 0, 0, 1, 1, 1, 1 },
-			{ 1, 1, 1, 1, 0, 0 },
-		}
-	};
+	int getDir();							 //返回方向
+    Bullet** getBullet();
 protected:
 	Color color;
-	int direction;
 	int speed;
 	int armour;
-	int x, y;                     //x,y取九宫格中点
-	char* n = u8"■";
-	Bullet *bullet1;
-	Bullet *bullet2;
-	Bullet *bullet3;
-	Bullet *bullet4;
-	Bullet *bullet5;
+    Bullet *bullet[100];
 	int bulletNum=0;
 };
 
 class TankEnemy:public Tank
 {
 public:
-	TankEnemy(int x = 4, int y = 50, Color color = pink, int direction = 1,int score=5);
+    static int selfboom;
+	TankEnemy(int x = 4, int y = 50, Color color = pink, int direction = 1,int score=5, int blood=3);
 	~TankEnemy();
 	void move();
 	void append();
+    void isShot(TankUser&Tank);
 	int isAlive();
 private:
 	int Alive = 1;
 	int score;
+    int blood;
 };
-
-
 
 class Tank_Enemies                                                                                                   //敌方坦克类
 {
@@ -102,9 +110,7 @@ private:
 	int enemyNum = 0;
 };
 
-class Tank_Users {
 
-};
 //
 //
 //
