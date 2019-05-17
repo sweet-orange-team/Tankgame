@@ -146,8 +146,6 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Prop.cpp" />
     <ClCompile Include="Tank.cpp" />
-    <ClCompile Include="Tank_Enemies.cpp" />
-    <ClCompile Include="Tank_Users.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="..\..\基于C++实现的坦克大战游戏\Release\Tank.wav" />

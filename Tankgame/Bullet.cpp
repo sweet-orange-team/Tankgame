@@ -28,7 +28,7 @@ void Bullet::append()                                                        //Ô
 	Map::map[this->x][this->y][0] = 3;
 }
 
-void Bullet::move(int step)                                                  //×Óµ¯ÒÆ¶¯
+void Bullet::move(int step)                         //×Óµ¯ÒÆ¶¯
 {
 	this->clear();
 	switch (direction)

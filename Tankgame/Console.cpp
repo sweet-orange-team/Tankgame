@@ -109,6 +109,12 @@ void Console::checkKey(TankUser &mytank) {			//检测某个按键是否按下(传入大写字母
 		}
 }
 
+int Console::Random(int a, int b)		//产生一个[a,b)上的整数
+{
+	int c = (rand() % (a - b)) + a;
+	return c;
+}
+
 char* Console::U2G(char* utf8)			//神仙的UTF-8转换！
 {
 	int len = MultiByteToWideChar(CP_UTF8, 0, utf8, -1, NULL, 0);

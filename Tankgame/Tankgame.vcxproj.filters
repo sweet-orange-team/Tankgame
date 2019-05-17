@@ -30,12 +30,6 @@
     <ClCompile Include="Tank.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Tank_Enemies.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Tank_Users.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

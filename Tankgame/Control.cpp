@@ -127,11 +127,10 @@ int Control::start() {				//主程序开始
 	{
 		console.checkKey(mytank);
 		mytank.bulletMove();
-		map.refresh();
  		enemies.move();
 		map.refresh();
 		if (!mytank.isAlive())break;
-		Sleep(100);
+		Sleep(80);
 	}
 
 	system("pause");
