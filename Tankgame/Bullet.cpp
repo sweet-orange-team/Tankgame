@@ -36,12 +36,15 @@ void Bullet::move(int step)                         //子弹移动
 	case 0:
 		if (this->x >= step * 2) {
 			Map::map[this->x][this->y][0] = 0;
-			if (Map::map[x-1][y][0] != 0) {			//判断前面有没有坦克
+			//todo 子弹击中坦克有时候不消失
+			if (Map::map[x - 1][y][0] == 4 || Map::map[x - 1][y + 1][0] == 4) {	//判断前面有没有敌方坦克
 				this->x -= step;
 				append();
 				clear();
 				this->x = 0;
 				this->y = 90;
+				append();
+				clear();
 			}
 			else
 			{
@@ -54,6 +57,9 @@ void Bullet::move(int step)                         //子弹移动
 		else
 		{
 			Map::map[this->x][this->y][0] = 0;
+			this->x = 0;
+			this->y = 90;
+			append();
 			clear();
 		}
 	default:

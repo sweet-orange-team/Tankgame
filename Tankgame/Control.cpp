@@ -118,16 +118,15 @@ int Control::start() {				//主程序开始
 	Map map;						//初始化地图
 	map.show();
 	TankUser mytank = TankUser();
-	TankEnemy enemies = TankEnemy();
-    //BulletProp p = BulletProp(Random(0, 29), Random(0, 79),1);
-	enemies.show();
+	TankEnemies enemies = TankEnemies();
+    BulletProp p = BulletProp(Console::Random(2, 29), Console::Random(2, 79),1);
 	mytank.show();
-    //p.showProp();
+    p.showProp();
 	while (true)
 	{
 		console.checkKey(mytank);
 		mytank.bulletMove();
- 		enemies.move();
+		enemies.allEnemyMove();
 		map.refresh();
 		if (!mytank.isAlive())break;
 		Sleep(80);

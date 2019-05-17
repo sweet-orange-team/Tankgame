@@ -168,7 +168,7 @@ void TankUser::bulletMove()
 
 int TankUser::isAlive()
 {
-	if (TankUser::blood == 0)return false;
+	if (TankUser::blood <= 0)return false;
 	else return true;
 }
 
@@ -185,6 +185,7 @@ TankEnemy::TankEnemy(int x, int y, Color color, int direction, int score, int bl
 {
 	this->score = score;
 	this->blood = blood;
+	this->newX = x;
 	append();
 }
 
@@ -198,7 +199,8 @@ void TankEnemy::move()
 		Console::setColor(this->color);
 		if (this->x <= 26) {
 			this->clear();
-			this->x += 1;
+			newX += speed;
+			this->x = (int)newX;
 			Console::setCursorPosition(this->x - 1, this->y - 2);
 			cout << Console::U2G(n) << "  " << Console::U2G(n);
 			Console::setCursorPosition(this->x + 0, this->y - 2);
@@ -219,9 +221,7 @@ void TankEnemy::move()
 	}
 	else
 	{
-		clear();
 		x = 2; y = 94;
-		show();
 		append();
 		Console::setColor(black);
 	}
@@ -263,7 +263,9 @@ int TankEnemy::isAlive()
 	for (int i = this->x - 1; i <= this->x + 2; i++) {
 		for (int j = this->y - 2; j <= this->y + 3; j++) {
 			if (Map::map[i][j][0] == 3) {
-				Alive = 0; TankUser::score += this->score; break;
+				Alive = 0;
+				TankUser::score += this->score;
+				break;
 			}
 		}
 	}
@@ -275,45 +277,54 @@ int TankEnemy::isAlive()
 		}
 	}
 	if (blood == 0)Alive = 0;
-
+	if (!Alive) {
+		clear();
+		Console::setColor(color);
+		Console::setCursorPosition(1, 92);
+		cout << "  " << Console::U2G(n) << "  ";
+		Console::setCursorPosition(2, 92);
+		cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
+		Console::setCursorPosition(3, 92);
+		cout << Console::U2G(n) << "  " << Console::U2G(n);
+		Console::setColor(black);
+	}
 	return Alive;
 }
 
 
 //敌方坦克群
-Tank_Enemies::Tank_Enemies()                //构造函数，设定初始属性
+TankEnemies::TankEnemies()                //构造函数，设定初始属性
 {
-	enemy1 = &TankEnemy(-2, 5, pink);
-	enemyNum++;
+	enemy1 = new TankEnemy(2, 20, green, 1);
+	enemy1->show(); enemy1->append();
+	enemy2 = new TankEnemy(2, 40, red, 1);
+	enemy2->show(); enemy2->append();
+	enemy3 = new TankEnemy(2, 60, red, 1);
+	enemy3->show(); enemy3->append();
 }
 
-Tank_Enemies::~Tank_Enemies() { }
+TankEnemies::~TankEnemies() { }
 
-void Tank_Enemies::allEnemyMove()
+void TankEnemies::allEnemyMove()
 {
-	(*enemy1).move();
-	(*enemy2).move();
-	(*enemy3).move();
-	(*enemy4).move();
-	(*enemy5).move();
-}
-
-void Tank_Enemies::del()
-{
-
-}
-
-void Tank_Enemies::add()
-{
-	enemyNum %= 5;
-	switch (enemyNum)
-	{
-	case 0:enemy1 = &TankEnemy(3, 10, pink); enemy1->show(); break;
-	case 1:enemy2 = &TankEnemy(3, 10, pink); enemy2->show(); break;
-	case 2:enemy3 = &TankEnemy(3, 10, pink); enemy3->show(); break;
-	case 3:enemy4 = &TankEnemy(3, 10, pink); enemy4->show(); break;
-	case 4:enemy5 = &TankEnemy(3, 10, pink); enemy5->show(); break;
-	default:
-		break;
+	if (enemy1->isAlive() == 0) {
+		//enemy1->clear();
+		enemy1 = new TankEnemy(2, Console::Random(4, 73), green, 1);
+		enemy1->show(); enemy1->append();
 	}
+	if (enemy2->isAlive() == 0) {
+		//enemy2->clear();
+		enemy2 = new TankEnemy(2, Console::Random(4, 73), red, 1);
+		enemy2->show(); enemy2->append();
+	}
+	if (enemy3->isAlive() == 0) {
+		//enemy3->clear();
+		enemy3 = new TankEnemy(2, Console::Random(4, 73), red, 1);
+		enemy3->show(); enemy3->append();
+	}
+	enemy1->move();
+	enemy2->move();
+	enemy3->move();
+
 }
+

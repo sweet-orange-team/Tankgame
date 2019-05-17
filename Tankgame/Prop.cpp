@@ -25,7 +25,7 @@ void Prop::showProp()                                        //想要每20s刷一个道
 {
     if (isSee) {
         Console::setCursorPosition(x, y);
-        cout << this->getBody();
+		cout << this->getBody();
     }
 }
 

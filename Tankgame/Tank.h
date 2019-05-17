@@ -12,14 +12,15 @@ enum Color {					//枚举颜色变量
 };
 
 
-class Tank                                      //坦克基类
+//坦克基类
+class Tank   
 {
 public:
     Tank(int x , int y , Color color , int direction );
     ~Tank();
-    virtual void append();						//添加进地图
-    virtual void show();
-    virtual void clear();
+    void append();						//添加进地图
+    void show();
+    void clear();
     int getX();
     int getY();
 protected:
@@ -61,7 +62,7 @@ protected:
 class TankUser:public Tank					 
 {
 public:
-	TankUser(int x=20,int y=50,Color color = yellow, int direction = 0);
+	TankUser(int x=27,int y=40,Color color = yellow, int direction = 0);
 	~TankUser();
 	static int blood;
 	static int score;
@@ -86,7 +87,7 @@ class TankEnemy:public Tank
 {
 public:
     static int selfboom;
-	TankEnemy(int x = 4, int y = 50, Color color = pink, int direction = 1,int score=5, int blood=3);
+	TankEnemy(int x = 4, int y = 50, Color color = pink, int direction = 1,int score=5000, int blood=3);
 	~TankEnemy();
 	void move();
 	void append();
@@ -96,25 +97,23 @@ private:
 	int Alive = 1;
 	int score;
     int blood;
+	double speed = 0.3;
+	double newX;
 };
 
 
 //敌方坦克群
-class Tank_Enemies                                                                                                   //敌方坦克类
+class TankEnemies                                                                                                   //敌方坦克类
 {
 public:
-	Tank_Enemies();
-	~Tank_Enemies();
+	TankEnemies();
+	~TankEnemies();
 	void allEnemyMove();
-	void del();
-	void add();
 private:
 	TankEnemy* enemy1;
 	TankEnemy* enemy2;
 	TankEnemy* enemy3;
-	TankEnemy* enemy4;
-	TankEnemy* enemy5;
-	int enemyNum = 0;
+	int enemyNum = 3;
 };
 
 

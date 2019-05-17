@@ -16,7 +16,7 @@ public:
 protected:
     int x, y;
     int isSee;
-    char*body;
+    char*body =u8"■";
     //char*body   高级子弹：▲     无敌：★
 };
 

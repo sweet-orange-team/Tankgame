@@ -6,6 +6,7 @@ int main() {
 	Control control;
     if (control.menu() == -1)return 0;
     else control.start();
+	return 0;
 }
 
 
