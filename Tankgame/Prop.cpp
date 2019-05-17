@@ -7,10 +7,11 @@
 using namespace std;
 
 //Prop class 
-Prop::Prop(int x, int y, int isSee)
+Prop::Prop(int x, int y, char*body, int isSee)
 {
     this->x = x;
     this->y = y;
+    this->body = body;
     this->isSee = isSee;
 }
 
@@ -41,7 +42,7 @@ void Prop::append()
 }
 
 
-BulletProp::BulletProp(int x, int y, int isSee) :Prop(x, y, isSee){ }
+BulletProp::BulletProp(int x, int y, char*body, int isSee) :Prop(x, y, body, isSee){ }
 
 BulletProp::~BulletProp(){ }
 
@@ -66,7 +67,7 @@ void BulletProp::isGet(TankUser&Tank)                              //Ôö¼Ó×Óµ¯ÉËº
 
 }
 
-InvincibleProp::InvincibleProp(int x, int y, int isSee) :Prop(x, y, isSee) { }
+InvincibleProp::InvincibleProp(int x, int y, char*body, int isSee) :Prop(x, y, body, isSee) { }
 
 InvincibleProp::~InvincibleProp() { }
 
@@ -105,14 +106,14 @@ void prop::add(int x,int y)
     {
         case 0:
         {
-            *prop1 = BulletProp(x, y, 1);
+            *prop1 = BulletProp(x, y, u8"¡ø",1);
             Sleep(20000);
             prop1->clearProp();
-            break;
+            break;;
         }
         case 1:
         {
-            *prop2 = InvincibleProp(x, y, 1);
+            *prop2 = InvincibleProp(x, y, u8"¡ï", 1);
             Sleep(20000);
             prop2->clearProp();
             break;
