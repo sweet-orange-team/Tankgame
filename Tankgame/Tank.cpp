@@ -43,8 +43,8 @@ void Tank::clear() {
 		Console::setCursorPosition(this->x + i, this->y - 2);
 		cout << "      ";
 	}
-	for (int i = this->x-1; i <= this->x+1; i++) {
-		for (int j = this->y-2; j <= this->y+3; j++) {
+	for (int i = this->x - 1; i <= this->x + 1; i++) {
+		for (int j = this->y - 2; j <= this->y + 3; j++) {
 			Map::map[i][j][0] = 0;
 		}
 	}
@@ -237,7 +237,7 @@ void TankEnemy::append()
 	}
 }
 
-void TankEnemy::isShot(TankUser&Tank)                                                //判断敌人是否被击中
+void TankEnemy::isShoot(TankUser&Tank)                                                //判断敌人是否被击中
 {
 	for (int n = 0; n < 100; n++)
 	{
@@ -295,39 +295,35 @@ int TankEnemy::isAlive()
 //敌方坦克群
 TankEnemies::TankEnemies()                //构造函数，设定初始属性
 {
-	enemy1 = new TankEnemy(2, 20, green, 1);
-	enemy1->show(); enemy1->append();
-	enemy2 = new TankEnemy(2, 40, red, 1);
-	enemy2->show(); enemy2->append();
-	enemy3 = new TankEnemy(2, 60, red, 1);
-	enemy3->show(); enemy3->append();
+	enemies[0] = new TankEnemy(2, 20, green, 1);
+	enemies[0]->show(); enemies[0]->append();
+	enemies[1] = new TankEnemy(2, 40, red, 1);
+	enemies[1]->show(); enemies[1]->append();
+	enemies[2] = new TankEnemy(2, 60, red, 1);
+	enemies[2]->show(); enemies[2]->append();
 }
 
 TankEnemies::~TankEnemies() { }
 
 void TankEnemies::allEnemyMove()
 {
-	if (enemy1->isAlive() == 0) {
-		//enemy1->clear();
-		enemy1 = NULL;
-		enemy1 = new TankEnemy(2, Console::Random(4, 73), green, 1);
-		enemy1->show(); enemy1->append();
+	for (int i = 0; i <= 2; i++)
+	{
+		if (this->enemies[i]->isAlive() == 0) {
+			Color color;
+			if (Console::Random(1,3)>1)
+			{
+				color = green;
+			}
+			else color = red;
+			this->enemies[i] = new TankEnemy(2, Console::Random(4, 73), color, 1);
+			this->enemies[i]->show(); enemies[i]->append();
+		}
 	}
-	if (enemy2->isAlive() == 0) {
-		//enemy2->clear();
-		enemy2 = NULL;
-		enemy2 = new TankEnemy(2, Console::Random(4, 73), red, 1);
-		enemy2->show(); enemy2->append();
+	for (size_t i = 0; i <= 2; i++)
+	{
+		this->enemies[i]->move();
 	}
-	if (enemy3->isAlive() == 0) {
-		//enemy3->clear();
-		enemy3 = NULL;
-		enemy3 = new TankEnemy(2, Console::Random(4, 73), red, 1);
-		enemy3->show(); enemy3->append();
-	}
-	enemy1->move();
-	enemy2->move();
-	enemy3->move();
 
 }
 

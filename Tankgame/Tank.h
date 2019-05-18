@@ -91,7 +91,7 @@ public:
 	~TankEnemy();
 	void move();
 	void append();
-    void isShot(TankUser&Tank);
+    void isShoot(TankUser&Tank);
 	int isAlive();
 private:
 	int Alive = 1;
@@ -109,10 +109,8 @@ public:
 	TankEnemies();
 	~TankEnemies();
 	void allEnemyMove();
-private:
-	TankEnemy* enemy1;
-	TankEnemy* enemy2;
-	TankEnemy* enemy3;
+public:
+	TankEnemy* enemies[3];
 	int enemyNum = 3;
 };
 
