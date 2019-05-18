@@ -43,9 +43,9 @@ void Tank::clear() {
 		Console::setCursorPosition(this->x + i, this->y - 2);
 		cout << "      ";
 	}
-	for (int i = -1; i <= 1; i++) {
-		for (int j = -2; j <= 3; j++) {
-			Map::map[x + i][y + j][0] = 0;
+	for (int i = this->x-1; i <= this->x+1; i++) {
+		for (int j = this->y-2; j <= this->y+3; j++) {
+			Map::map[i][j][0] = 0;
 		}
 	}
 }
@@ -153,14 +153,14 @@ void TankUser::move(int d)                                                      
 }
 
 void TankUser::shoot() {
-	bullet[bulletNum % 100] = new  Bullet(this->x - 2, this->y, 0);
-	bullet[bulletNum % 100]->show();
+	bullet[bulletNum % 30] = new  Bullet(this->x - 2, this->y, 0);
+	bullet[bulletNum % 30]->show();
 	bulletNum++;
 }
 
 void TankUser::bulletMove()
 {
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 30; i++)
 	{
 		this->bullet[i]->move();
 	}
@@ -309,16 +309,19 @@ void TankEnemies::allEnemyMove()
 {
 	if (enemy1->isAlive() == 0) {
 		//enemy1->clear();
+		enemy1 = NULL;
 		enemy1 = new TankEnemy(2, Console::Random(4, 73), green, 1);
 		enemy1->show(); enemy1->append();
 	}
 	if (enemy2->isAlive() == 0) {
 		//enemy2->clear();
+		enemy2 = NULL;
 		enemy2 = new TankEnemy(2, Console::Random(4, 73), red, 1);
 		enemy2->show(); enemy2->append();
 	}
 	if (enemy3->isAlive() == 0) {
 		//enemy3->clear();
+		enemy3 = NULL;
 		enemy3 = new TankEnemy(2, Console::Random(4, 73), red, 1);
 		enemy3->show(); enemy3->append();
 	}

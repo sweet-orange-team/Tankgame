@@ -119,7 +119,7 @@ int Control::start() {				//主程序开始
 	map.show();
 	TankUser mytank = TankUser();
 	TankEnemies enemies = TankEnemies();
-    BulletProp p = BulletProp(Console::Random(2, 29), Console::Random(2, 79),1);
+    BulletProp p = BulletProp(25, 50);
 	mytank.show();
     p.showProp();
 	while (true)

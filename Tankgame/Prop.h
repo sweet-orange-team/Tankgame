@@ -7,7 +7,7 @@
 class Prop                                           //道具基类
 {
 public:
-    Prop(int x, int y, char*body, int isSee=0);
+    Prop(int x, int y, char*body, int isSee=1);
     ~Prop();
    virtual void showProp();
    virtual void clearProp();
@@ -23,7 +23,7 @@ protected:
 class BulletProp :public Prop                         //高级子弹
 {
 public:
-    BulletProp(int x, int y, char*body = u8"▲", int isSee =0);
+    BulletProp(int x, int y, char*body = u8"▲", int isSee =1);
     ~BulletProp();
     void isGet(TankUser&Tank);
 };
@@ -31,7 +31,7 @@ public:
 class InvincibleProp :public Prop                     //无敌
 {
 public:
-    InvincibleProp(int x, int y, char*body = u8"★", int isSee=0);
+    InvincibleProp(int x, int y, char*body = u8"★", int isSee=1);
     ~InvincibleProp();
     void isGet(TankUser&Tank,TankEnemy&tank);
 };

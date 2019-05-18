@@ -46,7 +46,7 @@ BulletProp::BulletProp(int x, int y, char*body, int isSee) :Prop(x, y, body, isS
 
 BulletProp::~BulletProp(){ }
 
-void BulletProp::isGet(TankUser&Tank)                              //增加子弹伤害
+void BulletProp::isGet(TankUser&Tank)                          //增加子弹伤害
 {
     int a;
     for (int i = -1; i < 2; i++) 

@@ -77,7 +77,7 @@ protected:
 	Color color;
 	int speed;
 	int armour;
-    Bullet *bullet[100];
+    Bullet *bullet[30];
 	int bulletNum=0;
 };
 

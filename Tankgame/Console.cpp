@@ -8,9 +8,7 @@ using namespace std;
 Console::Console()
 {
 	system("title TankGame-by charon and Yvein");		//设置控制台标题
-	//system("mode con cols=160 lines=50");				//设置长160和宽50
 	setCursorSee(false);								//初始化光标隐藏
-	//system("chcp 65001");								//设置支持unicode--输出utf-8字符时用这个会报错
 }
 
 Console::~Console()
@@ -52,24 +50,6 @@ void Console::setColor(int number) {					//改变输出的颜色，比system("color x")快
 	*/
 }
 
-/*
-//			cout << "你好啊！" << endl;			 	setColor(red);
-//		};										 	re = 0;
-//												 }
-
-//	while (1) {									 int re = 0;
-//		if (console.check('Q')) {				 if (!KEY_DOWN(key)) {
-//			cout << "你好啊！" << endl;			 	setColor(red);
-//		};										 	re = 0;
-//												 }
-//		Sleep(20);//循环时间间隔，防止太占内存	else {
-	//		//system("cls");//清屏 			   	setColor(white);
-//	}											 	re = 1;
-//												 }
-//												 printf("  %c  ", key);
-//												 setColor(7);
-//												 return re;
-*/
 void Console::checkKey(TankUser &mytank) {			//检测某个按键是否按下(传入大写字母），按下就改变输出颜色
 		if (KEY_DOWN('W')) {
 			mytank.move(0);
