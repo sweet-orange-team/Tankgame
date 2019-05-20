@@ -7,15 +7,16 @@
 class Prop                                           //道具基类
 {
 public:
-    Prop(int x, int y, char*body, int isSee=1);
+    Prop(int x, int y, char*body);
     ~Prop();
+    int IsGet(TankUser&Tank);                        //判断是否被捡到
+    virtual void isGet(TankUser&Tank) = 0;
    virtual void showProp();
    virtual void clearProp();
    virtual void append();
    virtual char* getBody();
 protected:
     int x, y;
-    int isSee;
     char*body;
     //char*body   高级子弹：▲     无敌：★
 };
@@ -23,7 +24,7 @@ protected:
 class BulletProp :public Prop                         //高级子弹
 {
 public:
-    BulletProp(int x, int y, char*body = u8"▲", int isSee =1);
+    BulletProp(int x, int y, char*body = u8"▲");
     ~BulletProp();
     void isGet(TankUser&Tank);
 };
@@ -31,19 +32,19 @@ public:
 class InvincibleProp :public Prop                     //无敌
 {
 public:
-    InvincibleProp(int x, int y, char*body = u8"★", int isSee=1);
+    InvincibleProp(int x, int y, char*body = u8"★");
     ~InvincibleProp();
-    void isGet(TankUser&Tank,TankEnemy&tank);
+    void isGet(TankUser&Tank);
 };
 
 
-class prop {
+class props 
+{
 public:
-    prop();
-    ~prop();
+    props();
+    ~props();
     static int propNum;
-    void del();
-    void add(int x, int y);
+    void initProp(TankUser&Tank);
 private:
     BulletProp*prop1;
     InvincibleProp*prop2;

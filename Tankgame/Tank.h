@@ -87,7 +87,7 @@ class TankEnemy:public Tank
 {
 public:
     static int selfboom;
-	TankEnemy(int x = 4, int y = 50, Color color = pink, int direction = 1,int score=5000, int blood=3);
+	TankEnemy(int x = 4, int y = 50, Color color = pink, int direction = 1,int score=5000, int blood=2);
 	~TankEnemy();
 	void move();
 	void append();

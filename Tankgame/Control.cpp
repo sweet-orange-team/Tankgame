@@ -119,9 +119,9 @@ int Control::start() {				//主程序开始
 	map.show();
 	TankUser mytank = TankUser();
 	TankEnemies enemies = TankEnemies();
-    BulletProp p = BulletProp(25, 50);
+    //props p = props();
+    //p.initProp(mytank);
 	mytank.show();
-    p.showProp();
 	while (true)
 	{
 		console.checkKey(mytank);

@@ -7,33 +7,44 @@
 using namespace std;
 
 //Prop class 
-Prop::Prop(int x, int y, char*body, int isSee)
+Prop::Prop(int x, int y, char*body)
 {
     this->x = x;
     this->y = y;
     this->body = body;
-    this->isSee = isSee;
 }
 
 Prop::~Prop(){ }
+
+int Prop::IsGet(TankUser&Tank)                        //判断是否被捡到
+{
+    int a = 0;
+    for (int i = -1; i < 2; i++)
+    {
+        for (int j = -2; j < 4; j++)
+        {
+            if (Map::map[Tank.getX() + i][Tank.getY() + j][0] == 5) a = 1;
+        }
+    }
+    return a;
+}
 
 char* Prop::getBody()
 {
     return Console::U2G(this->body);
 }
 
-void Prop::showProp()                                        //想要每20s刷一个道具
+void Prop::showProp()                                        
 {
-    if (isSee) {
         Console::setCursorPosition(x, y);
 		cout << this->getBody();
-    }
 }
 
-void Prop::clearProp()                                        //20s后消失
+void Prop::clearProp()                                        
 {
     Console::setCursorPosition(x, y);
     cout << "  ";
+    Map::map[x][y][0] = 0;
 }
 
 void Prop::append()
@@ -41,90 +52,95 @@ void Prop::append()
     Map::map[this->x][this->y][0] = 5;                        
 }
 
-
-BulletProp::BulletProp(int x, int y, char*body, int isSee) :Prop(x, y, body, isSee){ }
+//BulletProp class
+BulletProp::BulletProp(int x, int y, char*body) :Prop(x, y, body){ }
 
 BulletProp::~BulletProp(){ }
 
-void BulletProp::isGet(TankUser&Tank)                          //增加子弹伤害
+void BulletProp::isGet(TankUser&Tank)                          
 {
-    int a;
-    for (int i = -1; i < 2; i++) 
-    {
-        for (int j = -2; j < 4; j++)
-        {
-            if (Map::map[i][j][0] == 5) a = 1;
-            else a = 0;
-        }
-    }
-    while (a)                                                     //子弹伤害1->3,持续时间10s
-    {
         this->clearProp();
-        Tank.attack = 3;
-        Sleep(10000);
+        Tank.attack = 3;                                   //增加子弹伤害
+        for (int i = 0; i < 100; i++)
+        {
+            Tank.getBullet()[i]->body = u8"▲";            //改变子弹形状
+        }
+        Sleep(5000);                                       //持续时间5s
+        for (int i = 0; i < 100; i++)
+        {
+            Tank.getBullet()[i]->body = u8"◆";
+        }
         Tank.attack = 1;
     }
 
-}
-
-InvincibleProp::InvincibleProp(int x, int y, char*body, int isSee) :Prop(x, y, body, isSee) { }
+//InvincibleProp class
+InvincibleProp::InvincibleProp(int x, int y, char*body) :Prop(x, y, body) { }
 
 InvincibleProp::~InvincibleProp() { }
 
-void InvincibleProp::isGet(TankUser&Tank,TankEnemy&tank)          //触之即死
+void InvincibleProp::isGet(TankUser&Tank)          //触之即死
 { 
-    int a;
-    for (int i = -1; i < 2; i++)
-    {
-        for (int j = -2; j < 4; j++)
-        {
-            if (Map::map[i][j][0] == 5) a = 1;
-            else a = 0;
-           // if (this->x == Tank.getX() + i || this->x + 1 == Tank.getX() + i && this->y == Tank.getY() + j)a = 1;
-           //else a = 0;
-        }
-    }
-    while (a)                                                     //敌人自爆伤害减为0，持续时间10s
-    {
         this->clearProp();
-        tank.selfboom = 0;
-        Sleep(10000);
-        tank.selfboom = 1;
-    }
-
+        TankEnemy::selfboom = 0;
+        Sleep(5000);
+        TankEnemy::selfboom = 1;
 }
 
 //prop class 
-int prop::propNum = 0;
-prop::prop(){ }
+int props::propNum = 0;
+props::props(){ }
 
-prop::~prop(){ }
+props::~props(){ }
 
-void prop::add(int x,int y)
+void props::initProp(TankUser&Tank)
 {
-    switch (propNum % 2)
+    while (true)
     {
+        switch (propNum % 2)
+        {
         case 0:
         {
-            *prop1 = BulletProp(x, y, u8"▲",1);
-            Sleep(20000);
-            prop1->clearProp();
-            break;;
+            prop1 = new BulletProp(Console::Random(4, 26), Console::Random(4, 73));
+            prop1->showProp();
+            prop1->append();
+            if (prop1->IsGet(Tank))
+            {
+                prop1->isGet(Tank);
+            }
+            else
+            {
+                Sleep(10000);
+                prop1->clearProp();
+            }
+            delete prop1;
+            Sleep(10000);
+            break;
         }
         case 1:
         {
-            *prop2 = InvincibleProp(x, y, u8"★", 1);
-            Sleep(20000);
-            prop2->clearProp();
+            prop2 = new InvincibleProp(Console::Random(4, 26), Console::Random(4, 73));
+            prop2->showProp();
+            prop2->append();
+            if (prop2->IsGet(Tank))
+            {
+                prop2->isGet(Tank);
+            }
+            else
+            {
+                Sleep(10000);
+                prop2->clearProp();
+            }
+            delete prop2;
+            Sleep(10000);
             break;
         }
         default:
             break;
+        }
+        propNum++;
     }
-    propNum++;
 }
 
-void prop::del(){ }
 
 
 

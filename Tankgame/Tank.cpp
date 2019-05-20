@@ -248,13 +248,6 @@ void TankEnemy::isShoot(TankUser&Tank)                                          
 				}
 			}
 		}
-		//for (int i = -1; i < 2; i++)
-		//{
-		//    for (int j = -2; j < 4; j++)
-		//    {
-		//        if ( (Tank.getBullet()[n]->getX()== this->getX() + i) || (Tank.getBullet()[n]->getX() + 1 == Tank.getX() + i) && (Tank.getBullet()[n]->getY()==this->getY() + j)) this->blood--;
-		//    }
-		//}
 	}
 }
 
@@ -295,7 +288,7 @@ int TankEnemy::isAlive()
 //敌方坦克群
 TankEnemies::TankEnemies()                //构造函数，设定初始属性
 {
-	enemies[0] = new TankEnemy(2, 20, green, 1);
+	enemies[0] = new TankEnemy(2, 20, green,1);
 	enemies[0]->show(); enemies[0]->append();
 	enemies[1] = new TankEnemy(2, 40, red, 1);
 	enemies[1]->show(); enemies[1]->append();
