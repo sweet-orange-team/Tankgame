@@ -119,17 +119,58 @@ int Control::start() {				//主程序开始
 	map.show();
 	TankUser mytank = TankUser();
 	TankEnemies enemies = TankEnemies();
-    //props p = props();
-    //p.initProp(mytank);
+    props p = props();
 	mytank.show();
-	while (true)
-	{
-		console.checkKey(mytank);
-		mytank.bulletMove();
-		enemies.allEnemyMove();
-		map.refresh();
+    int count=0;
+    int num=0;
+    while (true)
+    {
+        console.checkKey(mytank);
+        mytank.bulletMove();
+        enemies.allEnemyMove();
+        map.refresh();
+        //prop.refresh
+        {
+        if (count% 125==0)
+        {
+            p.initProp(mytank);
+            count = 0;
+        }
+        if (count == 0)
+        {
+            if (p.prop1->IsGet(mytank))
+            {
+                p.prop1->isGet(mytank);
+                num = 1;
+            }
+            else if (p.prop2->IsGet(mytank))
+            {
+                p.prop2->isGet(mytank);
+                num = 2;
+            }
+        }
+        if (count == 63)
+        {
+            switch (num)
+            {
+            case 1:
+            {
+                p.prop1->Recover(mytank);
+                delete p.prop1;
+                break;
+            }
+            case 2:
+            {
+                p.prop2->Recover(mytank);
+                delete p.prop2;
+                break;
+            }
+            }
+        }
+    }
 		if (!mytank.isAlive())break;
 		Sleep(80);
+        count++;
 	}
 
 	system("pause");

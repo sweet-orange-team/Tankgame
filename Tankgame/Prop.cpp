@@ -57,21 +57,24 @@ BulletProp::BulletProp(int x, int y, char*body) :Prop(x, y, body){ }
 
 BulletProp::~BulletProp(){ }
 
-void BulletProp::isGet(TankUser&Tank)                          
+void BulletProp::isGet(TankUser&Tank)                      //道具效果
 {
         this->clearProp();
         Tank.attack = 3;                                   //增加子弹伤害
         for (int i = 0; i < 100; i++)
         {
             Tank.getBullet()[i]->body = u8"▲";            //改变子弹形状
-        }
-        Sleep(5000);                                       //持续时间5s
-        for (int i = 0; i < 100; i++)
-        {
-            Tank.getBullet()[i]->body = u8"◆";
-        }
-        Tank.attack = 1;
+        }      
     }
+
+void BulletProp::Recover(TankUser&Tank)                    //复原
+{
+    for (int i = 0; i < 100; i++)
+    {
+        Tank.getBullet()[i]->body = u8"◆";
+    }
+    Tank.attack = 1;
+}
 
 //InvincibleProp class
 InvincibleProp::InvincibleProp(int x, int y, char*body) :Prop(x, y, body) { }
@@ -82,8 +85,11 @@ void InvincibleProp::isGet(TankUser&Tank)          //触之即死
 { 
         this->clearProp();
         TankEnemy::selfboom = 0;
-        Sleep(5000);
-        TankEnemy::selfboom = 1;
+}
+
+void InvincibleProp::Recover(TankUser&Tank)
+{
+    TankEnemy::selfboom = 1;
 }
 
 //prop class 
@@ -94,8 +100,6 @@ props::~props(){ }
 
 void props::initProp(TankUser&Tank)
 {
-    while (true)
-    {
         switch (propNum % 2)
         {
         case 0:
@@ -103,17 +107,6 @@ void props::initProp(TankUser&Tank)
             prop1 = new BulletProp(Console::Random(4, 26), Console::Random(4, 73));
             prop1->showProp();
             prop1->append();
-            if (prop1->IsGet(Tank))
-            {
-                prop1->isGet(Tank);
-            }
-            else
-            {
-                Sleep(10000);
-                prop1->clearProp();
-            }
-            delete prop1;
-            Sleep(10000);
             break;
         }
         case 1:
@@ -121,17 +114,6 @@ void props::initProp(TankUser&Tank)
             prop2 = new InvincibleProp(Console::Random(4, 26), Console::Random(4, 73));
             prop2->showProp();
             prop2->append();
-            if (prop2->IsGet(Tank))
-            {
-                prop2->isGet(Tank);
-            }
-            else
-            {
-                Sleep(10000);
-                prop2->clearProp();
-            }
-            delete prop2;
-            Sleep(10000);
             break;
         }
         default:
@@ -139,7 +121,6 @@ void props::initProp(TankUser&Tank)
         }
         propNum++;
     }
-}
 
 
 

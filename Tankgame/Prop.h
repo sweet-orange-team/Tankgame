@@ -11,6 +11,7 @@ public:
     ~Prop();
     int IsGet(TankUser&Tank);                        //判断是否被捡到
     virtual void isGet(TankUser&Tank) = 0;
+    virtual void Recover(TankUser&Tank) = 0;
    virtual void showProp();
    virtual void clearProp();
    virtual void append();
@@ -27,6 +28,7 @@ public:
     BulletProp(int x, int y, char*body = u8"▲");
     ~BulletProp();
     void isGet(TankUser&Tank);
+    void Recover(TankUser&Tank);
 };
 
 class InvincibleProp :public Prop                     //无敌
@@ -35,6 +37,7 @@ public:
     InvincibleProp(int x, int y, char*body = u8"★");
     ~InvincibleProp();
     void isGet(TankUser&Tank);
+    void Recover(TankUser&Tank);
 };
 
 
@@ -45,7 +48,6 @@ public:
     ~props();
     static int propNum;
     void initProp(TankUser&Tank);
-private:
     BulletProp*prop1;
     InvincibleProp*prop2;
 };
