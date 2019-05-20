@@ -12,10 +12,10 @@ public:
     int IsGet(TankUser&Tank);                        //判断是否被捡到
     virtual void isGet(TankUser&Tank) = 0;
     virtual void Recover(TankUser&Tank) = 0;
-   virtual void showProp();
-   virtual void clearProp();
-   virtual void append();
-   virtual char* getBody();
+	void showProp();
+	void clearProp();
+	void append();
+	char* getBody();
 protected:
     int x, y;
     char*body;
@@ -27,8 +27,13 @@ class BulletProp :public Prop                         //高级子弹
 public:
     BulletProp(int x, int y, char*body = u8"▲");
     ~BulletProp();
-    void isGet(TankUser&Tank);
-    void Recover(TankUser&Tank);
+    void isGet();
+    void Recover();
+	//虚函数必须定义....
+	void isGet(TankUser&Tank) {};
+	void Recover(TankUser&Tank) {}; 
+	static char* body;
+	static int attack;
 };
 
 class InvincibleProp :public Prop                     //无敌

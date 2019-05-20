@@ -3,6 +3,7 @@
 #include"ctime"
 #include"Bullet.h"
 #include"Map.h"
+#include"Prop.h"
 using namespace std;
 
 
@@ -68,16 +69,14 @@ TankUser::TankUser(int x, int y, Color color, int direction) :Tank(x, y, color, 
 {
 	this->color = color;
 	this->direction = direction;
-	this->blood = blood;
-	this->speed = speed;
-	this->armour = armour;
 	this->attack = attack;
 	this->x = x;
 	this->y = y;
+	bulletNum = 0;
 	append();
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 30; i++)
 	{
-		bullet[i] = new Bullet(0, 0, 0);
+		bullet[i] = new Bullet(0, 90, 0, 0, BulletProp::body, BulletProp::attack);
 	}
 }
 
@@ -153,7 +152,8 @@ void TankUser::move(int d)                                                      
 }
 
 void TankUser::shoot() {
-	bullet[bulletNum % 30] = new  Bullet(this->x - 2, this->y, 0);
+	bullet[bulletNum % 30] = new  Bullet(this->x - 2, this->y, 0, 1,
+		BulletProp::body, BulletProp::attack);
 	bullet[bulletNum % 30]->show();
 	bulletNum++;
 }
@@ -237,18 +237,18 @@ void TankEnemy::append()
 	}
 }
 
-void TankEnemy::isShoot(TankUser&Tank)                                                //判断敌人是否被击中
+void TankEnemy::isShoot()                                                //判断敌人是否被击中
 {
 	for (int n = 0; n < 100; n++)
 	{
-		for (int i = this->x - 1; i <= this->x + 2; i++) 
-        {
-			for (int j = this->y - 2; j <= this->y + 3; j++) 
-            {
-				if (Map::map[i][j][0] == 3) 
-                {
-					this->blood -= Tank.attack;
-                    break;
+		for (int i = this->x - 1; i <= this->x + 2; i++)
+		{
+			for (int j = this->y - 2; j <= this->y + 3; j++)
+			{
+				if (Map::map[i][j][0] == 3)
+				{
+					this->blood -= TankUser::attack;
+					break;
 				}
 			}
 		}
@@ -257,28 +257,46 @@ void TankEnemy::isShoot(TankUser&Tank)                                          
 
 int TankEnemy::isAlive()
 {
-	for (int i = this->x - 1; i <= this->x + 2; i++) 
-    {
-		for (int j = this->y - 2; j <= this->y + 3; j++) 
-        {
-			if (Map::map[i][j][0] == 3) 
-            {
-				Alive = 0;
-				TankUser::score += this->score;
+	for (int i = this->x - 1; i <= this->x + 2; i++)
+	{
+		for (int j = this->y - 2; j <= this->y + 3; j++)
+		{
+			int bre = 0;
+			if (Map::map[i][j][0] == 3)
+			{
+				blood -= TankUser::attack;
+				bre = 1;
+				append();
+				Map::map[this->x + 2][this->y - 2][0] = 4;
+				Map::map[this->x + 2][this->y - 1][0] = 4;
+				Map::map[this->x + 2][this->y - 0][0] = 4;
+				Map::map[this->x + 2][this->y + 1][0] = 4;
+				Map::map[this->x + 2][this->y + 2][0] = 4;
+				Map::map[this->x + 2][this->y + 3][0] = 4;
 				break;
 			}
+			if (bre)break;
 		}
 	}
 	for (int i = this->x - 1; i <= this->x + 2; i++) {
 		for (int j = this->y - 2; j <= this->y + 3; j++) {
 			if (Map::map[i][j][0] == 2) {
-				Alive = 0; 
-                TankUser::blood -= selfboom; 
-                break;
+				Alive = 0;
+				TankUser::blood -= selfboom;
+				break;
 			}
 		}
 	}
-	if (blood == 0)Alive = 0;
+	if (blood <= 0||Alive==0) { 
+		Alive = 0; 
+		TankUser::score += this->score; 
+		Map::map[this->x + 2][this->y - 2][0] = 0;
+		Map::map[this->x + 2][this->y - 1][0] = 0;
+		Map::map[this->x + 2][this->y - 0][0] = 0;
+		Map::map[this->x + 2][this->y + 1][0] = 0;
+		Map::map[this->x + 2][this->y + 2][0] = 0;
+		Map::map[this->x + 2][this->y + 3][0] = 0;
+	}
 	if (!Alive) {
 		clear();
 		Console::setColor(color);
@@ -297,11 +315,11 @@ int TankEnemy::isAlive()
 //敌方坦克群
 TankEnemies::TankEnemies()                //构造函数，设定初始属性
 {
-	enemies[0] = new TankEnemy(2, 20, green,1);
+	enemies[0] = new TankEnemy(2, 20, green, 1);
 	enemies[0]->show(); enemies[0]->append();
-	enemies[1] = new TankEnemy(2, 40, red, 1);
+	enemies[1] = new TankEnemy(2, 40, red, 1, 10000, 2);
 	enemies[1]->show(); enemies[1]->append();
-	enemies[2] = new TankEnemy(2, 60, red, 1);
+	enemies[2] = new TankEnemy(2, 60, red, 1, 10000, 2);
 	enemies[2]->show(); enemies[2]->append();
 }
 
@@ -312,14 +330,16 @@ void TankEnemies::allEnemyMove()
 	for (int i = 0; i <= 2; i++)
 	{
 		if (this->enemies[i]->isAlive() == 0) {
-			Color color;
-			if (Console::Random(1,3)>1)
+			Color color = red; int blood = 2; int score = 10000;
+			if (Console::Random(1, 3) > 1)
 			{
 				color = green;
+				blood = 1;
+				score = 5000;
 			}
-			else color = red;
-			this->enemies[i] = new TankEnemy(2, Console::Random(4, 73), color, 1);
-			this->enemies[i]->show(); enemies[i]->append();
+			this->enemies[i] = new TankEnemy(2, Console::Random(4, 73),color,1,score,blood);
+			this->enemies[i]->show(); 
+			this->enemies[i]->append();
 		}
 	}
 	for (size_t i = 0; i <= 2; i++)

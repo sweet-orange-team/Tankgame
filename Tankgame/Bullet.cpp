@@ -4,12 +4,14 @@
 #include"Map.h"
 using namespace std;
 
-Bullet::Bullet(int x, int y, int dir, int isSee)                            //初始化子弹属性
+Bullet::Bullet(int x, int y, int dir, int isSee,char* body,int attack)                            //初始化子弹属性
 {
 	this->x = x;
 	this->y = y;
 	this->direction = dir;
 	this->isSee = isSee;
+	this->body = body;
+	this->attack = attack;
 }
 Bullet::~Bullet() { }
 
@@ -36,7 +38,6 @@ void Bullet::move(int step)                         //子弹移动
 	case 0:
 		Map::map[this->x][this->y][0] = 0;
 		if (this->x >= step * 2&&(this->x!=1&&this->y!=90)) {
-			//todo 子弹击中坦克有时候不消失
 			this->x -= step;
 			append();
 			clear();
@@ -61,6 +62,11 @@ void Bullet::move(int step)                         //子弹移动
 char * Bullet::getBody()
 {
 	return Console::U2G(this->body);
+}
+
+void Bullet::setBody(char* body)
+{
+	this->body = body;
 }
 
 

@@ -78,7 +78,7 @@ protected:
 	int speed;
 	int armour;
     Bullet *bullet[30];
-	int bulletNum=0;
+	int bulletNum;
 };
 
 
@@ -87,11 +87,11 @@ class TankEnemy:public Tank
 {
 public:
     static int selfboom;
-	TankEnemy(int x = 4, int y = 50, Color color = pink, int direction = 1,int score=5000, int blood=2);
+	TankEnemy(int x = 4, int y = 50, Color color = green, int direction = 1,int score=5000, int blood=1);
 	~TankEnemy();
 	void move();
 	void append();
-    void isShoot(TankUser&Tank);
+    void isShoot();
 	int isAlive();
 private:
 	int Alive = 1;

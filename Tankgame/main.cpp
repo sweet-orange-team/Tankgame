@@ -8,14 +8,3 @@ int main() {
     else control.start();
 	return 0;
 }
-
-
-/*
-int Random(int a, int b)   //产生一个[a,b)上的整数
-{
-    int c = (rand() % (a - b)) + a;
-    return c;
-}
-*/
-//不知道放在哪里 哈哈哈哈
-//帮你放在Console里了
