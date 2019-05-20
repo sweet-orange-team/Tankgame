@@ -241,10 +241,14 @@ void TankEnemy::isShoot(TankUser&Tank)                                          
 {
 	for (int n = 0; n < 100; n++)
 	{
-		for (int i = this->x - 1; i <= this->x + 2; i++) {
-			for (int j = this->y - 2; j <= this->y + 3; j++) {
-				if (Map::map[i][j][0] == 3) {
+		for (int i = this->x - 1; i <= this->x + 2; i++) 
+        {
+			for (int j = this->y - 2; j <= this->y + 3; j++) 
+            {
+				if (Map::map[i][j][0] == 3) 
+                {
 					this->blood -= Tank.attack;
+                    break;
 				}
 			}
 		}
@@ -253,9 +257,12 @@ void TankEnemy::isShoot(TankUser&Tank)                                          
 
 int TankEnemy::isAlive()
 {
-	for (int i = this->x - 1; i <= this->x + 2; i++) {
-		for (int j = this->y - 2; j <= this->y + 3; j++) {
-			if (Map::map[i][j][0] == 3) {
+	for (int i = this->x - 1; i <= this->x + 2; i++) 
+    {
+		for (int j = this->y - 2; j <= this->y + 3; j++) 
+        {
+			if (Map::map[i][j][0] == 3) 
+            {
 				Alive = 0;
 				TankUser::score += this->score;
 				break;
@@ -265,7 +272,9 @@ int TankEnemy::isAlive()
 	for (int i = this->x - 1; i <= this->x + 2; i++) {
 		for (int j = this->y - 2; j <= this->y + 3; j++) {
 			if (Map::map[i][j][0] == 2) {
-				Alive = 0; TankUser::blood -= this->selfboom; break;
+				Alive = 0; 
+                TankUser::blood -= selfboom; 
+                break;
 			}
 		}
 	}

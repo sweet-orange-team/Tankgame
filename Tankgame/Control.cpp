@@ -129,6 +129,7 @@ int Control::start() {				//主程序开始
         mytank.bulletMove();
         enemies.allEnemyMove();
         map.refresh();
+
         //prop.refresh
         {
         if (count% 125==0)
@@ -149,25 +150,28 @@ int Control::start() {				//主程序开始
                 num = 2;
             }
         }
-        if (count == 63)
+        if (count == 125)
         {
             switch (num)
             {
             case 1:
             {
                 p.prop1->Recover(mytank);
+                p.prop1->clearProp();
                 delete p.prop1;
                 break;
             }
             case 2:
             {
                 p.prop2->Recover(mytank);
+                p.prop2->clearProp();
                 delete p.prop2;
                 break;
             }
             }
         }
     }
+
 		if (!mytank.isAlive())break;
 		Sleep(80);
         count++;
