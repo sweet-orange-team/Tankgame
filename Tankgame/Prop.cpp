@@ -4,6 +4,7 @@
 #include"Prop.h"
 #include"Tank.h"
 #include"windows.h"
+#include"Control.h"
 using namespace std;
 
 //Prop class 
@@ -62,6 +63,7 @@ BulletProp::~BulletProp() { }
 
 void BulletProp::isGet()                      //道具效果
 {
+    this->clearProp();
 	BulletProp::body = u8"▲";
 	BulletProp::attack = 2;
 }
@@ -72,53 +74,171 @@ void BulletProp::Recover()                    //复原
 	BulletProp::attack = 1;
 }
 
+void BulletProp::showProp()
+{
+    Console::setCursorPosition(x, y);
+    cout << u8"▲";
+}
 
 //InvincibleProp class
+int InvincibleProp::selfboom = 1;
+
 InvincibleProp::InvincibleProp(int x, int y, char*body) :Prop(x, y, body) { }
 
 InvincibleProp::~InvincibleProp() { }
 
-void InvincibleProp::isGet(TankUser&Tank)          //触之即死
+void InvincibleProp::isGet()          //触之即死
 {
 	this->clearProp();
-	TankEnemy::selfboom = 0;
+    InvincibleProp::selfboom = 0;
 }
 
-void InvincibleProp::Recover(TankUser&Tank)
+void InvincibleProp::Recover()
 {
-	TankEnemy::selfboom = 1;
+    InvincibleProp::selfboom = 1;
 }
+
+//BloodProp class
+BloodProp::BloodProp(int x, int y, char*body):Prop(x, y, body) { }
+
+BloodProp::~BloodProp(){ }
+
+void BloodProp::isGet()
+{
+    TankUser::blood++;
+    this->clearProp();
+}
+
+void BloodProp::Recover(){ }
 
 //prop class 
-int props::propNum = 0;
+int props::count = 0;
+int props::num = 0;
 props::props() { }
 
 props::~props() { }
 
-void props::initProp(TankUser&Tank)
+void props::initProp()
 {
-	switch (propNum % 2)
+    props::num = (Console::Random(0,10)%3)+1;
+	switch (props::num)
 	{
-	case 0:
+	case 1:
 	{
 		prop1 = new BulletProp(Console::Random(4, 26), Console::Random(4, 73));
 		prop1->showProp();
 		prop1->append();
 		break;
 	}
-	case 1:
+	case 2:
 	{
 		prop2 = new InvincibleProp(Console::Random(4, 26), Console::Random(4, 73));
 		prop2->showProp();
 		prop2->append();
 		break;
 	}
+    case 3:
+    {
+        prop3 = new BloodProp(Console::Random(4, 26), Console::Random(4, 73));
+        prop3->showProp();
+        prop3->append();
+        break;
+    }
 	default:
 		break;
 	}
-	propNum++;
 }
 
+void props::UseProp(TankUser&Tank)
+{
+    int isget = 0;
+    if (props::count % 125 == 0) {
+        initProp();
+        props::count = 0;
+    }
+
+    switch (props::num)
+    {
+    case 1:
+        if (prop1->IsGet(Tank))
+        {
+            isget = 1;
+            prop1->isGet();
+            break;
+        }
+    case 2:
+        if (prop2->IsGet(Tank))
+        {
+            isget = 1;
+            prop2->isGet();
+            break;
+        }
+    case 3:
+        if (prop3->IsGet(Tank))
+        {
+            isget = 1;
+            prop3->isGet();
+            break;
+        }
+    default:
+        break;
+    }
+    if (isget) {
+        if (props::count == 63)
+        {
+            switch (props::num)
+            {
+            case 1:
+            {
+                prop1->Recover();
+                delete prop1;
+                break;
+            }
+            case 2:
+            {
+                prop2->Recover();
+                delete prop2;
+                break;
+            }
+            case 3:
+            {
+                delete prop3;
+                break;
+            }
+            default:
+                break;
+            }
+            props::count = 0;
+        }
+    }
+    else if (props::count == 124)
+    {
+        switch (props::num)
+        {
+        case 1:
+        {
+            prop1->clearProp();
+            delete prop1;
+            break;
+        }
+        case 2:
+        {
+            prop2->clearProp();
+            delete prop2;
+            break;
+        }
+        case 3:
+        {
+            prop3->clearProp();
+            delete prop3;
+            break;
+        }
+        default:
+            break;
+        }
+    }
+    props::count++;
+}
 
 
 
@@ -129,4 +249,4 @@ void props::initProp(TankUser&Tank)
 //y-2  y   y+3
 //x-1		//     ■
 //x+0 		//■   ■   ■
-//x+1        //■        ■
+//x+1       //■        ■

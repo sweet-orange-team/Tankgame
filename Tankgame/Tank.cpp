@@ -64,12 +64,10 @@ int Tank::getY()
 //ÓÃ»§Àà
 int TankUser::blood = 5;
 int TankUser::score = 0;
-int TankUser::attack = 1;
 TankUser::TankUser(int x, int y, Color color, int direction) :Tank(x, y, color, direction)          //¹¹Ôìº¯Êý£¬³õÊ¼»¯Ì¹¿ËÄ¬ÈÏ²ÎÊý
 {
 	this->color = color;
 	this->direction = direction;
-	this->attack = attack;
 	this->x = x;
 	this->y = y;
 	bulletNum = 0;
@@ -210,7 +208,7 @@ void TankEnemy::move()
 		}
 		else
 		{
-			TankUser::blood--;
+			TankUser::blood-= InvincibleProp::selfboom;
 			clear();
 			x = 2; y = 94;
 			Alive = 0;
@@ -247,7 +245,7 @@ void TankEnemy::isShoot()                                                //ÅÐ¶Ïµ
 			{
 				if (Map::map[i][j][0] == 3)
 				{
-					this->blood -= TankUser::attack;
+					this->blood -= BulletProp::attack;
 					break;
 				}
 			}
@@ -264,7 +262,7 @@ int TankEnemy::isAlive()
 			int bre = 0;
 			if (Map::map[i][j][0] == 3)
 			{
-				blood -= TankUser::attack;
+				blood -= BulletProp::attack;
 				bre = 1;
 				append();
 				Map::map[this->x + 2][this->y - 2][0] = 4;
@@ -282,7 +280,7 @@ int TankEnemy::isAlive()
 		for (int j = this->y - 2; j <= this->y + 3; j++) {
 			if (Map::map[i][j][0] == 2) {
 				Alive = 0;
-				TankUser::blood -= selfboom;
+				TankUser::blood -= InvincibleProp::selfboom;
 				break;
 			}
 		}

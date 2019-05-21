@@ -68,5 +68,3 @@ void Bullet::setBody(char* body)
 {
 	this->body = body;
 }
-
-

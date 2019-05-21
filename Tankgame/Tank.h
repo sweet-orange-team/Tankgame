@@ -66,7 +66,6 @@ public:
 	~TankUser();
 	static int blood;
 	static int score;
-    static int attack;
 	void move(int direction);                //ÒÆ¶¯Ì¹¿Ë
 	void shoot();
 	void bulletMove();

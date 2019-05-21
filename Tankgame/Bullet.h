@@ -25,5 +25,6 @@ protected:
 	int attack;
 };
 
+
 #endif !_BULLET_H
 

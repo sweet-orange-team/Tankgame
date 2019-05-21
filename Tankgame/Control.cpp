@@ -121,7 +121,6 @@ int Control::start() {				//主程序开始
 	TankEnemies enemies = TankEnemies();
     props p = props();
 	mytank.show();
-	int num = 0;
     while (true)
     {
         console.checkKey(mytank);
@@ -129,18 +128,101 @@ int Control::start() {				//主程序开始
         enemies.allEnemyMove();
 		
 		//这只是我方便调试，你不要这么写
-		num++;
-		if(num>=500)BulletProp::body = u8"▲";
+		//count++;
+		//if(count>=500)BulletProp::body = u8"▲";
 		//不要这么写！！！！
 
+        p.UseProp(mytank);
         map.refresh();
 		if (!mytank.isAlive())break;
 		Sleep(80);
 	}
-
 	system("pause");
 	system("cls");
 	system("pause");
 	return 0;
 }
 
+
+
+
+/*
+if (props::count % 125 == 0) {
+p.initProp();
+props::count = 0;
+}
+if (props::count < 124)
+{
+if (p.prop1->IsGet(mytank))
+{
+props::num = 1;
+p.prop1->isGet();
+
+}
+
+if (p.prop2->IsGet(mytank))
+{
+props::num = 2;
+p.prop2->isGet();
+}
+
+if (p.prop3->IsGet(mytank))
+{
+props::num = 3;
+p.prop3->isGet();
+}
+
+if (props::count == 63)
+{
+switch (props::num)
+{
+case 1:
+{
+p.prop1->Recover();
+delete p.prop1;
+break;
+}
+case 2:
+{
+p.prop2->Recover();
+delete p.prop2;
+break;
+}
+case 3:
+{
+delete p.prop3;
+break;
+}
+default:
+break;
+}
+props::count = 0;
+}
+}
+else if (props::count == 124)
+{
+switch (props::num)
+{
+case 1:
+{
+p.prop1->clearProp();
+delete p.prop1;
+break;
+}
+case 2:
+{
+p.prop2->clearProp();
+delete p.prop2;
+break;
+}
+case 3:
+{
+p.prop3->clearProp();
+delete p.prop3;
+break;
+}
+default:
+break;
+}
+}
+*/
