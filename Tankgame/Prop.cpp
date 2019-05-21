@@ -20,14 +20,59 @@ Prop::~Prop() { }
 int Prop::IsGet(TankUser&Tank)                        //≈–∂œ «∑Ò±ªºÒµΩ
 {
 	int a = 0;
-	for (int i = -1; i < 2; i++)
-	{
-		for (int j = -2; j < 4; j++)
-		{
-			if (Map::map[Tank.getX() + i][Tank.getY() + j][0] == 5) a = 1;
-		}
-	}
-	return a;
+    switch (Tank.getDir())
+    {
+    case 0:
+    {
+        for (int i = Tank.getX() - 1; i <= Tank.getX() + 2; i++)
+        {
+            for (int j = Tank.getY() - 2; j < Tank.getY() + 4; j++)
+            {
+                if (Map::map[i][j][0] == 5) a = 1;
+            }
+        }
+        break;
+    }
+    case 1:
+    {
+        for (int i = Tank.getX() - 2; i < Tank.getX() + 2; i++)
+        {
+            for (int j = Tank.getY() - 2; j < Tank.getY() + 4; j++)
+            {
+                if (Map::map[i][j][0] == 5) a = 1;
+            }
+        }
+        break;
+    }
+    case 2:
+    {
+        for (int i = Tank.getX() - 1; i < Tank.getX() + 2; i++)
+        {
+            for (int j = Tank.getY() - 3; j < Tank.getY() + 4; j++)
+            {
+                if (Map::map[i][j][0] == 5) a = 1;
+            }
+        }
+        break;
+    }
+    case 3:
+    {
+        for (int i = Tank.getX() - 1; i < Tank.getX() + 2; i++)
+        {
+            for (int j = Tank.getY() - 2; j <= Tank.getY() + 4; j++)
+            {
+                if (Map::map[i][j][0] == 5) a = 1;
+            }
+        }
+        break;
+    }
+    default:
+    {
+        a = 0;
+        break;
+    }
+    }
+    return a;
 }
 
 char* Prop::getBody()

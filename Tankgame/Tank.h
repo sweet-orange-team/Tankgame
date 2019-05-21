@@ -90,7 +90,7 @@ public:
 	~TankEnemy();
 	void move();
 	void append();
-    void isShoot();
+    void isShot();
 	int isAlive();
 private:
 	int Alive = 1;

@@ -235,11 +235,11 @@ void TankEnemy::append()
 	}
 }
 
-void TankEnemy::isShoot()                                                //判断敌人是否被击中
+void TankEnemy::isShot()                                                //判断敌人是否被击中
 {
 	for (int n = 0; n < 100; n++)
 	{
-		for (int i = this->x - 1; i <= this->x + 2; i++)
+		for (int i = this->x - 1; i <= this->x + 1; i++)
 		{
 			for (int j = this->y - 2; j <= this->y + 3; j++)
 			{
