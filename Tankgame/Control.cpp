@@ -5,6 +5,7 @@ using namespace std;
 #include"Console.h"
 #include"Tank.h"
 #include"Prop.h"
+#include"Barrier.h"
 #include<time.h>
 #include<conio.h>
 
@@ -32,7 +33,7 @@ int Control::menu()
         cout << Console::U2G(n);
     }
     Console::setCursorPosition(8, 49);
-    Console::setColor(white);
+    Console::setColor(3);
     cout << "a、d移动光标，y确定";
     Console::setCursorPosition(9, 0);
     Console::setColor(gray);
@@ -55,10 +56,8 @@ int Control::menu()
         cout << Console::U2G(n);
     }
     Console::setCursorPosition(25, 46);
-    Console::setColor(white);
-    cout << "Made";
-    Console::setColor(gray);
-    cout << " by ";
+    Console::setColor(14);
+    cout << "Made by ";
     Console::setColor(yellow);
     cout<<"Sweet-Orange-Team";
     Console::setColor(white);
@@ -97,6 +96,7 @@ int Control::menu()
                     Console::setColor(white);
                     Console::setCursorPosition(16, 61);
                     cout << ">>退出游戏";
+                    Console::setColor(white);
                     j = 0;
                 }
                 break;
@@ -120,6 +120,8 @@ int Control::start() {				//主程序开始
 	TankUser mytank = TankUser();
 	TankEnemies enemies = TankEnemies();
     props p = props();
+    barries b = barries();
+    b.initBarries();
 	mytank.show();
     while (true)
     {
@@ -127,6 +129,7 @@ int Control::start() {				//主程序开始
         mytank.bulletMove();
         enemies.allEnemyMove();
         p.UseProp(mytank);
+        b.b1->iShot();
         map.refresh();
 		if (!mytank.isAlive())break;
 		Sleep(40);

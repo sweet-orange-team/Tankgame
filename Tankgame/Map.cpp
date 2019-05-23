@@ -5,7 +5,6 @@ using namespace std;
 #include"Console.h"
 #include"Tank.h" 
 
-
 int Map::map[30][106][2] = { { {0} } };
 
 Map::Map()								//初始化作战地图  29*79
@@ -39,10 +38,7 @@ Map::Map()								//初始化作战地图  29*79
 	}
 }
 
-Map::~Map()
-{
-}
-
+Map::~Map(){ }
 
 void Map::show() {							//千万别动这个东西，有毒
 	Console console;
@@ -75,7 +71,7 @@ void Map::show() {							//千万别动这个东西，有毒
 		}
 		cout << "\n";
 	}
-    Console::setColor(3);
+    Console::setColor(14);
     Console::setCursorPosition(25, 82);
     cout << "▲ 高级子弹  ★ 无敌  ● 回血";
     Console::setColor(white);

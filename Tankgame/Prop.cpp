@@ -50,8 +50,10 @@ char* Prop::getBody()
 
 void Prop::showProp()
 {
+    Console::setColor(14);
 	Console::setCursorPosition(x, y);
 	cout << this->getBody();
+    Console::setColor(white);
 }
 
 void Prop::clearProp()
@@ -89,9 +91,11 @@ void BulletProp::Recover()                    //¸´Ô­
 
 void BulletProp::showProp()
 {
+    Console::setColor(14);
     char*n= u8"¡ø";
     Console::setCursorPosition(x, y);
     cout << Console::U2G(n);
+    Console::setColor(white);
 }
 
 //InvincibleProp class
