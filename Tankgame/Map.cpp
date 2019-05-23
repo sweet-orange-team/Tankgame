@@ -75,6 +75,10 @@ void Map::show() {							//千万别动这个东西，有毒
 		}
 		cout << "\n";
 	}
+    Console::setColor(3);
+    Console::setCursorPosition(25, 82);
+    cout << "▲ 高级子弹  ★ 无敌  ● 回血";
+    Console::setColor(white);
 }
 
 void Map::refresh()

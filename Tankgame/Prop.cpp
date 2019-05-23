@@ -131,10 +131,10 @@ int props::num = 0;
 int props::isget = 0;
 int props::judge = 0;
 int props::timercount = 0;
-void props::timer()
+void props::timer()                         //¼ÆÊ±Æ÷
 {
     Console::setCursorPosition(2, 85);
-    Console::setColor(white);
+    Console::setColor(11);
     switch (timercount)
     {
     case 0:cout << "10"; break;
@@ -149,6 +149,7 @@ void props::timer()
     case 225:cout << " 1"; break;
     default:break;
     }
+    Console::setColor(white);
 }
 props::props() { }
 
@@ -199,7 +200,7 @@ void props::UseProp(TankUser&Tank)
     case 1:
         if (prop1->IsGet(Tank))
         {
-            timercount = 0;
+            timercount = count;
             isget = 1;
             prop1->isGet();
             break;
@@ -207,7 +208,7 @@ void props::UseProp(TankUser&Tank)
     case 2:
         if (prop2->IsGet(Tank))
         {
-            timercount = 0;
+            timercount = count;
             isget = 1;
             prop2->isGet();
             break;
@@ -215,7 +216,7 @@ void props::UseProp(TankUser&Tank)
     case 3:
         if (prop3->IsGet(Tank))
         {
-            timercount = 0;
+            timercount = 250;
             isget = 1;
             prop3->isGet();
             break;
