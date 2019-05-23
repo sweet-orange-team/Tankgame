@@ -130,6 +130,26 @@ int props::count = 0;
 int props::num = 0;
 int props::isget = 0;
 int props::judge = 0;
+int props::timercount = 0;
+void props::timer()
+{
+    Console::setCursorPosition(2, 85);
+    Console::setColor(white);
+    switch (timercount)
+    {
+    case 0:cout << "10"; break;
+    case 25:cout << " 9"; break;
+    case 50:cout << " 8"; break;
+    case 75:cout << " 7"; break;
+    case 100:cout << " 6"; break;
+    case 125:cout << " 5"; break;
+    case 150:cout << " 4"; break;
+    case 175:cout << " 3"; break;
+    case 200:cout << " 2"; break;
+    case 225:cout << " 1"; break;
+    default:break;
+    }
+}
 props::props() { }
 
 props::~props() { }
@@ -179,6 +199,7 @@ void props::UseProp(TankUser&Tank)
     case 1:
         if (prop1->IsGet(Tank))
         {
+            timercount = 0;
             isget = 1;
             prop1->isGet();
             break;
@@ -186,6 +207,7 @@ void props::UseProp(TankUser&Tank)
     case 2:
         if (prop2->IsGet(Tank))
         {
+            timercount = 0;
             isget = 1;
             prop2->isGet();
             break;
@@ -193,6 +215,7 @@ void props::UseProp(TankUser&Tank)
     case 3:
         if (prop3->IsGet(Tank))
         {
+            timercount = 0;
             isget = 1;
             prop3->isGet();
             break;
@@ -201,8 +224,12 @@ void props::UseProp(TankUser&Tank)
         break;
     }
     if (isget) {
-        if (props::count == 125)
+        timer();
+        if (props::count == 250)
         {
+                Console::setCursorPosition(2, 85);
+                Console::setColor(white);
+                cout << "  "; 
             switch (props::num)
             {
             case 1:
@@ -228,11 +255,11 @@ void props::UseProp(TankUser&Tank)
             default:
                 break;
             }
-            props::count = 1;
+            props::count = 2;
             judge = 0;
         }
     }
-    else if (props::count == 126&&judge)
+    else if (props::count == 252&&judge)
         {
             switch (props::num)
             {
@@ -259,8 +286,9 @@ void props::UseProp(TankUser&Tank)
             }
             props::count = -1;
         }
-    if (judge == 0 && count == 125)count = -1;
+    if (judge == 0 && count == 250)count = -1;
     props::count++;
+    props::timercount++;
 }
 
 
