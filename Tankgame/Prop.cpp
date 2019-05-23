@@ -5,6 +5,7 @@
 #include"Tank.h"
 #include"windows.h"
 #include"Control.h"
+#include<conio.h>
 using namespace std;
 
 //Prop class 
@@ -19,58 +20,25 @@ Prop::~Prop() { }
 
 int Prop::IsGet(TankUser&Tank)                        //判断是否被捡到
 {
-	int a = 0;
-    switch (Tank.getDir())
-    {
-    case 0:
-    {
-        for (int i = Tank.getX() - 1; i <= Tank.getX() + 2; i++)
+    int a = 0,i,j;
+    while (!a) {
+        for (i = Tank.getX() - 2, j = Tank.getY() - 2; j < Tank.getY() + 4; j++)
         {
-            for (int j = Tank.getY() - 2; j < Tank.getY() + 4; j++)
-            {
-                if (Map::map[i][j][0] == 5) a = 1;
-            }
+            if (Map::map[i][j][0] == 5 && Tank.getDir() == 0) a = 1;
+        }
+        for ( i = Tank.getX() + 2,  j = Tank.getY() - 2; j < Tank.getY() + 4; j++)
+        {
+            if (Map::map[i][j][0] == 5 && Tank.getDir() == 1) a = 1;
+        }
+        for ( i = Tank.getX() - 1,  j = Tank.getY() - 3; i <= Tank.getX() + 1; i++)
+        {
+            if (Map::map[i][j][0] == 5 && Tank.getDir() == 2) a = 1;
+        }
+        for ( i = Tank.getX() - 1,  j = Tank.getY() + 4; i <= Tank.getX() + 1; i++)
+        {
+            if (Map::map[i][j][0] == 5 && Tank.getDir() == 3) a = 1;
         }
         break;
-    }
-    case 1:
-    {
-        for (int i = Tank.getX() - 2; i < Tank.getX() + 2; i++)
-        {
-            for (int j = Tank.getY() - 2; j < Tank.getY() + 4; j++)
-            {
-                if (Map::map[i][j][0] == 5) a = 1;
-            }
-        }
-        break;
-    }
-    case 2:
-    {
-        for (int i = Tank.getX() - 1; i < Tank.getX() + 2; i++)
-        {
-            for (int j = Tank.getY() - 3; j < Tank.getY() + 4; j++)
-            {
-                if (Map::map[i][j][0] == 5) a = 1;
-            }
-        }
-        break;
-    }
-    case 3:
-    {
-        for (int i = Tank.getX() - 1; i < Tank.getX() + 2; i++)
-        {
-            for (int j = Tank.getY() - 2; j <= Tank.getY() + 4; j++)
-            {
-                if (Map::map[i][j][0] == 5) a = 1;
-            }
-        }
-        break;
-    }
-    default:
-    {
-        a = 0;
-        break;
-    }
     }
     return a;
 }
@@ -90,7 +58,7 @@ void Prop::clearProp()
 {
 	Console::setCursorPosition(x, y);
 	cout << "  ";
-	Map::map[x][y][0] = 0;
+     Map::map[x][y][0] = 0;
 }
 
 void Prop::append()
@@ -121,8 +89,9 @@ void BulletProp::Recover()                    //复原
 
 void BulletProp::showProp()
 {
+    char*n= u8"▲";
     Console::setCursorPosition(x, y);
-    cout << u8"▲";
+    cout << Console::U2G(n);
 }
 
 //InvincibleProp class
@@ -159,6 +128,8 @@ void BloodProp::Recover(){ }
 //prop class 
 int props::count = 0;
 int props::num = 0;
+int props::isget = 0;
+int props::judge = 0;
 props::props() { }
 
 props::~props() { }
@@ -196,10 +167,11 @@ void props::initProp()
 
 void props::UseProp(TankUser&Tank)
 {
-    int isget = 0;
-    if (props::count % 125 == 0) {
+
+    if (props::count == 0) {
         initProp();
-        props::count = 0;
+        isget=0;
+        judge = 1;
     }
 
     switch (props::num)
@@ -229,59 +201,65 @@ void props::UseProp(TankUser&Tank)
         break;
     }
     if (isget) {
-        if (props::count == 63)
+        if (props::count == 125)
         {
             switch (props::num)
             {
             case 1:
             {
                 prop1->Recover();
+                isget = 0;
                 delete prop1;
                 break;
             }
             case 2:
             {
                 prop2->Recover();
+                isget = 0;
                 delete prop2;
                 break;
             }
             case 3:
             {
+                isget = 0;
                 delete prop3;
                 break;
             }
             default:
                 break;
             }
-            props::count = 0;
+            props::count = 1;
+            judge = 0;
         }
     }
-    else if (props::count == 124)
-    {
-        switch (props::num)
+    else if (props::count == 126&&judge)
         {
-        case 1:
-        {
-            prop1->clearProp();
-            delete prop1;
-            break;
+            switch (props::num)
+            {
+            case 1:
+            {
+                prop1->clearProp();
+                delete prop1;
+                break;
+            }
+            case 2:
+            {
+                prop2->clearProp();
+                delete prop2;
+                break;
+            }
+            case 3:
+            {
+                prop3->clearProp();
+                delete prop3;
+                break;
+            }
+            default:
+                break;
+            }
+            props::count = -1;
         }
-        case 2:
-        {
-            prop2->clearProp();
-            delete prop2;
-            break;
-        }
-        case 3:
-        {
-            prop3->clearProp();
-            delete prop3;
-            break;
-        }
-        default:
-            break;
-        }
-    }
+    if (judge == 0 && count == 125)count = -1;
     props::count++;
 }
 

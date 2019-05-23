@@ -61,6 +61,8 @@ public:
     ~props();
     static int count;
     static int num;
+    static int isget;
+    static int judge;
     void initProp();
     void UseProp(TankUser&Tank);
     BulletProp*prop1;
