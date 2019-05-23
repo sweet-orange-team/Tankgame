@@ -4,6 +4,7 @@ using namespace std;
 #include"Map.h"
 #include"Console.h"
 #include"Tank.h" 
+#include"Barrier.h"
 
 int Map::map[30][106][2] = { { {0} } };
 
@@ -77,7 +78,7 @@ void Map::show() {							//千万别动这个东西，有毒
     Console::setColor(white);
 }
 
-void Map::refresh()
+void Map::refresh(barries b)
 {
 	Console::setCursorPosition(7, 90);
 	Console::setColor(red);
@@ -94,4 +95,6 @@ void Map::refresh()
 			}
 		}
 	}
+    b.r1->show();
+    b.r2->show();
 }

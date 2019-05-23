@@ -130,7 +130,7 @@ int Control::start() {				//主程序开始
         enemies.allEnemyMove();
         p.UseProp(mytank);
         b.b1->iShot();
-        map.refresh();
+        map.refresh(b);
 		if (!mytank.isAlive())break;
 		Sleep(40);
 	}
