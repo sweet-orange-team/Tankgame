@@ -162,11 +162,14 @@ props::~props() { }
 void props::initProp()
 {
     props::num = (Console::Random(0,10)%3)+1;
+    int x = Console::Random(4, 26);                //道具不能出现在障碍物里面！！！
+    int y = Console::Random(4, 73);
+    if (Map::map[x][y][0] == 0)
 	switch (props::num)
 	{
 	case 1:
 	{
-		prop1 = new BulletProp(Console::Random(4, 26), Console::Random(4, 73));
+		prop1 = new BulletProp(x, y);
 		prop1->showProp();
 		prop1->append();
 		break;
@@ -188,6 +191,12 @@ void props::initProp()
 	default:
 		break;
 	}
+    else
+    {
+        int x = Console::Random(4, 26);                //道具不能出现在障碍物里面！！！
+        int y = Console::Random(4, 73);
+        this->initProp();
+    }
 }
 
 void props::UseProp(TankUser&Tank)

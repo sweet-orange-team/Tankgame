@@ -23,6 +23,13 @@ River::River()
     this->xlen = 3;
     this->ylen = 8;
     this->id = 6;
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            this->body[i][j] = 0;
+        }
+    }
 }
 River::~River(){ }
 
@@ -34,37 +41,46 @@ void River::show()
     {
     case 1:
     {
-        Console::setColor(this->color);
-        Console::setCursorPosition( this->x , this->y );
-        cout << "  " << "  " << Console::U2G(n);// << "  ";
-        Console::setCursorPosition(this->x + 1, this->y );
-        cout << "  " << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
-        Console::setCursorPosition(this->x + 2, this->y);
-        cout << Console::U2G(n) << Console::U2G(n);// << "  " << "  ";
-        Console::setColor(white);
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                this->body[i][j] = this->Body[0][i][j];
+            }
+        }
     }
     case 2:
     {
-        Console::setColor(this->color);
-        Console::setCursorPosition(this->x, this->y);
-        cout  << "  " << Console::U2G(n) ;
-        Console::setCursorPosition(this->x + 1, this->y);
-        cout  << Console::U2G(n) << Console::U2G(n) << Console::U2G(n) ;
-        Console::setCursorPosition(this->x + 2, this->y);
-        cout  << "  " << "  " << Console::U2G(n) << Console::U2G(n);
-        Console::setColor(white);
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                this->body[i][j] = this->Body[1][i][j];
+            }
+        }
     }
     case 3:
     {
-        Console::setColor(this->color);
-        Console::setCursorPosition(this->x, this->y);
-        cout << "  " << Console::U2G(n)<<"  "<<"  " ;
-        Console::setCursorPosition(this->x + 1, this->y);
-        cout << Console::U2G(n) << Console::U2G(n) <<"  "<<"  ";
-        Console::setCursorPosition(this->x + 2, this->y);
-        cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
-        Console::setColor(white);
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                this->body[i][j] = this->Body[2][i][j];
+            }
+        }
     }
+    }
+    Console::setColor(this->color);
+    for (int i = 0; i < this->xlen; i++)
+    {
+        for (int j = 0; j < this->ylen; j += 2)
+        {
+            Console::setCursorPosition(this->x + i, this->y + j);
+            if (this->body[i][j] == 1)
+            {
+                cout << Console::U2G(n);
+            }
+        }
     }
 }
 
@@ -74,7 +90,7 @@ void River::append()
     {
         for (int j = 0; j < this->ylen; j++)
         {
-            if (this->body[a][i][j]==1)
+            if (this->body[i][j]==1)
                 Map::map[this->x + i][this->y + j][0] = this->id;
         }
     }
@@ -107,10 +123,17 @@ void Wall::show()
 {
     char*n = u8"¡ö";
     Console::setColor(this->color);
-    Console::setCursorPosition(this->x, this->y);
-    cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
-    Console::setCursorPosition(this->x+1, this->y);
-    cout << Console::U2G(n) << Console::U2G(n);//<<"  ";
+    for (int i = 0; i < this->xlen; i++)
+    {
+        for (int j = 0; j < this->ylen; j += 2)
+        {
+            Console::setCursorPosition(this->x + i, this->y + j);
+            if (this->body[i][j] == 1)
+            {
+                cout << Console::U2G(n);
+            }
+        }
+    }
     Console::setColor(white);
 }
 
@@ -144,23 +167,18 @@ void Brick::show()
 {
     char*n = u8"¡ö";
     Console::setColor(this->color);
-    Console::setCursorPosition(this->x, this->y);
-    cout << "  " << "  " << "  " << "  " << Console::U2G(n) << "  " << Console::U2G(n); //<< "  " << "  " << "  " << "  ";
-    Console::setCursorPosition(this->x + 1, this->y);
-    cout << "  " << "  " << "  " << "  " << Console::U2G(n) << "  " << Console::U2G(n); //<< "  " << "  " << "  " << "  ";
-    Console::setCursorPosition(this->x + 2, this->y);
-    cout << Console::U2G(n) << "  " << "  " << Console::U2G(n) << Console::U2G(n) << Console::U2G(n) << Console::U2G(n) << Console::U2G(n) << "  " << "  " << Console::U2G(n);
-    Console::setCursorPosition(this->x + 3, this->y);
-    cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n) << Console::U2G(n) << "  " << Console::U2G(n) <<"  " << Console::U2G(n) << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
-    Console::setCursorPosition(this->x + 4, this->y);
-    cout << "  " << "  " << "  " << Console::U2G(n) << Console::U2G(n) << Console::U2G(n) << Console::U2G(n) << Console::U2G(n); //<< "  " << "  " << "  ";
-    Console::setCursorPosition(this->x + 5, this->y);
-    cout << "  " << Console::U2G(n) << Console::U2G(n) << Console::U2G(n) << Console::U2G(n) << Console::U2G(n) << Console::U2G(n) << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);//<< "  ";
-    Console::setCursorPosition(this->x + 6, this->y);
-    cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n) << "  " << Console::U2G(n) << Console::U2G(n) << Console::U2G(n) << "  " << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
-    Console::setCursorPosition(this->x + 7, this->y);
-    cout << Console::U2G(n) << Console::U2G(n)<< "  " << "  " << "  "  << Console::U2G(n)  << "  " << "  " << "  "<< Console::U2G(n) << Console::U2G(n);
-    Console::setColor(white);  
+    for (int i=0; i < this->xlen; i++)
+    {
+        for (int j = 0; j < this->ylen; j+=2)
+        {
+            Console::setCursorPosition(this->x + i, this->y + j);
+            if (this->body[i][j] == 1)
+            {
+                cout << Console::U2G(n);
+            }
+        }
+    }
+    Console::setColor(white);
 }
 
 void Brick::append()
@@ -177,15 +195,25 @@ void Brick::append()
 
 void Brick::iShot()
 {
-        for (int i = this->x+xlen; i >= this->x ; i--)
+    for (int i = xlen; i >= 0; i--)
         {
-            for (int j = this->y; j <= this->y + 9; j++)
+            for (int j = 0; j < ylen; j++)
             {
-                if (Map::map[i][j][0] == 3)
+                if (Map::map[this->x + i][this->y + j][0] == 3&&this->body[i-1][j]==1)
                 {
-                    Console::setCursorPosition(i-1, j);
+                    this->body[i - 1][j] = 0;
+                    if (!j % 2)
+                    {
+                        Console::setCursorPosition(x+i - 1, y+j - 1);
+                        this->body[i - 1][j - 1] = 0;
+                    }
+                    else
+                    {
+                        Console::setCursorPosition(x+i - 1, y+j + 1);
+                        this->body[i - 1][j + 1] = 0;
+                    }
+                    this->append();
                     cout << "  ";
-                    Map::map[i][j][0] = 0;
                     break;
                 }
             }
@@ -216,4 +244,14 @@ void barries::initBarries()
     b1 = new Brick();
     b1->show();
     b1->append();
+}
+
+void barries::refresh()
+{
+    this->r1->show();
+    this->r2->show();
+    this->w1->show();
+    this->w2->show();
+    this->w3->show();
+    this->b1->iShot();
 }

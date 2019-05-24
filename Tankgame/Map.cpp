@@ -95,6 +95,5 @@ void Map::refresh(barries b)
 			}
 		}
 	}
-    b.r1->show();
-    b.r2->show();
+    b.refresh();
 }

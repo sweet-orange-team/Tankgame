@@ -41,8 +41,9 @@ void Bullet::move(int step)                         //子弹移动
 			this->x -= step;
 			append();
 			clear();
-			if (Map::map[x - 1][y][0] == 4 || Map::map[x - 1][y + 1][0] == 4|| Map::map[x - 1][y][0] == 7 || Map::map[x - 1][y + 1][0] == 7|| Map::map[x - 1][y][0] == 1 || Map::map[x - 1][y + 1][0] == 1) {	//判断前面有没有敌方坦克
-				this->x = 1;
+			if (Map::map[x - 1][y][0] == 4 || Map::map[x - 1][y + 1][0] == 4|| Map::map[x - 1][y][0] == 7 || Map::map[x - 1][y + 1][0] == 7|| Map::map[x - 1][y][0] == 1 || Map::map[x - 1][y + 1][0] == 1) 	//判断前面有没有敌方坦克
+            {
+                this->x = 1;
 				this->y = 90;
 			}
 			else show();
