@@ -193,7 +193,7 @@ void Brick::append()
     }
 }
 
-void Brick::iShot()
+void Brick::iShot()                                                //地图上好像改不过来 你写的时候先把这里绿了吧
 {
     for (int i = xlen; i >= 0; i--)
         {
@@ -218,6 +218,34 @@ void Brick::iShot()
                 }
             }
         }
+
+    /*for (int i = xlen; i >= 1; i--)
+    {
+    for (int j = 0; j < ylen; j++)
+    {
+    if (j % 2)
+    {
+    if (Map::map[this->x + i + 1][this->y + j][0] == 3 || Map::map[this->x + i + 1][this->y + j - 1][0] == 3 && this->body[i - 1][j] == 1)
+    {
+    this->body[i - 1][j] = 0;
+    this->body[i - 1][j - 1] = 0;
+    Console::setCursorPosition(x + i - 1, y + j - 1);
+    }
+    }
+    else
+    {
+    if (Map::map[this->x + i + 1][this->y + j][0] == 3 || Map::map[this->x + i + 1][this->y + j + 1][0] == 3 && this->body[i - 1][j] == 1)
+    {
+    this->body[i - 1][j] = 0;
+    this->body[i - 1][j + 1] = 0;
+    Console::setCursorPosition(x + i - 1, y + j);
+    }
+    }
+    this->append();
+    cout << "  ";
+    break;
+    }
+    }*/
 }
 
 //barries
