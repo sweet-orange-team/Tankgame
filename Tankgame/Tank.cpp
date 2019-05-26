@@ -225,6 +225,11 @@ TankEnemy::TankEnemy(int x, int y, Color color, int direction, int score, int bl
 	this->blood = blood;
 	this->newX = x;
 	append();
+	bulletNum = 0;
+	for (int i = 0; i < 30; i++)
+	{
+		bullet[i] = new Bullet(0, 90, 0, 0, BulletProp::body, BulletProp::attack);
+	}
 }
 
 TankEnemy::~TankEnemy()
@@ -235,10 +240,12 @@ void TankEnemy::move()
 {
 	int m = 1, i, j;
 	if (this->isAlive()) {
+		shoot(); bulletMove();			//每次移动，射击一次
 		Console::setColor(this->color);
 		for (i = this->x + 2, j = this->y - 2; j < this->y + 4; j++)
 		{
-			if ((Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7) && this->x <= 26)m = 0;
+			if ((Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7) && this->x <= 26)
+				m = 0;
 		}
 		if (m) {
 			if (this->x <= 26) {
@@ -269,6 +276,42 @@ void TankEnemy::move()
 		x = 2; y = 94;
 		append();
 		Console::setColor(black);
+	}
+}
+void TankEnemy::shoot() {
+	if (shouldShoot % 7 == 0) {
+		switch (this->direction)
+		{
+		case 0:
+			if (this->x >= 3)
+				bullet[bulletNum % 30] = new  Bullet(this->x - 2, this->y, 0, 1, u8"◆", 1);
+			break;
+		case 1:
+			if (this->x <= 26)
+				bullet[bulletNum % 30] = new  Bullet(this->x + 2, this->y, 1, 1, u8"◆", 1);
+			break;
+		case 2:
+			if (this->y >= 6)
+				bullet[bulletNum % 30] = new  Bullet(this->x, this->y - 4, 2, 1, u8"◆", 1);
+			break;
+		case 3:
+			if (this->y <= 72)
+				bullet[bulletNum % 30] = new  Bullet(this->x, this->y + 4, 3, 1, u8"◆", 1);
+			break;
+		default:
+			break;
+		}
+		bullet[bulletNum % 30]->show();
+		bulletNum++;
+	}
+	shouldShoot++;
+}
+
+void TankEnemy::bulletMove()
+{
+	for (int i = 0; i < 30; i++)
+	{
+		this->bullet[i]->move();
 	}
 }
 
@@ -338,6 +381,11 @@ int TankEnemy::isAlive()
 		Map::map[this->x + 2][this->y + 1][0] = 0;
 		Map::map[this->x + 2][this->y + 2][0] = 0;
 		Map::map[this->x + 2][this->y + 3][0] = 0;
+		for (int i = 0; i < 30; i++)				//如果坦克死亡，清除掉坦克的子弹
+		{
+			Map::map[this->bullet[i]->getX()][this->bullet[i]->getY()][0] = 0;
+			this->bullet[i]->clear();
+		}
 	}
 	if (!Alive) {
 		clear();
@@ -387,7 +435,7 @@ void TankEnemies::allEnemyMove()
 	for (size_t i = 0; i <= 2; i++)
 	{
 		this->enemies[i]->move();
+		this->enemies[i]->bulletMove();
 	}
-
 }
 

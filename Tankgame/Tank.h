@@ -89,6 +89,8 @@ public:
 	TankEnemy(int x = 4, int y = 50, Color color = green, int direction = 1,int score=5000, int blood=1);
 	~TankEnemy();
 	void move();
+	void shoot();
+	void bulletMove();
 	void append();
     void isShot();
 	int isAlive();
@@ -98,6 +100,9 @@ private:
     int blood;
 	double speed = 0.3;
 	double newX;
+	Bullet *bullet[30];
+	int bulletNum;
+	int shouldShoot = 0;		//因为敌方坦克是在每个循环都移动一次，所以添加一个计数器降低射击频率
 };
 
 

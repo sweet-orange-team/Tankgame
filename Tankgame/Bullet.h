@@ -18,6 +18,8 @@ public:
 	char *body = u8"¡ô";
 	virtual char* getBody();
 	void setBody(char *body);
+	int getX();
+	int getY();
 	int isSee;
 protected:
     int direction;

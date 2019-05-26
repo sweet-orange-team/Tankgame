@@ -140,3 +140,13 @@ void Bullet::setBody(char* body)
 {
 	this->body = body;
 }
+
+int Bullet::getX()
+{
+	return this->x;
+}
+
+int Bullet::getY()
+{
+	return this->y;
+}
