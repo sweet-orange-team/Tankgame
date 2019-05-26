@@ -170,24 +170,24 @@ void TankUser::shoot() {
 	switch (this->direction)
 	{
 	case 0:
-		if(this->x>=3)
-		bullet[bulletNum % 30] = new  Bullet(this->x - 2, this->y, 0, 1,
-			BulletProp::body, BulletProp::attack);
+		if (this->x >= 3)
+			bullet[bulletNum % 30] = new  Bullet(this->x - 2, this->y, 0, 1,
+				BulletProp::body, BulletProp::attack);
 		break;
 	case 1:
-		if(this->x<=26)
-		bullet[bulletNum % 30] = new  Bullet(this->x + 2, this->y, 1, 1,
-			BulletProp::body, BulletProp::attack);
+		if (this->x <= 26)
+			bullet[bulletNum % 30] = new  Bullet(this->x + 2, this->y, 1, 1,
+				BulletProp::body, BulletProp::attack);
 		break;
 	case 2:
 		if (this->y >= 6)
-		bullet[bulletNum % 30] = new  Bullet(this->x, this->y - 4, 2, 1,
-			BulletProp::body, BulletProp::attack);
+			bullet[bulletNum % 30] = new  Bullet(this->x, this->y - 4, 2, 1,
+				BulletProp::body, BulletProp::attack);
 		break;
 	case 3:
 		if (this->y <= 72)
-		bullet[bulletNum % 30] = new  Bullet(this->x, this->y + 4, 3, 1,
-			BulletProp::body, BulletProp::attack);
+			bullet[bulletNum % 30] = new  Bullet(this->x, this->y + 4, 3, 1,
+				BulletProp::body, BulletProp::attack);
 		break;
 	default:
 		break;
@@ -223,7 +223,6 @@ TankEnemy::TankEnemy(int x, int y, Color color, int direction, int score, int bl
 {
 	this->score = score;
 	this->blood = blood;
-	this->newX = x;
 	append();
 	bulletNum = 0;
 	for (int i = 0; i < 30; i++)
@@ -238,20 +237,46 @@ TankEnemy::~TankEnemy()
 
 void TankEnemy::move()
 {
-	int m = 1, i, j;
+	newDistance += speed;					//避免走的过快
+	int moveDistance = int(newDistance);	//单步行走
+	newDistance = newDistance > 1 ? newDistance - 1 : newDistance;
+	if (newDistance > 0.9) {
+		int gailv = Console::Random(0, 10);	//随机取移动方向
+		if (gailv >= 5)this->direction = 1;
+		if (gailv >= 0 && gailv < 1)this->direction = 0;
+		if (gailv >= 1 && gailv <= 2)this->direction = 2;
+		if (gailv >= 3 && gailv <= 4)this->direction = 3;
+	}
 	if (this->isAlive()) {
-		shoot(); bulletMove();			//每次移动，射击一次
+		//盗用tank user的移动方法
+		int m = 1, i, j;
 		Console::setColor(this->color);
-		for (i = this->x + 2, j = this->y - 2; j < this->y + 4; j++)
-		{
-			if ((Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7) && this->x <= 26)
-				m = 0;
-		}
-		if (m) {
-			if (this->x <= 26) {
+		switch (this->direction) {
+		case 0: {
+			for (i = this->x - 2, j = this->y - 2; j < this->y + 4; j++)
+			{
+				if (Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7)m = 0;
+			}
+			if (this->x >= 3 && m) {
 				this->clear();
-				newX += speed;
-				this->x = (int)newX;
+				this->x -= moveDistance;
+				Console::setCursorPosition(this->x - 1, this->y - 2);
+				cout << "  " << Console::U2G(n) << "  ";
+				Console::setCursorPosition(this->x + 0, this->y - 2);
+				cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
+				Console::setCursorPosition(this->x + 1, this->y - 2);
+				cout << Console::U2G(n) << "  " << Console::U2G(n);
+			}
+			break;
+		}
+		case 1: {
+			for (i = this->x + 2, j = this->y - 2; j < this->y + 4; j++)
+			{
+				if (Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7)m = 0;
+			}
+			if (this->x <= 26 && m) {
+				this->clear();
+				this->x += moveDistance;
 				Console::setCursorPosition(this->x - 1, this->y - 2);
 				cout << Console::U2G(n) << "  " << Console::U2G(n);
 				Console::setCursorPosition(this->x + 0, this->y - 2);
@@ -259,27 +284,91 @@ void TankEnemy::move()
 				Console::setCursorPosition(this->x + 1, this->y - 2);
 				cout << "  " << Console::U2G(n) << "  ";
 			}
-			else
-			{
-				TankUser::blood -= InvincibleProp::selfboom;
-				clear();
-				x = 2; y = 94;
-				Alive = 0;
-				show();
-			}
-			append();
-			Console::setColor(black);
+			break;
 		}
+		case 2: {
+			for (i = this->x - 1, j = this->y - 3; i <= this->x + 1; i++)
+			{
+				if (Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7)m = 0;
+			}
+			if (this->y >= 6 && m) {
+				this->clear();
+				this->y -= moveDistance * 2;
+				Console::setCursorPosition(this->x - 1, this->y - 2);
+				cout << "  " << Console::U2G(n) << Console::U2G(n);
+				Console::setCursorPosition(this->x + 0, this->y - 2);
+				cout << Console::U2G(n) << Console::U2G(n) << "  ";
+				Console::setCursorPosition(this->x + 1, this->y - 2);
+				cout << "  " << Console::U2G(n) << Console::U2G(n);
+			}
+			break;
+		}
+		case 3: {
+			for (i = this->x - 1, j = this->y + 4; i <= this->x + 1; i++)
+			{
+				if (Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7)m = 0;
+			}
+			if (this->y <= 73 && m) {
+				this->clear();
+				this->y += moveDistance * 2;
+				Console::setCursorPosition(this->x - 1, this->y - 2);
+				cout << Console::U2G(n) << Console::U2G(n) << "  ";
+				Console::setCursorPosition(this->x + 0, this->y - 2);
+				cout << "  " << Console::U2G(n) << Console::U2G(n);
+				Console::setCursorPosition(this->x + 1, this->y - 2);
+				cout << Console::U2G(n) << Console::U2G(n) << "  ";
+			}
+			break;
+		}
+		}
+		append();
+		Console::setColor(black);
+		//盗用tank user的移动方法
+		shoot(); bulletMove();
+	}
+}
+
+
+/*shoot(); bulletMove();			//每次移动，射击一次
+Console::setColor(this->color);
+for (i = this->x + 2, j = this->y - 2; j < this->y + 4; j++)
+{
+	if ((Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7) && this->x <= 26)
+		m = 0;
+}
+if (m) {
+	if (this->x <= 26) {
+		this->clear();
+		newX += speed;
+		this->x = (int)newX;
+		Console::setCursorPosition(this->x - 1, this->y - 2);
+		cout << Console::U2G(n) << "  " << Console::U2G(n);
+		Console::setCursorPosition(this->x + 0, this->y - 2);
+		cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
+		Console::setCursorPosition(this->x + 1, this->y - 2);
+		cout << "  " << Console::U2G(n) << "  ";
 	}
 	else
 	{
+		TankUser::blood -= InvincibleProp::selfboom;
+		clear();
 		x = 2; y = 94;
-		append();
-		Console::setColor(black);
+		Alive = 0;
+		show();
 	}
+	append();
+	Console::setColor(black);
 }
+}
+else
+{
+	x = 2; y = 94;
+	append();
+	Console::setColor(black);
+}
+}*/
 void TankEnemy::shoot() {
-	if (shouldShoot % 7 == 0) {
+	if (shouldShoot % 17 == 0) {
 		switch (this->direction)
 		{
 		case 0:
