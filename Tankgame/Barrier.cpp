@@ -219,6 +219,15 @@ void Brick::iShot()                                                //µÿÕº…œ∫√œÒ∏
             }
         }
 
+	//clear
+	for (int i = 0; i < this->xlen; i++)
+	{
+		for (int j = 0; j < this->ylen; j++)
+		{
+			Map::map[this->x + i][this->y + j][0] = 0;
+		}
+	}
+
     /*for (int i = xlen; i >= 1; i--)
     {
     for (int j = 0; j < ylen; j++)
