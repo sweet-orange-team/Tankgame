@@ -25,7 +25,7 @@ void Bullet::clear() {
 	Console::setCursorPosition(x, y);
 	cout << "  ";
 }
-void Bullet::append()                                                        //在地图上更新子弹
+void Bullet::append()								//在地图上更新子弹
 {
 	Map::map[this->x][this->y][0] = 3;
 }
@@ -38,12 +38,12 @@ void Bullet::move(int step)                         //子弹移动
 	case 0:
 		Map::map[this->x][this->y][0] = 0;
 		if (this->x >= step * 2&&(this->x!=1&&this->y!=90)) {
-			this->x -= step;
-			append();
-			clear();
-			if (Map::map[x - 1][y][0] == 4 || Map::map[x - 1][y + 1][0] == 4|| Map::map[x - 1][y][0] == 
-				7 || Map::map[x - 1][y + 1][0] == 7|| Map::map[x - 1][y][0] == 1 || Map::map[x - 1][y +
-				1][0] == 1) 	//判断下一个抵达点有没有敌方坦克
+			this->x -= step;				//提前预定下一个抵达点，子弹坐标增加
+			append();						//添加进地图
+			clear();						//清除在屏幕上的显示
+			if (Map::map[x ][y][0] == 4 || Map::map[x][y + 1][0] == 4|| Map::map[x][y][0] == 
+				7 || Map::map[x][y + 1][0] == 7|| Map::map[x][y][0] == 1 || Map::map[x][y +
+				1][0] == 1) 				//判断该抵达点有没有敌方坦克
             {
                 this->x = 1;
 				this->y = 90;
@@ -60,13 +60,13 @@ void Bullet::move(int step)                         //子弹移动
 		break;
 	case 1:
 		Map::map[this->x][this->y][0] = 0;
-		if (this->x <= 80 - step * 2 && (this->x != 1 && this->y != 90)) {
-			this->x += step;						////提前预定下一个抵达点，子弹坐标增加
+		if (this->x <= 29 - step * 2 && (this->x != 1 && this->y != 90)) {
+			this->x += step;						//提前预定下一个抵达点，子弹坐标增加
 			append();								//添加进地图
 			clear();								//清除在屏幕上的显示
-			if (Map::map[x + 1 ][y][0] == 4 || Map::map[x + 1][y + 1][0] == 4 || Map::map[x + 1][y][0] 
-				== 7 || Map::map[x + 1][y + 1][0] == 7 || Map::map[x + 1][y][0] == 1 || Map::map[x + 1]
-				[y + 1][0] == 1) 	//判断前面有没有敌方坦克，墙体，砖块
+			if (Map::map[x][y][0] == 4 || Map::map[x][y + 1][0] == 4 || Map::map[x][y][0] 
+				== 7 || Map::map[x][y + 1][0] == 7 || Map::map[x][y][0] == 1 || Map::map[x]
+				[y + 1][0] == 1) 	
 			{
 				this->x = 1;
 				this->y = 90;
@@ -88,8 +88,8 @@ void Bullet::move(int step)                         //子弹移动
 			this->y -= step * 2;
 			append();
 			clear();
-			if (Map::map[x][y - 2][0] == 4 || Map::map[x ][y - 2][0] ==
-				7 || Map::map[x][y - 2][0] == 1 ) 	//判断前面有没有敌方坦克
+			if (Map::map[x][y][0] == 4 || Map::map[x ][y][0] ==
+				7 || Map::map[x][y][0] == 1 ) 	
 			{
 				this->x = 1;
 				this->y = 90;
@@ -106,12 +106,12 @@ void Bullet::move(int step)                         //子弹移动
 		break;
 	case 3:
 		Map::map[this->x][this->y][0] = 0;
-		if (this->y < (80 - step * 2 )&& (this->x != 1 && this->y != 90)) {
+		if (this->y < (78 - step * 2 )&& (this->x != 1 && this->y != 90)) {
 			this->y += step * 2;				
 			append();
 			clear();
-			if (Map::map[x][y + 2][0] == 4 || Map::map[x][y + 2][0] ==
-				7 || Map::map[x][y + 2][0] == 1) 	//判断前面有没有敌方坦克
+			if (Map::map[x][y][0] == 4 || Map::map[x][y][0] ==
+				7 || Map::map[x][y][0] == 1) 	//判断该抵达点有没有敌方坦克
 			{
 				this->x = 1;
 				this->y = 90;
