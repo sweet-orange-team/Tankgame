@@ -79,7 +79,7 @@ BulletProp::~BulletProp() { }
 void BulletProp::isGet()                      //道具效果
 {
     this->clearProp();
-	BulletProp::body = u8"▲";
+	BulletProp::body = u8"●";
 	BulletProp::attack = 2;
 }
 
@@ -92,7 +92,7 @@ void BulletProp::Recover()                    //复原
 void BulletProp::showProp()
 {
     Console::setColor(14);
-    char*n= u8"▲";
+    char*n= u8"●";
     Console::setCursorPosition(x, y);
     cout << Console::U2G(n);
     Console::setColor(white);

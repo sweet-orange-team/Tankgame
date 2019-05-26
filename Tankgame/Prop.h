@@ -19,13 +19,13 @@ public:
 protected:
     int x, y;
     char*body;
-    //char*body   高级子弹：▲     无敌：★     回血：●
+    //char*body   高级子弹：●     无敌：★     回血：▲
 };
 
 class BulletProp :public Prop                         //高级子弹
 {
 public:
-    BulletProp(int x, int y, char*body = u8"▲");
+    BulletProp(int x, int y, char*body = u8"●");
     ~BulletProp() ;
     void isGet() ;
     void Recover();
@@ -47,7 +47,7 @@ public:
 class BloodProp :public Prop                          //回血
 {
     public:
-        BloodProp(int x, int y, char*body = u8"●");
+        BloodProp(int x, int y, char*body = u8"▲");
         ~BloodProp();
         void isGet() ;
         void Recover() ;
