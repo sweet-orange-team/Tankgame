@@ -106,7 +106,7 @@ void Bullet::move(int step)                         //×Óµ¯ÒÆ¶¯
 		break;
 	case 3:
 		Map::map[this->x][this->y][0] = 0;
-		if (this->y < (78 - step * 2 )&& (this->x != 1 && this->y != 90)) {
+		if (this->y < (77 - step * 2 )&& (this->x != 1 && this->y != 90)) {
 			this->y += step * 2;				
 			append();
 			clear();
