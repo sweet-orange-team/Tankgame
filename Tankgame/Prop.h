@@ -64,7 +64,7 @@ public:
     static int isget;
     static int judge;
     static int timercount;
-    static void timer();
+    static void timer(); 
     void initProp();
     void UseProp(TankUser&Tank);
     BulletProp*prop1;

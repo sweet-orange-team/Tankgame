@@ -89,86 +89,109 @@ int TankUser::getDir()                              //返回坦克方向
 
 void TankUser::move(int d)                                                                              //移动坦克
 {
-    int m = 1, i, j;
+	int m = 1, i, j;
 	Console::setColor(this->color);
 	this->direction = d;
-        switch (d) {
-        case 0: {
-            for (i = this->x - 2, j = this->y - 2; j < this->y + 4; j++)
-            {
-                if (Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7)m = 0;
-            }
-            if (this->x >= 3&&m) {
-                this->clear();
-                this->x -= 1;
-                Console::setCursorPosition(this->x - 1, this->y - 2);
-                cout << "  " << Console::U2G(n) << "  ";
-                Console::setCursorPosition(this->x + 0, this->y - 2);
-                cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
-                Console::setCursorPosition(this->x + 1, this->y - 2);
-                cout << Console::U2G(n) << "  " << Console::U2G(n);
-            }
-            break;
-        }
-        case 1: {
-            for (i = this->x + 2, j = this->y - 2; j < this->y + 4; j++)
-            {
-                if (Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7)m = 0;
-            }
-            if (this->x <= 26&&m) {
-                this->clear();
-                this->x += 1;
-                Console::setCursorPosition(this->x - 1, this->y - 2);
-                cout << "  " << Console::U2G(n) << "  ";
-                Console::setCursorPosition(this->x + 0, this->y - 2);
-                cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
-                Console::setCursorPosition(this->x + 1, this->y - 2);
-                cout << Console::U2G(n) << "  " << Console::U2G(n);
-            }
-            break;
-        }
-        case 2: {
-            for ( i = this->x - 1,  j = this->y - 3; i <= this->x + 1; i++)
-            {
-            if (Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7)m = 0;
-            }
-            if (this->y >= 6&&m) {
-                this->clear();
-                this->y -= 2;
-                Console::setCursorPosition(this->x - 1, this->y - 2);
-                cout << "  " << Console::U2G(n) << "  ";
-                Console::setCursorPosition(this->x + 0, this->y - 2);
-                cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
-                Console::setCursorPosition(this->x + 1, this->y - 2);
-                cout << Console::U2G(n) << "  " << Console::U2G(n);
-            }
-            break;
-        }
-        case 3: {
-            for (i = this->x - 1, j = this->y + 4; i <= this->x + 1; i++)
-            {
-                if (Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7)m = 0;
-            }
-            if (this->y <= 73&&m) {
-                this->clear();
-                this->y += 2;
-                Console::setCursorPosition(this->x - 1, this->y - 2);
-                cout << "  " << Console::U2G(n) << "  ";
-                Console::setCursorPosition(this->x + 0, this->y - 2);
-                cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
-                Console::setCursorPosition(this->x + 1, this->y - 2);
-                cout << Console::U2G(n) << "  " << Console::U2G(n);
-            }
-            break;
-        }
-    }
+	switch (d) {
+	case 0: {
+		for (i = this->x - 2, j = this->y - 2; j < this->y + 4; j++)
+		{
+			if (Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7)m = 0;
+		}
+		if (this->x >= 3 && m) {
+			this->clear();
+			this->x -= 1;
+			Console::setCursorPosition(this->x - 1, this->y - 2);
+			cout << "  " << Console::U2G(n) << "  ";
+			Console::setCursorPosition(this->x + 0, this->y - 2);
+			cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
+			Console::setCursorPosition(this->x + 1, this->y - 2);
+			cout << Console::U2G(n) << "  " << Console::U2G(n);
+		}
+		break;
+	}
+	case 1: {
+		for (i = this->x + 2, j = this->y - 2; j < this->y + 4; j++)
+		{
+			if (Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7)m = 0;
+		}
+		if (this->x <= 26 && m) {
+			this->clear();
+			this->x += 1;
+			Console::setCursorPosition(this->x - 1, this->y - 2);
+			cout << Console::U2G(n) << "  " << Console::U2G(n);
+			Console::setCursorPosition(this->x + 0, this->y - 2);
+			cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
+			Console::setCursorPosition(this->x + 1, this->y - 2);
+			cout << "  " << Console::U2G(n) << "  ";
+		}
+		break;
+	}
+	case 2: {
+		for (i = this->x - 1, j = this->y - 3; i <= this->x + 1; i++)
+		{
+			if (Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7)m = 0;
+		}
+		if (this->y >= 6 && m) {
+			this->clear();
+			this->y -= 2;
+			Console::setCursorPosition(this->x - 1, this->y - 2);
+			cout << "  " << Console::U2G(n) << Console::U2G(n);
+			Console::setCursorPosition(this->x + 0, this->y - 2);
+			cout << Console::U2G(n) << Console::U2G(n) << "  ";
+			Console::setCursorPosition(this->x + 1, this->y - 2);
+			cout << "  " << Console::U2G(n) << Console::U2G(n);
+		}
+		break;
+	}
+	case 3: {
+		for (i = this->x - 1, j = this->y + 4; i <= this->x + 1; i++)
+		{
+			if (Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7)m = 0;
+		}
+		if (this->y <= 73 && m) {
+			this->clear();
+			this->y += 2;
+			Console::setCursorPosition(this->x - 1, this->y - 2);
+			cout << Console::U2G(n) << Console::U2G(n) << "  ";
+			Console::setCursorPosition(this->x + 0, this->y - 2);
+			cout << "  " << Console::U2G(n) << Console::U2G(n);
+			Console::setCursorPosition(this->x + 1, this->y - 2);
+			cout << Console::U2G(n) << Console::U2G(n) << "  ";
+		}
+		break;
+	}
+	}
 	append();
 	Console::setColor(black);
 }
 
 void TankUser::shoot() {
-	bullet[bulletNum % 30] = new  Bullet(this->x - 2, this->y, 0, 1,
-		BulletProp::body, BulletProp::attack);
+	switch (this->direction)
+	{
+	case 0:
+		if(this->x>=3)
+		bullet[bulletNum % 30] = new  Bullet(this->x - 2, this->y, 0, 1,
+			BulletProp::body, BulletProp::attack);
+		break;
+	case 1:
+		if(this->x<=26)
+		bullet[bulletNum % 30] = new  Bullet(this->x + 2, this->y, 1, 1,
+			BulletProp::body, BulletProp::attack);
+		break;
+	case 2:
+		if (this->y >= 6)
+		bullet[bulletNum % 30] = new  Bullet(this->x, this->y - 4, 2, 1,
+			BulletProp::body, BulletProp::attack);
+		break;
+	case 3:
+		if (this->y <= 72)
+		bullet[bulletNum % 30] = new  Bullet(this->x, this->y + 4, 3, 1,
+			BulletProp::body, BulletProp::attack);
+		break;
+	default:
+		break;
+	}
 	bullet[bulletNum % 30]->show();
 	bulletNum++;
 }
@@ -210,37 +233,37 @@ TankEnemy::~TankEnemy()
 
 void TankEnemy::move()
 {
-    int m = 1,i,j;
-    if (this->isAlive()) {
-        Console::setColor(this->color);
-        for (i = this->x + 2, j = this->y - 2; j < this->y + 4; j++)
-        {
-            if ((Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7)&&this->x<=26)m = 0;
-        }
-        if (m) {
-            if (this->x <= 26) {
-                this->clear();
-                newX += speed;
-                this->x = (int)newX;
-                Console::setCursorPosition(this->x - 1, this->y - 2);
-                cout << Console::U2G(n) << "  " << Console::U2G(n);
-                Console::setCursorPosition(this->x + 0, this->y - 2);
-                cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
-                Console::setCursorPosition(this->x + 1, this->y - 2);
-                cout << "  " << Console::U2G(n) << "  ";
-            }
-            else
-            {
-                TankUser::blood -= InvincibleProp::selfboom;
-                clear();
-                x = 2; y = 94;
-                Alive = 0;
-                show();
-            }
-            append();
-            Console::setColor(black);
-        }
-    }
+	int m = 1, i, j;
+	if (this->isAlive()) {
+		Console::setColor(this->color);
+		for (i = this->x + 2, j = this->y - 2; j < this->y + 4; j++)
+		{
+			if ((Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7) && this->x <= 26)m = 0;
+		}
+		if (m) {
+			if (this->x <= 26) {
+				this->clear();
+				newX += speed;
+				this->x = (int)newX;
+				Console::setCursorPosition(this->x - 1, this->y - 2);
+				cout << Console::U2G(n) << "  " << Console::U2G(n);
+				Console::setCursorPosition(this->x + 0, this->y - 2);
+				cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
+				Console::setCursorPosition(this->x + 1, this->y - 2);
+				cout << "  " << Console::U2G(n) << "  ";
+			}
+			else
+			{
+				TankUser::blood -= InvincibleProp::selfboom;
+				clear();
+				x = 2; y = 94;
+				Alive = 0;
+				show();
+			}
+			append();
+			Console::setColor(black);
+		}
+	}
 	else
 	{
 		x = 2; y = 94;
@@ -261,17 +284,17 @@ void TankEnemy::append()
 
 void TankEnemy::isShot()                                                //判断敌人是否被击中
 {
-		for (int i = this->x - 1; i <= this->x + 1; i++)
+	for (int i = this->x - 1; i <= this->x + 1; i++)
+	{
+		for (int j = this->y - 2; j <= this->y + 3; j++)
 		{
-			for (int j = this->y - 2; j <= this->y + 3; j++)
+			if (Map::map[i][j][0] == 3)
 			{
-				if (Map::map[i][j][0] == 3)
-				{
-					this->blood -= BulletProp::attack;
-					break;
-				}
+				this->blood -= BulletProp::attack;
+				break;
 			}
 		}
+	}
 }
 
 int TankEnemy::isAlive()
@@ -280,13 +303,13 @@ int TankEnemy::isAlive()
 	{
 		for (int j = this->y - 2; j <= this->y + 3; j++)
 		{
-			int bre = 0;
-			if (Map::map[i][j][0] == 3)
+			int bre = 0;						//判断是否被击中
+			if (Map::map[i][j][0] == 3)			//如果被击中
 			{
-				blood -= BulletProp::attack;
+				blood -= BulletProp::attack;	//血量减少
 				bre = 1;
 				append();
-				Map::map[this->x + 2][this->y - 2][0] = 4;
+				Map::map[this->x + 2][this->y - 2][0] = 4;	//前进！
 				Map::map[this->x + 2][this->y - 1][0] = 4;
 				Map::map[this->x + 2][this->y - 0][0] = 4;
 				Map::map[this->x + 2][this->y + 1][0] = 4;
@@ -306,9 +329,9 @@ int TankEnemy::isAlive()
 			}
 		}
 	}
-	if (blood <= 0||Alive==0) { 
-		Alive = 0; 
-		TankUser::score += this->score; 
+	if (blood <= 0 || Alive == 0) {
+		Alive = 0;
+		TankUser::score += this->score;
 		Map::map[this->x + 2][this->y - 2][0] = 0;
 		Map::map[this->x + 2][this->y - 1][0] = 0;
 		Map::map[this->x + 2][this->y - 0][0] = 0;
@@ -356,8 +379,8 @@ void TankEnemies::allEnemyMove()
 				blood = 1;
 				score = 5000;
 			}
-			this->enemies[i] = new TankEnemy(2, Console::Random(4, 73),color,1,score,blood);
-			this->enemies[i]->show(); 
+			this->enemies[i] = new TankEnemy(2, Console::Random(4, 73), color, 1, score, blood);
+			this->enemies[i]->show();
 			this->enemies[i]->append();
 		}
 	}
