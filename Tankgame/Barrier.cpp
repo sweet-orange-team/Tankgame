@@ -21,11 +21,11 @@ River::River()
     this->y = Console::Random(2, 70);
     this->color = 9;
     this->xlen = 3;
-    this->ylen = 8;
+    this->ylen = 12;
     this->id = 6;
     for (int i = 0; i < 3; i++)
     {
-        for (int j = 0; j < 8; j++)
+        for (int j = 0; j < 12; j++)
         {
             this->body[i][j] = 0;
         }
@@ -43,7 +43,7 @@ void River::show()
     {
         for (int i = 0; i < 3; i++)
         {
-            for (int j = 0; j < 8; j++)
+            for (int j = 0; j < 12; j++)
             {
                 this->body[i][j] = this->Body[0][i][j];
             }
@@ -53,7 +53,7 @@ void River::show()
     {
         for (int i = 0; i < 3; i++)
         {
-            for (int j = 0; j < 8; j++)
+            for (int j = 0; j < 12; j++)
             {
                 this->body[i][j] = this->Body[1][i][j];
             }
@@ -63,7 +63,7 @@ void River::show()
     {
         for (int i = 0; i < 3; i++)
         {
-            for (int j = 0; j < 8; j++)
+            for (int j = 0; j < 12; j++)
             {
                 this->body[i][j] = this->Body[2][i][j];
             }
@@ -102,8 +102,8 @@ Wall::Wall()
     this->x = Console::Random(5, 23);
     this->y = Console::Random(2, 72);
     this->color = 15;
-    this->xlen = 2;
-    this->ylen = 6;
+    this->xlen = 3;
+    this->ylen = 10;
     this->id = 1;
 }
 
@@ -112,8 +112,8 @@ Wall::Wall(int x,int y)
     this->x = x;
     this->y = y;
     this->color = 15;
-    this->xlen = 2;
-    this->ylen = 6;
+    this->xlen = 3;
+    this->ylen = 10;
     this->id = 1;
 }
 
@@ -189,11 +189,12 @@ void Brick::append()
         {
             if (this->body[i][j] == 1)
                 Map::map[this->x + i][this->y + j][0] = this->id;
+            else Map::map[this->x + i][this->y + j][0] = 0;
         }
     }
 }
 
-void Brick::iShot()                                                //µÿÕº…œ∫√œÒ∏ƒ≤ªπ˝¿¥ ƒ„–¥µƒ ±∫Úœ»∞—’‚¿Ô¬Ã¡À∞…
+void Brick::iShot()                                                
 {
     for (int i = xlen; i >= 0; i--)
         {
@@ -202,7 +203,7 @@ void Brick::iShot()                                                //µÿÕº…œ∫√œÒ∏
                 if (Map::map[this->x + i][this->y + j][0] == 3&&this->body[i-1][j]==1)
                 {
                     this->body[i - 1][j] = 0;
-                    if (!j % 2)
+                    if (!(j % 2))
                     {
                         Console::setCursorPosition(x+i - 1, y+j - 1);
                         this->body[i - 1][j - 1] = 0;
@@ -219,42 +220,6 @@ void Brick::iShot()                                                //µÿÕº…œ∫√œÒ∏
             }
         }
 
-	//clear
-	for (int i = 0; i < this->xlen; i++)
-	{
-		for (int j = 0; j < this->ylen; j++)
-		{
-			Map::map[this->x + i][this->y + j][0] = 0;
-		}
-	}
-
-    /*for (int i = xlen; i >= 1; i--)
-    {
-    for (int j = 0; j < ylen; j++)
-    {
-    if (j % 2)
-    {
-    if (Map::map[this->x + i + 1][this->y + j][0] == 3 || Map::map[this->x + i + 1][this->y + j - 1][0] == 3 && this->body[i - 1][j] == 1)
-    {
-    this->body[i - 1][j] = 0;
-    this->body[i - 1][j - 1] = 0;
-    Console::setCursorPosition(x + i - 1, y + j - 1);
-    }
-    }
-    else
-    {
-    if (Map::map[this->x + i + 1][this->y + j][0] == 3 || Map::map[this->x + i + 1][this->y + j + 1][0] == 3 && this->body[i - 1][j] == 1)
-    {
-    this->body[i - 1][j] = 0;
-    this->body[i - 1][j + 1] = 0;
-    Console::setCursorPosition(x + i - 1, y + j);
-    }
-    }
-    this->append();
-    cout << "  ";
-    break;
-    }
-    }*/
 }
 
 //barries
@@ -269,13 +234,13 @@ void barries::initBarries()
     r2 = new River();
     r2->show();
     r2->append();
-    w1 = new Wall(10,37);
+    w1 = new Wall(23,16);
     w1->show();
     w1->append();
     w2 = new Wall(7,2);
     w2->show();
     w2->append();
-    w3 = new Wall(16,72);
+    w3 = new Wall(14,68);
     w3->show();
     w3->append();
     b1 = new Brick();

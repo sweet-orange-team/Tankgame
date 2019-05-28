@@ -98,6 +98,7 @@ void TankUser::move(int d)                                                      
 		{
 			if (Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7)m = 0;
 		}
+
 		if (this->x >= 3 && m) {
 			this->clear();
 			this->x -= 1;
