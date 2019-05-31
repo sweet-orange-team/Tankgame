@@ -37,94 +37,71 @@ void Bullet::move(int step)                         //子弹移动
 	switch (direction)
 	{
 	case 0:
-		Map::map[this->x][this->y][0] = 0;
-		if (this->x >= step * 2&&(this->x!=1&&this->y!=90)) {
-			clear();						//清除在屏幕上的显示
+		if (this->x >=2&&(this->x!=0&&this->y!=90)) {
 			this->x -= step;				//提前预定下一个抵达点，子弹坐标增加
-			append();						//添加进地图
-			if (Map::map[x][y][0] == 4||Map::map[x][y + 1][0] == 4|| Map::map[x][y][0] ==
-				7 || Map::map[x][y + 1][0] == 7|| Map::map[x][y][0] == 1 || Map::map[x][y +
-				1][0] == 1) 				//判断该抵达点有没有敌方坦克
-            {
-                this->x = 1;
-				this->y = 90;
+			if (Map::map[x][y][0]!=0)
+			{
+				append();
+				this->x = 1; this->y = 90;
 			}
 			else show();
-			break;
 		}
 		else
 		{
-			this->x = 1;
+			this->x = 0;
 			this->y = 90;
 			clear();
 		}
 		break;
 	case 1:
-		Map::map[this->x][this->y][0] = 0;
-		if (this->x <= 29 - step * 2 && (this->x != 1 && this->y != 90)) {
-			clear();								//清除在屏幕上的显示
+		
+		if (this->x <= 27 && (this->x != 0 && this->y != 90)) {
 			this->x += step;						//提前预定下一个抵达点，子弹坐标增加
-			append();								//添加进地图
-			if (Map::map[x][y][0] == 4 || Map::map[x][y + 1][0] == 4 || Map::map[x][y][0] 
-				== 7 || Map::map[x][y + 1][0] == 7 || Map::map[x][y][0] == 1 || Map::map[x]
-				[y + 1][0] == 1) 	
+			if (Map::map[x][y][0] != 0)
 			{
-				this->x = 1;
-				this->y = 90;
+				append();
+				this->x = 0; this->y = 90;
 			}
 			else show();
-			break;
 		}
 		else
 		{
-			this->x = 1;
+			this->x = 0;
 			this->y = 90;
 			clear();
 		}
 
 		break;
 	case 2:
-		Map::map[this->x][this->y][0] = 0;
-		if (this->y >= (step * 2 + 2)  && (this->x != 1 && this->y != 90)) {
-			clear();
+		if (this->y >= 4  && (this->x != 0 && this->y != 90)) {
 			this->y -= step * 2;
-			append();
-			if (Map::map[x][y][0] == 4 || Map::map[x][y][0] ==
-				7 || Map::map[x][y][0] == 1 ) 	
+			if (Map::map[x][y][0] != 0)
 			{
-				this->x = 1;
-				this->y = 90;
-				clear();
+				append();
+				this->x = 1; this->y = 90;
 			}
 			else show();
-			break;
 		}
 		else
 		{
-			this->x = 1;
+			this->x = 0;
 			this->y = 90;
 			clear();
 		}
 		break;
 	case 3:
-		Map::map[this->x][this->y][0] = 0;
-		if (this->y < (77 - step * 2 )&& (this->x != 1 && this->y != 90)) {
-			clear();
-			this->y += step * 2;				
-			append();
-			if (Map::map[x][y][0] == 4 || Map::map[x][y][0] ==
-				7 || Map::map[x][y][0] == 1) 	//判断该抵达点有没有敌方坦克
+		if (this->y <= 74&& (this->x != 0 && this->y != 90)) {
+			this->y += step * 2;	
+			if (Map::map[x][y][0] != 0)
 			{
-				this->x = 1;
-				this->y = 90;
-				clear();
+				append();
+				this->x = 0; this->y = 90;
 			}
 			else show();
-			break;
 		}
 		else
 		{
-			this->x = 1;
+			this->x = 0;
 			this->y = 90;
 			clear();
 		}

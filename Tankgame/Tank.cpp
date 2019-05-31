@@ -329,45 +329,6 @@ void TankEnemy::move()
 	}
 }
 
-
-/*shoot(); bulletMove();			//每次移动，射击一次
-Console::setColor(this->color);
-for (i = this->x + 2, j = this->y - 2; j < this->y + 4; j++)
-{
-	if ((Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7) && this->x <= 26)
-		m = 0;
-}
-if (m) {
-	if (this->x <= 26) {
-		this->clear();
-		newX += speed;
-		this->x = (int)newX;
-		Console::setCursorPosition(this->x - 1, this->y - 2);
-		cout << Console::U2G(n) << "  " << Console::U2G(n);
-		Console::setCursorPosition(this->x + 0, this->y - 2);
-		cout << Console::U2G(n) << Console::U2G(n) << Console::U2G(n);
-		Console::setCursorPosition(this->x + 1, this->y - 2);
-		cout << "  " << Console::U2G(n) << "  ";
-	}
-	else
-	{
-		TankUser::blood -= InvincibleProp::selfboom;
-		clear();
-		x = 2; y = 94;
-		Alive = 0;
-		show();
-	}
-	append();
-	Console::setColor(black);
-}
-}
-else
-{
-	x = 2; y = 94;
-	append();
-	Console::setColor(black);
-}
-}*/
 void TankEnemy::shoot() {
 	if (shouldShoot % 17 == 0) {
 		switch (this->direction)
@@ -442,12 +403,6 @@ int TankEnemy::isAlive()
 				blood -= BulletProp::attack;	//血量减少
 				bre = 1;
 				append();
-				//Map::map[this->x + 2][this->y - 2][0] = 4;	//前进！
-				//Map::map[this->x + 2][this->y - 1][0] = 4;
-				//Map::map[this->x + 2][this->y - 0][0] = 4;
-				//Map::map[this->x + 2][this->y + 1][0] = 4;
-				//Map::map[this->x + 2][this->y + 2][0] = 4;
-				//Map::map[this->x + 2][this->y + 3][0] = 4;
 				break;
 			}
 			if (bre)break;
@@ -469,10 +424,9 @@ int TankEnemy::isAlive()
 		append(0);
 		for (int i = 0; i < 30; i++)				//如果坦克死亡，清除掉坦克的子弹
 		{
-			Map::map[this->bullet[i]->getX()][this->bullet[i]->getY()][0] = 0;
 			this->bullet[i]->clear();
+			this->x = 0; this->y = 90;
 		}
-		this->x = 0; this->y = 0;
 	}
 	//如果被击毁，放在右上角
 	if (!Alive) {
