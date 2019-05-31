@@ -9,7 +9,7 @@ using namespace std;
 class Bullet                                            //×Óµ¯»ùÀà
 {
 public:
-    Bullet(int x,int y,int direction,int isSee=1,char* body= u8"¡ô",int attack=1);
+    Bullet(int x,int y,int direction,int isSee=1,char* body= u8"¡ô",int attack=1,int number=3);
     ~Bullet();
 	virtual void show();
 	virtual void clear();
@@ -25,6 +25,7 @@ protected:
     int direction;
     int x, y;
 	int attack;
+	int number;
 };
 
 

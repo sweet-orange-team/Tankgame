@@ -119,17 +119,17 @@ int Control::start() {				//主程序开始
 	map.show();
 	TankUser mytank = TankUser();
 	TankEnemies enemies = TankEnemies();
-    props p = props();
-    barries b = barries();
-    b.initBarries();
+    //props p = props();
+    //barries b = barries();
+    //b.initBarries();
 	mytank.show();
     while (true)
     {
         console.checkKey(mytank);
         mytank.bulletMove();
         enemies.allEnemyMove();
-        p.UseProp(mytank);
-        map.refresh(b);
+        //p.UseProp(mytank);
+        //map.refresh(b);
 		if (!mytank.isAlive())break;
 		Sleep(40);
 	}

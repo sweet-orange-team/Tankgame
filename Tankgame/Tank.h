@@ -91,7 +91,7 @@ public:
 	void move();
 	void shoot();
 	void bulletMove();
-	void append();
+	void append(int num=4);
     void isShot();
 	int isAlive();
 private:
