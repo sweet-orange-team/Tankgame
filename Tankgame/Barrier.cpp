@@ -200,25 +200,41 @@ void Brick::iShot()
         {
             for (int j = 0; j < ylen; j++)
             {
-                if (Map::map[this->x + i][this->y + j][0] == 3&&this->body[i][j]==1)
+                if (Map::map[this->x + i][this->y + j][0] == 3)
                 {
                     this->body[i][j] = 0;
                     if (!(j % 2))
                     {
-                        Console::setCursorPosition(x+i - 1, y+j - 1);
+                        Console::setCursorPosition(x+i - 1, y+j );
                         this->body[i][j - 1] = 0;
                     }
                     else
                     {
-                        Console::setCursorPosition(x+i - 1, y+j + 1);
+                        Console::setCursorPosition(x+i - 1, y+j-1 );
                         this->body[i][j + 1] = 0;
                     }
-                    this->append();
                     cout << "  ";
                     break;
                 }
             }
         }
+    for (int i = 0; i<xlen; i++)
+    {
+        for (int j = 0; j < ylen; j++)
+        {
+            Console::setCursorPosition(x + i , y + j);
+            cout << Map::map[this->x + i][this->y + j][0]; 
+            
+        }
+    }
+    for (int i = 0; i < this->xlen; i++)
+    {
+        for (int j = 0; j < this->ylen; j++)
+        {
+            if (Map::map[this->x + i][this->y + j][0] == 3)
+                Map::map[this->x + i][this->y + j][0] = 0;
+        }
+    }
 
 }
 
