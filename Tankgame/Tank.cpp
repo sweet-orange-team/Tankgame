@@ -211,11 +211,6 @@ int TankUser::isAlive()
 	else return true;
 }
 
-Bullet** TankUser::getBullet()
-{
-	return bullet;
-}
-
 
 
 //TankEnemy

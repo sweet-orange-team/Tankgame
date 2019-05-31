@@ -71,7 +71,6 @@ public:
 	void bulletMove();
 	int isAlive();
 	int getDir();							 //·µ»Ø·½Ïò
-    Bullet** getBullet();
 protected:
 	Color color;
 	int speed;
