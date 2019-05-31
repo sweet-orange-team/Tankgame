@@ -10,8 +10,8 @@
 using namespace std;
 
 //Barrier
-Barrier::Barrier() { }
-Barrier::~Barrier() { }
+Barrier::Barrier(){ }
+Barrier::~Barrier(){ }
 
 //River
 int River::a = 0;
@@ -31,12 +31,12 @@ River::River()
         }
     }
 }
-River::~River() { }
+River::~River(){ }
 
 void River::show()
 {
     char*n = u8"¡ö";
-    a = Console::Random(0, 3) % 3 + 1;
+    a = Console::Random(0, 3)%3 + 1;
     switch (a)
     {
     case 1:
@@ -90,9 +90,8 @@ void River::append()
     {
         for (int j = 0; j < this->ylen; j++)
         {
-            if (this->body[i][j] == 1)
+            if (this->body[i][j]==1)
                 Map::map[this->x + i][this->y + j][0] = this->id;
-            else Map::map[this->x + i][this->y + j][0] = 0;
         }
     }
 }
@@ -108,7 +107,7 @@ Wall::Wall()
     this->id = 1;
 }
 
-Wall::Wall(int x, int y)
+Wall::Wall(int x,int y)
 {
     this->x = x;
     this->y = y;
@@ -118,7 +117,7 @@ Wall::Wall(int x, int y)
     this->id = 1;
 }
 
-Wall::~Wall() { }
+Wall::~Wall(){ }
 
 void Wall::show()
 {
@@ -146,7 +145,6 @@ void Wall::append()
         {
             if (this->body[i][j] == 1)
                 Map::map[this->x + i][this->y + j][0] = this->id;
-            else Map::map[this->x + i][this->y + j][0] = 0;
         }
     }
 }
@@ -163,15 +161,15 @@ Brick::Brick()
     this->id = 7;
 }
 
-Brick::~Brick() { }
+Brick::~Brick(){ }
 
 void Brick::show()
 {
     char*n = u8"¡ö";
     Console::setColor(this->color);
-    for (int i = 0; i < this->xlen; i++)
+    for (int i=0; i < this->xlen; i++)
     {
-        for (int j = 0; j < this->ylen; j += 2)
+        for (int j = 0; j < this->ylen; j+=2)
         {
             Console::setCursorPosition(this->x + i, this->y + j);
             if (this->body[i][j] == 1)
@@ -196,37 +194,37 @@ void Brick::append()
     }
 }
 
-void Brick::iShot()
+void Brick::iShot()                                                
 {
-    for (int i = xlen; i >= 0; i--)
-    {
-        for (int j = 0; j < ylen; j++)
+    for (int i = xlen -1; i >= 0; i--)
         {
-            if (Map::map[this->x + i][this->y + j][0] == 3 && this->body[i - 1][j] == 1)
+            for (int j = 0; j < ylen; j++)
             {
-                this->body[i - 1][j] = 0;
-                if (!(j % 2))
+                if (Map::map[this->x + i][this->y + j][0] == 3&&this->body[i][j]==1)
                 {
-                    Console::setCursorPosition(x + i - 1, y + j - 1);
-                    this->body[i - 1][j - 1] = 0;
+                    this->body[i][j] = 0;
+                    if (!(j % 2))
+                    {
+                        Console::setCursorPosition(x+i - 1, y+j - 1);
+                        this->body[i][j - 1] = 0;
+                    }
+                    else
+                    {
+                        Console::setCursorPosition(x+i - 1, y+j + 1);
+                        this->body[i][j + 1] = 0;
+                    }
+                    this->append();
+                    cout << "  ";
+                    break;
                 }
-                else
-                {
-                    Console::setCursorPosition(x + i - 1, y + j + 1);
-                    this->body[i - 1][j + 1] = 0;
-                }
-                this->append();
-                cout << "  ";
-                break;
             }
         }
-    }
 
 }
 
 //barries
-barries::barries() { }
-barries::~barries() { }
+barries::barries(){ }
+barries::~barries(){ }
 
 void barries::initBarries()
 {
@@ -236,13 +234,13 @@ void barries::initBarries()
     r2 = new River();
     r2->show();
     r2->append();
-    w1 = new Wall(23, 16);
+    w1 = new Wall(23,16);
     w1->show();
     w1->append();
-    w2 = new Wall(7, 2);
+    w2 = new Wall(7,2);
     w2->show();
     w2->append();
-    w3 = new Wall(14, 68);
+    w3 = new Wall(14,68);
     w3->show();
     w3->append();
     b1 = new Brick();
@@ -259,5 +257,3 @@ void barries::refresh()
     this->w3->show();
     this->b1->iShot();
 }
-
-
