@@ -196,13 +196,27 @@ void Brick::append()
 
 void Brick::iShot()                                                
 {
-    for (int i = xlen -1; i >= 0; i--)
+    for (int i = 0; i < this->xlen; i++)
+    {
+        for (int j = 0; j < this->ylen; j++)
         {
-            for (int j = 0; j < ylen; j++)
+            if (Map::map[this->x + i][this->y + j][0] == 3)
+                Map::map[this->x + i][this->y + j][0] = 0;
+        }
+    }
+    char*n = u8"¡ö";
+    for (int i = 0 ; i < xlen; i++)
+        {
+            for (int j = 0; j < ylen; j+=2)
             {
-                if (Map::map[this->x + i][this->y + j][0] == 3)
+                if (Map::map[this->x + i][this->y + j][0] == this->id)
                 {
-                    this->body[i][j] = 0;
+                    Console::setCursorPosition(x + i, y + j);
+                    Console::setColor(this->color);
+                    cout << Console::U2G(n);
+                }
+                else cout << "  ";
+                   /* this->body[i][j] = 0;
                     if (!(j % 2))
                     {
                         Console::setCursorPosition(x+i - 1, y+j );
@@ -214,11 +228,11 @@ void Brick::iShot()
                         this->body[i][j + 1] = 0;
                     }
                     cout << "  ";
-                    break;
-                }
+                    break;*/
             }
         }
-    for (int i = 0; i<xlen; i++)
+    Console::setColor(white);
+   /* for (int i = 0; i<xlen; i++)
     {
         for (int j = 0; j < ylen; j++)
         {
@@ -226,15 +240,8 @@ void Brick::iShot()
             cout << Map::map[this->x + i][this->y + j][0]; 
             
         }
-    }
-    for (int i = 0; i < this->xlen; i++)
-    {
-        for (int j = 0; j < this->ylen; j++)
-        {
-            if (Map::map[this->x + i][this->y + j][0] == 3)
-                Map::map[this->x + i][this->y + j][0] = 0;
-        }
-    }
+    }*/
+    
 
 }
 
