@@ -68,7 +68,6 @@ void Prop::append()
 	Map::map[this->x][this->y][0] = 5;
 }
 
-
 //BulletProp class
 char* BulletProp::body = u8"¡ô";
 int BulletProp::attack = 1;
@@ -304,14 +303,3 @@ void props::UseProp(TankUser&Tank)
     props::count++;
     props::timercount++;
 }
-
-
-
-
-
-
-
-//y-2  y   y+3
-//x-1		//     ¡ö
-//x+0 		//¡ö   ¡ö   ¡ö
-//x+1       //¡ö        ¡ö

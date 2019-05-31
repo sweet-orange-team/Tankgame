@@ -1,12 +1,7 @@
 #include<iostream>
 #include"Console.h"
 #include"Map.h"
-#include"Prop.h"
-#include"Tank.h"
 #include"Barrier.h"
-#include"windows.h"
-#include"Control.h"
-#include<conio.h>
 using namespace std;
 
 //Barrier
@@ -194,7 +189,7 @@ void Brick::append()
     }
 }
 
-void Brick::iShot()                                                
+void Brick::iShot()
 {
     for (int i = 0; i < this->xlen; i++)
     {
@@ -205,44 +200,20 @@ void Brick::iShot()
         }
     }
     char*n = u8"¡ö";
-    for (int i = 0 ; i < xlen; i++)
-        {
-            for (int j = 0; j < ylen; j+=2)
-            {
-                if (Map::map[this->x + i][this->y + j][0] == this->id)
-                {
-                    Console::setCursorPosition(x + i, y + j);
-                    Console::setColor(this->color);
-                    cout << Console::U2G(n);
-                }
-                else cout << "  ";
-                   /* this->body[i][j] = 0;
-                    if (!(j % 2))
-                    {
-                        Console::setCursorPosition(x+i - 1, y+j );
-                        this->body[i][j - 1] = 0;
-                    }
-                    else
-                    {
-                        Console::setCursorPosition(x+i - 1, y+j-1 );
-                        this->body[i][j + 1] = 0;
-                    }
-                    cout << "  ";
-                    break;*/
-            }
-        }
-    Console::setColor(white);
-   /* for (int i = 0; i<xlen; i++)
+    for (int i = 0; i < xlen; i++)
     {
-        for (int j = 0; j < ylen; j++)
+        for (int j = 0; j < ylen; j += 2)
         {
-            Console::setCursorPosition(x + i , y + j);
-            cout << Map::map[this->x + i][this->y + j][0]; 
-            
+            if (Map::map[this->x + i][this->y + j][0] == this->id)
+            {
+                Console::setCursorPosition(x + i, y + j);
+                Console::setColor(this->color);
+                cout << Console::U2G(n);
+            }
+            else if (Map::map[this->x + i][this->y + j][0] == 0) cout << "  ";
+            Console::setColor(white);
         }
-    }*/
-    
-
+    }
 }
 
 //barries
