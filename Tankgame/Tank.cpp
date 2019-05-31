@@ -329,6 +329,7 @@ void TankEnemy::move()
 	}
 }
 
+
 void TankEnemy::shoot() {
 	if (shouldShoot % 17 == 0) {
 		switch (this->direction)
@@ -408,14 +409,17 @@ int TankEnemy::isAlive()
 			if (bre)break;
 		}
 	}
-	for (int i = this->x - 1; i <= this->x + 2; i++) {
+	for (int i = this->x - 1; i <= this->x + 1; i++) {
+		int bre = 0;
 		for (int j = this->y - 2; j <= this->y + 3; j++) {
 			if (Map::map[i][j][0] == 2) {
 				Alive = 0;
 				TankUser::blood -= InvincibleProp::selfboom;
+				bre = 1;
 				break;
 			}
 		}
+		if (bre)break;
 	}
 	if (blood <= 0 || Alive == 0) {
 		Alive = 0;

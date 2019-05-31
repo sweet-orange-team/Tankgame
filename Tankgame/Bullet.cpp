@@ -39,7 +39,7 @@ void Bullet::move(int step)                         //子弹移动
 	case 0:
 		if (this->x >=2&&(this->x!=0&&this->y!=90)) {
 			this->x -= step;				//提前预定下一个抵达点，子弹坐标增加
-			if (Map::map[x][y][0]!=0)
+			if (Map::map[x][y][0]!=0 && Map::map[x][y][0] != 6)
 			{
 				append();
 				this->x = 1; this->y = 90;
@@ -57,7 +57,7 @@ void Bullet::move(int step)                         //子弹移动
 		
 		if (this->x <= 27 && (this->x != 0 && this->y != 90)) {
 			this->x += step;						//提前预定下一个抵达点，子弹坐标增加
-			if (Map::map[x][y][0] != 0)
+			if (Map::map[x][y][0] != 0 && Map::map[x][y][0] != 6)
 			{
 				append();
 				this->x = 0; this->y = 90;
@@ -75,7 +75,7 @@ void Bullet::move(int step)                         //子弹移动
 	case 2:
 		if (this->y >= 4  && (this->x != 0 && this->y != 90)) {
 			this->y -= step * 2;
-			if (Map::map[x][y][0] != 0)
+			if (Map::map[x][y][0] != 0&&Map::map[x][y][0] != 6)
 			{
 				append();
 				this->x = 1; this->y = 90;
@@ -92,7 +92,7 @@ void Bullet::move(int step)                         //子弹移动
 	case 3:
 		if (this->y <= 74&& (this->x != 0 && this->y != 90)) {
 			this->y += step * 2;	
-			if (Map::map[x][y][0] != 0)
+			if (Map::map[x][y][0] != 0&& Map::map[x][y][0]!=6)
 			{
 				append();
 				this->x = 0; this->y = 90;
