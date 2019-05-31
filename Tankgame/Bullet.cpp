@@ -29,6 +29,7 @@ void Bullet::clear() {
 void Bullet::append()								//在地图上更新子弹
 {
 	Map::map[this->x][this->y][0] = number;
+	Map::map[x][y+1][0] = number;
 }
 
 void Bullet::move(int step)                         //子弹移动
