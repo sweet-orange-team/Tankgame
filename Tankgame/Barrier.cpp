@@ -196,22 +196,22 @@ void Brick::append()
 
 void Brick::iShot()                                                
 {
-    for (int i = xlen; i >= 0; i--)
+    for (int i = xlen -1; i >= 0; i--)
         {
             for (int j = 0; j < ylen; j++)
             {
-                if (Map::map[this->x + i][this->y + j][0] == 3&&this->body[i-1][j]==1)
+                if (Map::map[this->x + i][this->y + j][0] == 3&&this->body[i][j]==1)
                 {
-                    this->body[i - 1][j] = 0;
+                    this->body[i][j] = 0;
                     if (!(j % 2))
                     {
                         Console::setCursorPosition(x+i - 1, y+j - 1);
-                        this->body[i - 1][j - 1] = 0;
+                        this->body[i][j - 1] = 0;
                     }
                     else
                     {
                         Console::setCursorPosition(x+i - 1, y+j + 1);
-                        this->body[i - 1][j + 1] = 0;
+                        this->body[i][j + 1] = 0;
                     }
                     this->append();
                     cout << "  ";
