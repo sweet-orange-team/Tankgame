@@ -42,6 +42,9 @@ void Bullet::move(int step)                         //子弹移动
 			this->x -= step;				//提前预定下一个抵达点，子弹坐标增加
 			if (Map::map[x][y][0]!=0 && Map::map[x][y][0] != 6)
 			{
+				if (Map::map[x][y][0] == 2) {
+					TankUser::blood--;
+				}
 				append();
 				this->x = 1; this->y = 90;
 			}
@@ -60,6 +63,9 @@ void Bullet::move(int step)                         //子弹移动
 			this->x += step;						//提前预定下一个抵达点，子弹坐标增加
 			if (Map::map[x][y][0] != 0 && Map::map[x][y][0] != 6)
 			{
+				if (Map::map[x][y][0] == 2) {
+					TankUser::blood--;
+				}
 				append();
 				this->x = 0; this->y = 90;
 			}
@@ -78,6 +84,9 @@ void Bullet::move(int step)                         //子弹移动
 			this->y -= step * 2;
 			if (Map::map[x][y][0] != 0&&Map::map[x][y][0] != 6)
 			{
+				if (Map::map[x][y][0] == 2) {
+					TankUser::blood--;
+				}
 				append();
 				this->x = 1; this->y = 90;
 			}
@@ -95,6 +104,9 @@ void Bullet::move(int step)                         //子弹移动
 			this->y += step * 2;	
 			if (Map::map[x][y][0] != 0&& Map::map[x][y][0]!=6)
 			{
+				if (Map::map[x][y][0] == 2) {
+					TankUser::blood--;
+				}
 				append();
 				this->x = 0; this->y = 90;
 			}
