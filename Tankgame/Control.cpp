@@ -54,9 +54,8 @@ void Control::clear(int x, int y)
     cout << "      ";
 }
 
-int Control::menu()
+void Control::animation()
 {
-    char* n = u8"■";
     int x1 = 15, y1 = 26, x2 = 15, y2 = 86;
     while (y1 + 6 <= y2)
     {
@@ -188,13 +187,15 @@ int Control::menu()
     Console::setCursorPosition(20, 3);
     cout << "                                                                                                              ■";
     Sleep(500);
-    for (int i = 9; i < 21; i++)
-    {
-        Console::setCursorPosition(i, 3);
-        cout << "                                                                                                                ";
-    }
+    system("cls");
     Console::setColor(white);
+}
 
+int Control::j = 1;
+int Control::a = 1;
+int Control::menu()
+{
+    char* n = u8"■";
     Console::setCursorPosition(3,51);
     Console::setColor(red);
     cout << "坦  克  大  战";
@@ -213,13 +214,14 @@ int Control::menu()
     {
         cout << Console::U2G(n);
     }
-    Console::setCursorPosition(16, 45);
+    Console::setCursorPosition(16, 34);
     Console::setColor(white);
     cout << ">>开始游戏";
-    int j = 1;
-    Console::setCursorPosition(16, 63);
+    Console::setCursorPosition(16, 54);
     Console::setColor(gray);
     cout << "退出游戏";
+    Console::setCursorPosition(16, 72);
+    cout << "操作指南";
     Console::setColor(white);
     Console::setCursorPosition(24, 0);
     Console::setColor(gray);
@@ -238,7 +240,8 @@ int Control::menu()
     {
         cout << Console::U2G(n);
     }
-    while (1)
+
+    while (a)
     {
         char op=_getch();
         switch(op)
@@ -247,14 +250,28 @@ int Control::menu()
             {
                 if (j == 0)
                 {
-                    Console::setCursorPosition(16, 45);
+                    Console::setCursorPosition(16, 34);
                     Console::setColor(white);
                     cout << ">>开始游戏";
-                    Console::setCursorPosition(16, 61);
+                    Console::setCursorPosition(16, 52);
                     Console::setColor(gray);
                     cout << "  退出游戏";
+                    Console::setCursorPosition(16, 70);
+                    cout << "  操作指南";
                     Console::setColor(white);
                     j = 1;
+                }
+                else if (j == 2)
+                {
+                    Console::setCursorPosition(16, 34);
+                    Console::setColor(gray);
+                    cout << "  开始游戏";
+                    Console::setCursorPosition(16, 70);
+                    cout << "  操作指南";
+                    Console::setCursorPosition(16, 52);
+                    Console::setColor(white);
+                    cout << ">>退出游戏";
+                    j = 0;
                 }
                 break;
             }
@@ -262,27 +279,104 @@ int Control::menu()
             {
                 if (j == 1)
                 {
-                    Console::setCursorPosition(16, 45); 
+                    Console::setCursorPosition(16, 34); 
                     Console::setColor(gray);
                     cout << "  开始游戏";
+                    Console::setCursorPosition(16, 70);
+                    cout << "  操作指南";
                     Console::setColor(white);
-                    Console::setCursorPosition(16, 61);
+                    Console::setCursorPosition(16, 52);
                     cout << ">>退出游戏";
-                    Console::setColor(white);
                     j = 0;
+                }
+
+                else if (j == 0)
+                {
+                    Console::setCursorPosition(16, 34);
+                    Console::setColor(gray);
+                    cout << "  开始游戏";
+                    Console::setCursorPosition(16, 52);
+                    cout << "  退出游戏";
+                    Console::setColor(white);
+                    Console::setCursorPosition(16, 70);
+                    cout << ">>操作指南";
+                    j = 2;
                 }
                 break;
             }
             case 'y':
             {
-                if (j == 0) return -1;
+                if (j == 0) return 0;
+                else if (j == 2)
+                {
+                    system("cls");
+                    Console::setCursorPosition(1, 3);
+                    cout << "b键返回菜单 ";
+                    Console::setCursorPosition(6, 5);
+                    Console::setColor(9);
+                    cout << "移动";
+                    Console::setCursorPosition(6, 12);
+                    Console::setColor(white);
+                    cout << "w 向上移动   s 向下移动";
+                    Console::setCursorPosition(7, 12);
+                    cout << "a 向左移动   d 向右移动";
+                    Console::setCursorPosition(8, 12);
+                    cout << "p 暂停   空格 发射子弹";
+                    Console::setCursorPosition(10, 5);
+                    Console::setColor(9);
+                    cout << "道具";
+                    Console::setCursorPosition(10, 12);
+                    Console::setColor(white);
+                    cout << "● 高级子弹:增加伤害";
+                    Console::setCursorPosition(11, 12);
+                    cout << "★ 无敌:接触到子弹和敌方坦克不受到伤害";
+                    Console::setCursorPosition(12, 12);
+                    cout << "▲ 回血 : 血量 + 1";
+                    Console::setCursorPosition(14, 5);
+                    Console::setColor(9);
+                    cout << "障碍物";
+                    Console::setCursorPosition(14, 12);
+                    Console::setColor(9);
+                    cout << "■";
+                    Console::setColor(white);
+                    cout << "  河流:子弹可穿过,但坦克无法跨越";
+                    Console::setCursorPosition(15, 12);
+                    Console::setColor(12);
+                    cout << "■";
+                    Console::setColor(white);
+                    cout << "  砖块:子弹不可穿过,坦克无法跨越，但可击碎";
+                    Console::setCursorPosition(16, 12);
+                    cout << "■";
+                    cout << "  墙体:子弹不可穿过,坦克无法跨越，不可击碎";
+                    j = 3;
+                }
                 else return 1;
                 break;
+            }
+            case'b':
+            {
+                if (j == 3) a = 0;
+                return 2;
             }
             default:
                 break;
         }
     }
+}
+
+int Control::init()
+{
+    int init=2;
+    while (1)
+    {
+        if (init==1)return 1;
+        else if (this->menu() == 2)
+        {
+            system("cls");
+            init = this->menu();
+        }
+        else if (init == 0)return 0;
+   }
 }
 
 int Control::start() {				//主程序开始
