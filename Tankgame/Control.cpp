@@ -191,8 +191,6 @@ void Control::animation()
 	Console::setColor(white);
 }
 
-int Control::j = 1;
-int Control::a = 1;
 int Control::menu()
 {
 	char* n = u8"■";
@@ -240,8 +238,8 @@ int Control::menu()
 	{
 		cout << Console::U2G(n);
 	}
-
-	while (a)
+    int j = 1;
+	while (1)
 	{
 		char op = _getch();
 		switch (op)
@@ -310,10 +308,11 @@ int Control::menu()
 			else if (j == 2)
 			{
 				system("cls");
+                Console::setColor(3);
 				Console::setCursorPosition(1, 3);
-				cout << "b键返回菜单 ";
+				cout << "b键开始游戏...";
 				Console::setCursorPosition(6, 5);
-				Console::setColor(9);
+				Console::setColor(3);
 				cout << "移动";
 				Console::setCursorPosition(6, 12);
 				Console::setColor(white);
@@ -321,19 +320,27 @@ int Control::menu()
 				Console::setCursorPosition(7, 12);
 				cout << "a 向左移动   d 向右移动";
 				Console::setCursorPosition(8, 12);
-				cout << "p 暂停   空格 发射子弹";
+				cout << "p 暂停       空格 发射子弹";
 				Console::setCursorPosition(10, 5);
-				Console::setColor(9);
+				Console::setColor(3);
 				cout << "道具";
 				Console::setCursorPosition(10, 12);
+                Console::setColor(14);
+                cout << "● ";
 				Console::setColor(white);
-				cout << "● 高级子弹:增加伤害";
+				cout << "高级子弹:增加伤害";
 				Console::setCursorPosition(11, 12);
-				cout << "★ 无敌:接触到子弹和敌方坦克不受到伤害";
+                Console::setColor(14);
+                cout << "★ ";
+                Console::setColor(white);
+				cout << "无敌:接触到子弹和敌方坦克不受到伤害";
 				Console::setCursorPosition(12, 12);
-				cout << "▲ 回血 : 血量 + 1";
+                Console::setColor(14);
+                cout << "▲ ";
+                Console::setColor(white);
+				cout << "回血 : 血量 + 1";
 				Console::setCursorPosition(14, 5);
-				Console::setColor(9);
+				Console::setColor(3);
 				cout << "障碍物";
 				Console::setCursorPosition(14, 12);
 				Console::setColor(9);
@@ -349,34 +356,19 @@ int Control::menu()
 				cout << "■";
 				cout << "  墙体:子弹不可穿过,坦克无法跨越，不可击碎";
 				j = 3;
+                break;
 			}
 			else return 1;
 			break;
 		}
 		case'b':
 		{
-			if (j == 3) a = 0;
-			return 2;
+			if (j == 3)
+			return 1;
 		}
 		default:
 			break;
 		}
-	}
-}
-
-int Control::init()
-{
-	int init = 2;
-	while (1)
-	{
-		if (init == 1)return 1;
-		else if (this->menu() == 2)
-		{
-			system("cls");
-			return 1;
-			//init = this->menu();
-		}
-		else if (init == 0)return 0;
 	}
 }
 
