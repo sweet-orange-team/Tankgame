@@ -12,6 +12,9 @@ public:
 	Control(int _flag=0);
 	~Control();
     int menu();                 //菜单
+    void tankl(int,int);
+    void tankr(int,int);
+    void clear(int,int);
 	int start();				//主程序开始
 private:
 	int flag;

@@ -20,9 +20,181 @@ Control::~Control()
 {
 }
 
+void Control::tankl(int x, int y)
+{
+    Console::setColor(yellow);
+    Console::setCursorPosition(x, y);
+    cout << "■■";
+    Console::setCursorPosition(x-1, y);
+    cout << "  ■■";
+    Console::setCursorPosition(x-2, y);
+    cout << "■■";
+    Console::setColor(white);
+}
+
+void Control::tankr(int x, int y)
+{
+    Console::setColor(red);
+    Console::setCursorPosition(x, y);
+    cout << "  ■■";
+    Console::setCursorPosition(x - 1, y);
+    cout << "■■";
+    Console::setCursorPosition(x - 2, y);
+    cout << "  ■■";
+    Console::setColor(white);
+}
+
+void Control::clear(int x, int y)
+{
+    Console::setCursorPosition(x, y);
+    cout << "      ";
+    Console::setCursorPosition(x - 1, y);
+    cout << "      ";
+    Console::setCursorPosition(x - 2, y);
+    cout << "      ";
+}
+
 int Control::menu()
 {
     char* n = u8"■";
+    int x1 = 15, y1 = 26, x2 = 15, y2 = 86;
+    while (y1 + 6 <= y2)
+    {
+        tankl(x1, y1);
+        tankr(x2, y2);
+        Sleep(100);
+        clear(x1, y1);
+        clear(x2, y2);
+        y1 += 2;
+        y2 -= 2;
+    }
+    clear(x1, y1);
+    clear(x2, y2);
+
+
+    //坦克大战
+    //                                                                                                                          
+    //    ■                      //          ■            //            ■              //    ■         ■   ■
+    //    ■      ■■■■■■■  //■■■■■■■■■■■  //            ■              //    ■         ■    ■
+    //    ■      ■          ■  //          ■            //■■■■■■■■■■■■■  //    ■■■■   ■■■■■
+    // ■■■■   ■          ■  //   ■■■■■■■■     //            ■              //    ■     ■■■
+    //    ■      ■■■■■■■  //   ■            ■     //           ■■             //    ■         ■  ■
+    //    ■      ■          ■  //   ■            ■     //           ■  ■           //■■■■■■    ■ ■
+    //    ■      ■          ■  //    ■■■■■■■      //         ■     ■          //■        ■    ■■
+    //    ■      ■          ■  //       ■    ■         //       ■         ■        //■        ■    ■      ■
+    //    ■■■   ■■■■■■   //      ■     ■       ■//     ■             ■      //■■■■■■   ■ ■    ■
+    //■■■                      //    ■       ■       ■//   ■                 ■■■//■           ■     ■  ■
+    //  ■     ■■■■■■■■■ //■■           ■■■■ // ■                     ■  //           ■         ■■
+    //                                                                                                              ■ 
+
+    Console::setColor(9);
+    Console::setCursorPosition(9, 3);
+    cout << "    ■                      ";
+    Console::setCursorPosition(10, 3);
+    cout << "    ■      ■■■■■■■  ";
+    Console::setCursorPosition(11, 3);
+    cout << "    ■      ■          ■  ";
+    Console::setCursorPosition(12, 3);
+    cout << " ■■■■   ■          ■  ";
+    Console::setCursorPosition(13, 3);
+    cout << "    ■      ■■■■■■■  ";
+    Console::setCursorPosition(14, 3);
+    cout << "    ■      ■          ■  ";
+    Console::setCursorPosition(15, 3);
+    cout << "    ■      ■          ■  ";
+    Console::setCursorPosition(16, 3);
+    cout << "    ■      ■          ■  ";
+    Console::setCursorPosition(17, 3);
+    cout << "    ■■■   ■■■■■■   ";
+    Console::setCursorPosition(18, 3);
+    cout << "■■■                      ";
+    Console::setCursorPosition(19, 3);
+    cout << "  ■     ■■■■■■■■■ ";
+    Sleep(300);
+
+    Console::setColor(14);
+    Console::setCursorPosition(9, 3);
+    cout << "    ■                                  ■              ";
+    Console::setCursorPosition(10, 3);
+    cout << "    ■      ■■■■■■■    ■■■■■■■■■■■    ";
+    Console::setCursorPosition(11, 3);
+    cout << "    ■      ■          ■              ■              ";
+    Console::setCursorPosition(12, 3);
+    cout << " ■■■■   ■          ■       ■■■■■■■■       ";
+    Console::setCursorPosition(13, 3);
+    cout << "    ■      ■■■■■■■       ■            ■       ";
+    Console::setCursorPosition(14, 3);
+    cout << "    ■      ■          ■       ■            ■       ";
+    Console::setCursorPosition(15, 3);
+    cout << "    ■      ■          ■        ■■■■■■■        ";
+    Console::setCursorPosition(16, 3);
+    cout << "    ■      ■          ■           ■    ■           ";
+    Console::setCursorPosition(17, 3);
+    cout << "    ■■■   ■■■■■■           ■     ■       ■  ";
+    Console::setCursorPosition(18, 3);
+    cout << "■■■                            ■       ■       ■  ";
+    Console::setCursorPosition(19, 3);
+    cout << "  ■     ■■■■■■■■■   ■■           ■■■■   ";
+    Sleep(300);
+
+    Console::setColor(11);
+    Console::setCursorPosition(9, 3);
+    cout << "    ■                                  ■                          ■                ";
+    Console::setCursorPosition(10, 3);
+    cout << "    ■      ■■■■■■■    ■■■■■■■■■■■                ■                ";
+    Console::setCursorPosition(11, 3);
+    cout << "    ■      ■          ■              ■              ■■■■■■■■■■■■■■  ";
+    Console::setCursorPosition(12, 3);
+    cout << " ■■■■   ■          ■       ■■■■■■■■                   ■                ";
+    Console::setCursorPosition(13, 3);
+    cout << "    ■      ■■■■■■■       ■            ■                  ■■               ";
+    Console::setCursorPosition(14, 3);
+    cout << "    ■      ■          ■       ■            ■                  ■  ■             ";
+    Console::setCursorPosition(15, 3);
+    cout << "    ■      ■          ■        ■■■■■■■                 ■     ■            ";
+    Console::setCursorPosition(16, 3);
+    cout << "    ■      ■          ■           ■    ■                  ■         ■          ";
+    Console::setCursorPosition(17, 3);
+    cout << "    ■■■   ■■■■■■           ■     ■       ■       ■             ■        ";
+    Console::setCursorPosition(18, 3);
+    cout << "■■■                            ■       ■       ■     ■                 ■■■  ";
+    Console::setCursorPosition(19, 3);
+    cout << "  ■     ■■■■■■■■■   ■■           ■■■■    ■                     ■    ";
+    Sleep(300);
+
+    Console::setColor(4);
+    Console::setCursorPosition(9, 3);
+    cout << "    ■                                  ■                          ■                    ■         ■   ■";
+    Console::setCursorPosition(10, 3);
+    cout << "    ■      ■■■■■■■    ■■■■■■■■■■■                ■                    ■         ■    ■";
+    Console::setCursorPosition(11, 3);
+    cout << "    ■      ■          ■              ■              ■■■■■■■■■■■■■■      ■■■■   ■■■■■";
+    Console::setCursorPosition(12, 3);
+    cout << " ■■■■   ■          ■       ■■■■■■■■                   ■                    ■     ■■■";
+    Console::setCursorPosition(13, 3);
+    cout << "    ■      ■■■■■■■       ■            ■                  ■■                   ■         ■  ■";
+    Console::setCursorPosition(14, 3);
+    cout << "    ■      ■          ■       ■            ■                  ■  ■             ■■■■■■    ■ ■";
+    Console::setCursorPosition(15, 3);
+    cout << "    ■      ■          ■        ■■■■■■■                 ■     ■            ■        ■    ■■";
+    Console::setCursorPosition(16, 3);
+    cout << "    ■      ■          ■           ■    ■                  ■         ■          ■        ■    ■      ■";
+    Console::setCursorPosition(17, 3);
+    cout << "    ■■■   ■■■■■■           ■     ■       ■       ■             ■        ■■■■■■   ■ ■    ■";
+    Console::setCursorPosition(18, 3);
+    cout << "■■■                            ■       ■       ■     ■                 ■■■  ■           ■     ■  ■";
+    Console::setCursorPosition(19, 3);
+    cout << "  ■     ■■■■■■■■■   ■■           ■■■■    ■                     ■               ■         ■■";
+    Console::setCursorPosition(20, 3);
+    cout << "                                                                                                              ■";
+    Sleep(500);
+    for (int i = 9; i < 21; i++)
+    {
+        Console::setCursorPosition(i, 3);
+        cout << "                                                                                                                ";
+    }
+    Console::setColor(white);
+
     Console::setCursorPosition(3,51);
     Console::setColor(red);
     cout << "坦  克  大  战";

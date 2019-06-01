@@ -48,7 +48,7 @@ void Map::show() {							//千万别动这个东西，有毒
 	for (int i = 0; i < 30; i++) {
 		for (int j = 0; j < 106; j++) {
 			if (map[i][j][0] == 1) {
-				printf(Console::U2G(n));
+				cout<<Console::U2G(n);
 				j++;
 			}
 			else if (map[i][j][0] == 2) {
@@ -74,7 +74,7 @@ void Map::show() {							//千万别动这个东西，有毒
 	}
     Console::setColor(14);
     Console::setCursorPosition(25, 82);
-    cout << "▲ 高级子弹  ★ 无敌  ● 回血";
+    cout << "● 高级子弹  ★ 无敌  ▲ 回血";
     Console::setColor(white);
 }
 

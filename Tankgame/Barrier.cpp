@@ -9,7 +9,7 @@ Barrier::Barrier(){ }
 Barrier::~Barrier(){ }
 
 //River
-int River::a = 0;
+//int River::a = 0;
 River::River()
 {
     this->x = Console::Random(5, 22);
@@ -31,7 +31,7 @@ River::~River(){ }
 void River::show()
 {
     char*n = u8"¡ö";
-    a = Console::Random(0, 3)%3 + 1;
+    int a = Console::Random(0, 3)%3 + 1;
     switch (a)
     {
     case 1:
@@ -248,6 +248,6 @@ void barries::refresh()
     this->r2->show();
     this->w1->show();
     this->w2->show();
-    this->w3->show();
+    //this->w3->show();
     this->b1->iShot();
 }
