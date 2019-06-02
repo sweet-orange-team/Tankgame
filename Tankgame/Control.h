@@ -17,6 +17,7 @@ public:
     void animation();           //开头动画
     int menu();                 //菜单
 	int start();				//主程序开始
+	int restart();
 private:
 	int flag;
 };

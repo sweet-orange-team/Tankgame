@@ -238,7 +238,7 @@ int Control::menu()
 	{
 		cout << Console::U2G(n);
 	}
-    int j = 1;
+	int j = 1;
 	while (1)
 	{
 		char op = _getch();
@@ -308,7 +308,7 @@ int Control::menu()
 			else if (j == 2)
 			{
 				system("cls");
-                Console::setColor(3);
+				Console::setColor(3);
 				Console::setCursorPosition(1, 3);
 				cout << "b键开始游戏...";
 				Console::setCursorPosition(6, 5);
@@ -325,19 +325,19 @@ int Control::menu()
 				Console::setColor(3);
 				cout << "道具";
 				Console::setCursorPosition(10, 12);
-                Console::setColor(14);
-                cout << "● ";
+				Console::setColor(14);
+				cout << "● ";
 				Console::setColor(white);
 				cout << "高级子弹:增加伤害";
 				Console::setCursorPosition(11, 12);
-                Console::setColor(14);
-                cout << "★ ";
-                Console::setColor(white);
+				Console::setColor(14);
+				cout << "★ ";
+				Console::setColor(white);
 				cout << "无敌:接触到子弹和敌方坦克不受到伤害";
 				Console::setCursorPosition(12, 12);
-                Console::setColor(14);
-                cout << "▲ ";
-                Console::setColor(white);
+				Console::setColor(14);
+				cout << "▲ ";
+				Console::setColor(white);
 				cout << "回血 : 血量 + 1";
 				Console::setCursorPosition(14, 5);
 				Console::setColor(3);
@@ -356,7 +356,7 @@ int Control::menu()
 				cout << "■";
 				cout << "  墙体:子弹不可穿过,坦克无法跨越，不可击碎";
 				j = 3;
-                break;
+				break;
 			}
 			else return 1;
 			break;
@@ -364,7 +364,7 @@ int Control::menu()
 		case'b':
 		{
 			if (j == 3)
-			return 1;
+				return 1;
 		}
 		default:
 			break;
@@ -373,27 +373,70 @@ int Control::menu()
 }
 
 int Control::start() {				//主程序开始
-	Console console;				//初始化控制台
-	Map map;						//初始化地图
-	map.show();
-	TankUser mytank = TankUser();
-	TankEnemies enemies = TankEnemies();
-	props p = props();
-	barries b = barries();
-	b.initBarries();
-	mytank.show();
 	while (true)
 	{
-		console.checkKey(mytank);
-		mytank.bulletMove();
-		enemies.allEnemyMove();
-		p.UseProp(mytank);
-		map.refresh(b);
-		if (!mytank.isAlive())break;
-		Sleep(40);
+		int bre;
+		Console console;				//初始化控制台
+		Map map;						//初始化地图
+		map.show();
+		TankUser mytank = TankUser();
+		TankEnemies enemies = TankEnemies();
+		props p = props();
+		barries b = barries();
+		b.initBarries();
+		mytank.show();
+		while (true)
+		{
+			console.checkKey(mytank);
+			mytank.bulletMove();
+			enemies.allEnemyMove();
+			p.UseProp(mytank);
+			map.refresh(b);
+			if (!mytank.isAlive()) {
+				if (restart() == 0) {
+					bre = 1;
+					break;
+				}
+				else
+				{
+					TankUser::blood = 5;
+					bre = 0;
+					break;
+				}
+			}
+			Sleep(40);
+		}
+		if (bre)
+		{
+			break;
+		}
 	}
-	system("pause");
-	system("cls");
-	system("pause");
 	return 0;
+}
+
+int Control::restart()
+{
+	system("cls");
+	Console::setCursorPosition(10, 50);
+	cout << Console::U2G(u8"■■■■■■■■■■■■") << "\n";
+	Console::setCursorPosition(11, 50);
+	cout << Console::U2G(u8"■") << "    总分：";
+	Console::setColor(red);
+	cout << TankUser::score << "      \n";
+	Console::setCursorPosition(12, 50);
+	Console::setColor(white);
+	cout << Console::U2G(u8"■■■■■■■■■■■■") << "\n";
+	Console::setCursorPosition(13, 50);
+	cout << "按空格重新开始，按 y 退出\n";
+	while (true)
+	{
+		char cha = _getch();
+		if (cha == ' ') {
+			return 1;
+		}
+		if (cha=='y')
+		{
+			return 0;
+		}
+	}
 }

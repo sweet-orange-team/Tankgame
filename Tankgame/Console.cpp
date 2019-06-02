@@ -69,7 +69,10 @@ void Console::checkKey(TankUser &mytank) {			//检测某个按键是否按下(传入大写字母
 		else
 		{
 			if (KEY_DOWN('P')) {
+				Console::setCursorPosition(28, 90);
 				system("pause");
+				Console::setCursorPosition(28, 90);
+				cout << "                     ";
 			}
 		}
 }
