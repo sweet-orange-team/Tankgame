@@ -156,7 +156,7 @@ void TankUser::move(int d)                                                      
 			Console::setCursorPosition(this->x - 1, this->y - 2);
 			cout << Console::U2G(n) << Console::U2G(n) << "  ";
 			Console::setCursorPosition(this->x + 0, this->y - 2);
-			cout << "  " << Console::U2G(n) << Console::U2G(n);
+            cout << "  " << Console::U2G(n) << Console::U2G(n);
 			Console::setCursorPosition(this->x + 1, this->y - 2);
 			cout << Console::U2G(n) << Console::U2G(n) << "  ";
 		}

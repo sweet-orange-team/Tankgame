@@ -417,24 +417,28 @@ int Control::start() {				//主程序开始
 int Control::restart()
 {
 	system("cls");
-	Console::setCursorPosition(10, 50);
+    Console::setCursorPosition(9, 52);
+    Console::setColor(red);
+    cout << "Good Game!";
+	Console::setCursorPosition(10, 45);
+    Console::setColor(white);
 	cout << Console::U2G(u8"■■■■■■■■■■■■") << "\n";
-	Console::setCursorPosition(11, 50);
-	cout << Console::U2G(u8"■") << "    总分：";
-	Console::setColor(red);
+	Console::setCursorPosition(11, 51);
+	cout <</* Console::U2G(u8"■") <<*/ "总分：";
+	Console::setColor(14);
 	cout << TankUser::score << "      \n";
-	Console::setCursorPosition(12, 50);
+	Console::setCursorPosition(12, 45);
 	Console::setColor(white);
 	cout << Console::U2G(u8"■■■■■■■■■■■■") << "\n";
-	Console::setCursorPosition(13, 50);
-	cout << "按空格重新开始，按 y 退出\n";
+	Console::setCursorPosition(13, 45);
+	cout << "按 y 重新开始，按 n 退出\n";
 	while (true)
 	{
 		char cha = _getch();
-		if (cha == ' ') {
+		if (cha == 'y') {
 			return 1;
 		}
-		if (cha=='y')
+		if (cha=='n')
 		{
 			return 0;
 		}
