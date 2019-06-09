@@ -436,6 +436,7 @@ int Control::restart()
 	{
 		char cha = _getch();
 		if (cha == 'y') {
+            TankUser::score = 0;
 			return 1;
 		}
 		if (cha=='n')

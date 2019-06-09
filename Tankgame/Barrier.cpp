@@ -9,15 +9,15 @@ Barrier::Barrier(){ }
 Barrier::~Barrier(){ }
 
 //River
-//int River::a = 0;
 River::River()
 {
-    this->x = Console::Random(5, 22);
-    this->y = Console::Random(2, 70);
+    this->x =0;
+    this->y =0;
     this->color = 9;
     this->xlen = 3;
     this->ylen = 12;
     this->id = 6;
+    this->judge = 1;
     for (int i = 0; i < 3; i++)
     {
         for (int j = 0; j < 12; j++)
@@ -77,6 +77,7 @@ void River::show()
             }
         }
     }
+    Console::setColor(white);
 }
 
 void River::append()
@@ -85,7 +86,7 @@ void River::append()
     {
         for (int j = 0; j < this->ylen; j++)
         {
-            if (this->body[i][j]==1)
+            if (this->body[i][j] == 1)
                 Map::map[this->x + i][this->y + j][0] = this->id;
         }
     }
@@ -94,12 +95,13 @@ void River::append()
 //Wall
 Wall::Wall()
 {
-    this->x = Console::Random(5, 23);
-    this->y = Console::Random(2, 72);
+    this->x =0;
+    this->y =0;
     this->color = 15;
     this->xlen = 3;
     this->ylen = 10;
     this->id = 1;
+    this->judge = 1;
 }
 
 Wall::Wall(int x,int y)
@@ -129,19 +131,18 @@ void Wall::show()
             }
         }
     }
-    Console::setColor(white);
 }
 
 void Wall::append()
 {
-    for (int i = 0; i < this->xlen; i++)
-    {
-        for (int j = 0; j < this->ylen; j++)
+        for (int i = 0; i < this->xlen; i++)
         {
-            if (this->body[i][j] == 1)
-                Map::map[this->x + i][this->y + j][0] = this->id;
+            for (int j = 0; j < this->ylen; j++)
+            {
+                if (this->body[i][j] == 1)
+                    Map::map[this->x + i][this->y + j][0] = this->id;
+            }
         }
-    }
 }
 
 //Brick
@@ -222,32 +223,43 @@ barries::~barries(){ }
 
 void barries::initBarries()
 {
+    b1 = new Brick();
+    b1->show();
+    b1->append();
     r1 = new River();
+    r1->x = Console::Random(17, 25);
+    r1->y = Console::Random(54, 62);
     r1->show();
     r1->append();
     r2 = new River();
+    r2->x = Console::Random(5, 10);
+    r2->y = Console::Random(16, 62);
     r2->show();
     r2->append();
-    w1 = new Wall(23,16);
+    w1 = new Wall(14,68);
     w1->show();
     w1->append();
     w2 = new Wall(7,2);
     w2->show();
     w2->append();
-    w3 = new Wall(14,68);
+    w3 = new Wall();
+    w3->x = Console::Random(16, 25);
+    w3->y = Console::Random(2, 16);
     w3->show();
     w3->append();
-    b1 = new Brick();
-    b1->show();
-    b1->append();
 }
 
 void barries::refresh()
 {
-    this->r1->show();
-    this->r2->show();
-    this->w1->show();
-    this->w2->show();
-    //this->w3->show();
     this->b1->iShot();
+    this->r1->append();
+    this->r1->show();
+    this->r2->append();
+    this->r2->show();
+    this->w1->append();
+    this->w1->show();
+    this->w2->append();
+    this->w2->show();
+    this->w3->append();
+    this->w3->show();
 }

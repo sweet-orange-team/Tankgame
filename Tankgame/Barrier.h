@@ -11,8 +11,8 @@ public:
     ~Barrier();
     virtual void append() = 0;
     virtual void show() = 0;
-protected:
     int x, y;
+protected:
     int color;
     int xlen, ylen;
     int id;
@@ -27,7 +27,7 @@ public:
     void append();
     void show();
     char body[3][12];
-    char Body[3][3][12] =
+    const int Body[3][3][12] =
     {
         {
             { 0,0,0,0,1,1,1,1,0,0,0,0 },
@@ -46,6 +46,8 @@ public:
             { 1,1,1,1,1,1,1,1,1,1,1,1 }
         }
     };
+private:
+    int judge;
 };
 
 class Wall :public Barrier       //无法跨越，子弹不可穿过不可击碎 Map::map[x][y][0]=1
@@ -56,12 +58,14 @@ public:
     ~Wall();
     void show();
     void append();
-    char body[3][10] =
+    const int body[3][10] =
     {
         { 0,0,0,0,1,1,1,1,1,1 },
         { 1,1,1,1,1,1,1,1,1,1 },
         { 1,1,1,1,1,1,0,0,0,0 }
     };
+private:
+    int judge;
 };
 
 class Brick :public Barrier      //无法跨越，子弹可击碎 Map::map[x][y][0]=7

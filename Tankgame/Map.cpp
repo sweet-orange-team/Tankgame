@@ -95,5 +95,11 @@ void Map::refresh(barries b)
 			}
 		}
 	}
+   // for (int i = 0; i < 30; i++) {
+   //     for (int j = 0; j < 106; j++) {
+   //         Console::setCursorPosition(i, j);
+   //         cout << Map::map[i][j][0];
+   //     }
+    //}
     b.refresh();
 }

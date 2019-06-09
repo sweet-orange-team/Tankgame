@@ -2,6 +2,7 @@
 #include"Console.h"
 #include"Bullet.h"
 #include"Map.h"
+#include"Prop.h"
 using namespace std;
 
 Bullet::Bullet(int x, int y, int dir, int isSee,char* body,int attack,int number)                            //初始化子弹属性
@@ -43,7 +44,7 @@ void Bullet::move(int step)                         //子弹移动
 			if (Map::map[x][y][0]!=0 && Map::map[x][y][0] != 6)
 			{
 				if (Map::map[x][y][0] == 2) {
-					TankUser::blood--;
+					TankUser::blood -= InvincibleProp::selfboom;;
 				}
 				append();
 				this->x = 1; this->y = 90;
@@ -64,7 +65,7 @@ void Bullet::move(int step)                         //子弹移动
 			if (Map::map[x][y][0] != 0 && Map::map[x][y][0] != 6)
 			{
 				if (Map::map[x][y][0] == 2) {
-					TankUser::blood--;
+					TankUser::blood -= InvincibleProp::selfboom;;
 				}
 				append();
 				this->x = 0; this->y = 90;
@@ -85,7 +86,7 @@ void Bullet::move(int step)                         //子弹移动
 			if (Map::map[x][y][0] != 0&&Map::map[x][y][0] != 6)
 			{
 				if (Map::map[x][y][0] == 2) {
-					TankUser::blood--;
+					TankUser::blood -= InvincibleProp::selfboom;;
 				}
 				append();
 				this->x = 1; this->y = 90;
@@ -105,7 +106,7 @@ void Bullet::move(int step)                         //子弹移动
 			if (Map::map[x][y][0] != 0&& Map::map[x][y][0]!=6)
 			{
 				if (Map::map[x][y][0] == 2) {
-					TankUser::blood--;
+					TankUser::blood -= InvincibleProp::selfboom;;
 				}
 				append();
 				this->x = 0; this->y = 90;
