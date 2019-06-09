@@ -5,7 +5,7 @@
 #include"Prop.h"
 using namespace std;
 
-Bullet::Bullet(int x, int y, int dir, int isSee,char* body,int attack,int number)                            //初始化子弹属性
+Bullet::Bullet(int x, int y, int dir, int isSee,char* body,int attack,int number)      //初始化子弹属性
 {
 	this->x = x;
 	this->y = y;
@@ -27,23 +27,23 @@ void Bullet::clear() {
 	Console::setCursorPosition(x, y);
 	cout << "  ";
 }
-void Bullet::append()								//在地图上更新子弹
+void Bullet::append()					//在地图上更新子弹
 {
 	Map::map[this->x][this->y][0] = number;
 	Map::map[x][y+1][0] = number;
 }
 
-void Bullet::move(int step)                         //子弹移动
+void Bullet::move(int step)             //子弹移动
 {
 	this->clear();
-	switch (direction)
+	switch (direction)					//不同的方向移动也不同
 	{
 	case 0:
 		if (this->x >=2&&(this->x!=0&&this->y!=90)) {
-			this->x -= step;				//提前预定下一个抵达点，子弹坐标增加
+			this->x -= step;			//提前预定下一个抵达点，子弹坐标增加
 			if (Map::map[x][y][0]!=0 && Map::map[x][y][0] != 6)
 			{
-				if (Map::map[x][y][0] == 2) {
+				if (Map::map[x][y][0] == 2) {	//判断是否击中用户坦克
 					TankUser::blood -= InvincibleProp::selfboom;;
 				}
 				append();

@@ -11,7 +11,7 @@ int Map::map[30][106][2] = { { {0} } };
 Map::Map()								//初始化作战地图  29*79
 {
 	for (int i = 0; i < 30; i++) {
-		for (int j = 0; j < 106; j++) {			//勾勒出初始地图
+		for (int j = 0; j < 106; j++) {			//勾勒初始地图
 			if (i == 0 || i == 29) {			//78设置为1是因为那个墙体字符占两个位置
 				if (j < 80) {
 					map[i][j][0] = 1;
@@ -78,7 +78,7 @@ void Map::show() {							//千万别动这个东西，有毒
     Console::setColor(white);
 }
 
-void Map::refresh(barries b)
+void Map::refresh(barries b)			//更新游戏数据
 {
 	Console::setCursorPosition(7, 90);
 	Console::setColor(red);
@@ -95,11 +95,5 @@ void Map::refresh(barries b)
 			}
 		}
 	}
-   // for (int i = 0; i < 30; i++) {
-   //     for (int j = 0; j < 106; j++) {
-   //         Console::setCursorPosition(i, j);
-   //         cout << Map::map[i][j][0];
-   //     }
-    //}
     b.refresh();
 }

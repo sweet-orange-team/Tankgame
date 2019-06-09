@@ -18,7 +18,7 @@ Tank::Tank(int x, int y, Color color, int direction)
 
 Tank::~Tank() { }
 
-void Tank::show() {
+void Tank::show() {						//在控制台输出坦克的形状
 	Console::setColor(color);
 	Console::setCursorPosition(this->x - 1, this->y - 2);
 	cout << "  " << Console::U2G(n) << "  ";
@@ -29,7 +29,7 @@ void Tank::show() {
 	Console::setColor(white);
 }
 
-void Tank::append()                                                 //在地图上输出坦克 
+void Tank::append()                    //在地图上添加代表坦克的数字 
 {
 	for (int i = -1; i <= 1; i++) {
 		for (int j = -2; j <= 3; j++) {
@@ -39,7 +39,7 @@ void Tank::append()                                                 //在地图上输
 	}
 }
 
-void Tank::clear() {
+void Tank::clear() {					//在控制台清除坦克形状
 	for (int i = -1; i <= 1; i++) {
 		Console::setCursorPosition(this->x + i, this->y - 2);
 		cout << "      ";
@@ -82,21 +82,21 @@ TankUser::~TankUser()
 {
 }
 
-int TankUser::getDir()                              //返回坦克方向
+int TankUser::getDir()                  //返回坦克方向
 {
 	return direction;
 }
 
-void TankUser::move(int d)                                                                              //移动坦克
+void TankUser::move(int d)				//移动坦克
 {
-	int m = 1, i, j;
+	int m = 1, i, j;					//变量m判断是否应该移动
 	Console::setColor(this->color);
 	this->direction = d;
-	switch (d) {
+	switch (d) {						//不同的方向选择不同的移动
 	case 0: {
 		for (i = this->x - 2, j = this->y - 2; j < this->y + 4; j++)
 		{
-			if (Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7)m = 0;
+			if (Map::map[i][j][0] == 1 || Map::map[i][j][0] == 6 || Map::map[i][j][0] == 7)m = 0;	//判断坦克四周的情况
 		}
 
 		if (this->x >= 3 && m) {
@@ -168,7 +168,7 @@ void TankUser::move(int d)                                                      
 }
 
 void TankUser::shoot() {
-	switch (this->direction)
+	switch (this->direction)		//根据坦克的朝向不同,选择不同的子弹射击方向
 	{
 	case 0:
 		if (this->x >= 3)
@@ -197,9 +197,9 @@ void TankUser::shoot() {
 	bulletNum++;
 }
 
-void TankUser::bulletMove()
+void TankUser::bulletMove()			
 {
-	for (int i = 0; i < 30; i++)
+	for (int i = 0; i < 30; i++)		//循环移动每一个坦克
 	{
 		this->bullet[i]->move();
 	}
@@ -215,6 +215,7 @@ int TankUser::isAlive()
 
 //TankEnemy
 int TankEnemy::selfboom = 1;
+int TankEnemy::shootspeed = 17;
 TankEnemy::TankEnemy(int x, int y, Color color, int direction, int score, int blood) :Tank(x, y, color, direction)
 {
 	this->score = score;
@@ -237,7 +238,7 @@ void TankEnemy::move()
 	int moveDistance = int(newDistance);	//单步行走
 	newDistance = newDistance > 1 ? newDistance - 1 : newDistance;
 	if (newDistance > 0.9) {
-		int gailv = Console::Random(0, 10);	//随机取移动方向
+		int gailv = Console::Random(0, 10);	//随机取移动方向,方向总体偏向下
 		if (gailv >= 5)this->direction = 1;
 		if (gailv >= 0 && gailv < 1)this->direction = 0;
 		if (gailv >= 1 && gailv <= 2)this->direction = 2;
@@ -319,14 +320,13 @@ void TankEnemy::move()
 		}
 		append();
 		Console::setColor(black);
-		//盗用tank user的移动方法
 		shoot(); bulletMove();
 	}
 }
 
 
 void TankEnemy::shoot() {
-	if (shouldShoot % 17 == 0) {
+	if (shouldShoot % TankEnemy::shootspeed == 0) {		//通过这个变量控制是否应该射击,避免射击过快
 		switch (this->direction)
 		{
 		case 0:
@@ -372,9 +372,9 @@ void TankEnemy::append(int num)
 	}
 }
 
-void TankEnemy::isShot()                                                //判断敌人是否被击中
+void TankEnemy::isShot()                                                //判断是否被子弹击中
 {
-	for (int i = this->x - 1; i <= this->x + 1; i++)
+	for (int i = this->x - 1; i <= this->x + 1; i++)					//检查自身所在的二维数组是否有子弹的数据
 	{
 		for (int j = this->y - 2; j <= this->y + 3; j++)
 		{
@@ -407,7 +407,7 @@ int TankEnemy::isAlive()
 	for (int i = this->x - 1; i <= this->x + 1; i++) {
 		int bre = 0;
 		for (int j = this->y - 2; j <= this->y + 3; j++) {
-			if (Map::map[i][j][0] == 2) {
+			if (Map::map[i][j][0] == 2) {		//如果撞到用户坦克,就自爆
 				Alive = 0;
 				TankUser::blood -= InvincibleProp::selfboom;
 				bre = 1;
@@ -421,13 +421,13 @@ int TankEnemy::isAlive()
 		clear();
 		TankUser::score += this->score;
 		append(0);
-		for (int i = 0; i < 30; i++)				//如果坦克死亡，清除掉坦克的子弹
+		for (int i = 0; i < 30; i++)			//如果坦克死亡，清除掉坦克的子弹
 		{
 			this->bullet[i]->clear();
 			this->x = 0; this->y = 90;
 		}
 	}
-	//如果被击毁，放在右上角
+	//如果被击毁，放在右上角,便于用户观察
 	if (!Alive) {
 		clear();
 		Console::setColor(color);
@@ -461,12 +461,18 @@ void TankEnemies::allEnemyMove()
 	for (int i = 0; i <= 2; i++)
 	{
 		if (this->enemies[i]->isAlive() == 0) {
+			int boss = Console::Random(0, 20);			//小概率产生一个boss
 			Color color = red; int blood = 2; int score = 10000;
 			if (Console::Random(1, 3) > 1)
 			{
 				color = green;
 				blood = 1;
 				score = 5000;
+			}
+			if (boss == 1) {
+				color = pink;
+				blood = 5;
+				score = 20000;
 			}
 			this->enemies[i] = new TankEnemy(2, Console::Random(4, 73), color, 1, score, blood);
 			this->enemies[i]->show();

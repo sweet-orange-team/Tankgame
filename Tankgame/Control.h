@@ -16,8 +16,8 @@ public:
     void clear(int, int);
     void animation();           //开头动画
     int menu();                 //菜单
-	int start();				//主程序开始
-	int restart();
+	int start();				//主游戏循环开始
+	int restart();				//重新开始游戏
 private:
 	int flag;
 };
