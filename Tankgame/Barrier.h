@@ -9,13 +9,13 @@ class Barrier
 public:
     Barrier();
     ~Barrier();
-    virtual void append() = 0;
-    virtual void show() = 0;
-    int x, y;
+    virtual void append() = 0;         //添加进地图
+    virtual void show() = 0;           //在地图上显示
+    int x, y;                          //障碍物位置
 protected:
-    int color;
-    int xlen, ylen;
-    int id;
+    int color;                         //障碍物颜色
+    int xlen, ylen;                    //长度宽度（用于循环
+    int id;                            //在地图数组上的表示
 };
 
 class River :public Barrier      //无法跨越，子弹可穿过 Map::map[x][y][0]=6
@@ -23,11 +23,10 @@ class River :public Barrier      //无法跨越，子弹可穿过 Map::map[x][y][0]=6
 public:
     River();
     ~River();
-    //static int a;
     void append();
     void show();
     char body[3][12];
-    const int Body[3][3][12] =
+    const int Body[3][3][12] =                    //三种不同的形状，随机产生
     {
         {
             { 0,0,0,0,1,1,1,1,0,0,0,0 },
@@ -46,8 +45,6 @@ public:
             { 1,1,1,1,1,1,1,1,1,1,1,1 }
         }
     };
-private:
-    int judge;
 };
 
 class Wall :public Barrier       //无法跨越，子弹不可穿过不可击碎 Map::map[x][y][0]=1
@@ -64,8 +61,6 @@ public:
         { 1,1,1,1,1,1,1,1,1,1 },
         { 1,1,1,1,1,1,0,0,0,0 }
     };
-private:
-    int judge;
 };
 
 class Brick :public Barrier      //无法跨越，子弹可击碎 Map::map[x][y][0]=7
@@ -73,10 +68,9 @@ class Brick :public Barrier      //无法跨越，子弹可击碎 Map::map[x][y][0]=7
 public:
     Brick();
     ~Brick();
-    static int a;
     void show();
     void append();
-    void iShot();
+    void iShot();           //判断击中及击中后的操作
     int body[8][22] =
     {
     { 0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0,0,0,0 },
@@ -95,8 +89,8 @@ class barries
 public:
     barries();
     ~barries();
-    void initBarries();
-    void refresh();
+    void initBarries();          //初始化障碍物
+    void refresh();              //刷新障碍物
     River * r1, *r2;
     Wall*w1, *w2, *w3;
     Brick*b1;

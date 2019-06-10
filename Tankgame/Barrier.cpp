@@ -17,7 +17,6 @@ River::River()
     this->xlen = 3;
     this->ylen = 12;
     this->id = 6;
-    this->judge = 1;
     for (int i = 0; i < 3; i++)
     {
         for (int j = 0; j < 12; j++)
@@ -31,7 +30,7 @@ River::~River(){ }
 void River::show()
 {
     char*n = u8"■";
-    int a = Console::Random(0, 3)%3 + 1;
+    int a = Console::Random(0, 3)%3 + 1;       //产生1~3之间的随机数
     switch (a)
     {
     case 1:
@@ -66,7 +65,7 @@ void River::show()
     }
     }
     Console::setColor(this->color);
-    for (int i = 0; i < this->xlen; i++)
+    for (int i = 0; i < this->xlen; i++)                    //输出body
     {
         for (int j = 0; j < this->ylen; j += 2)
         {
@@ -80,7 +79,7 @@ void River::show()
     Console::setColor(white);
 }
 
-void River::append()
+void River::append()              //添加进地图
 {
     for (int i = 0; i < this->xlen; i++)
     {
@@ -101,7 +100,6 @@ Wall::Wall()
     this->xlen = 3;
     this->ylen = 10;
     this->id = 1;
-    this->judge = 1;
 }
 
 Wall::Wall(int x,int y)
@@ -116,7 +114,7 @@ Wall::Wall(int x,int y)
 
 Wall::~Wall(){ }
 
-void Wall::show()
+void Wall::show()                //在地图上显示
 {
     char*n = u8"■";
     Console::setColor(this->color);
@@ -133,7 +131,7 @@ void Wall::show()
     }
 }
 
-void Wall::append()
+void Wall::append()            //添加进地图
 {
         for (int i = 0; i < this->xlen; i++)
         {
@@ -146,7 +144,6 @@ void Wall::append()
 }
 
 //Brick
-int Brick::a = 0;
 Brick::Brick()
 {
     this->x = 15;
@@ -159,7 +156,7 @@ Brick::Brick()
 
 Brick::~Brick(){ }
 
-void Brick::show()
+void Brick::show()                //地图上显示
 {
     char*n = u8"■";
     Console::setColor(this->color);
@@ -177,7 +174,7 @@ void Brick::show()
     Console::setColor(white);
 }
 
-void Brick::append()
+void Brick::append()              //添加进地图
 {
     for (int i = 0; i < this->xlen; i++)
     {
@@ -190,13 +187,13 @@ void Brick::append()
     }
 }
 
-void Brick::iShot()
+void Brick::iShot()               //判断击中及击中后的改变
 {
     for (int i = 0; i < this->xlen; i++)
     {
         for (int j = 0; j < this->ylen; j++)
         {
-            if (Map::map[this->x + i][this->y + j][0] == 3)
+            if (Map::map[this->x + i][this->y + j][0] == 3)           //如果遇到子弹则被击碎
                 Map::map[this->x + i][this->y + j][0] = 0;
         }
     }
@@ -205,29 +202,30 @@ void Brick::iShot()
     {
         for (int j = 0; j < ylen; j += 2)
         {
-            if (Map::map[this->x + i][this->y + j][0] == this->id)
+            if (Map::map[this->x + i][this->y + j][0] == this->id)                //没被击碎刷新输出
             {
                 Console::setCursorPosition(x + i, y + j);
                 Console::setColor(this->color);
                 cout << Console::U2G(n);
             }
-            else if (Map::map[this->x + i][this->y + j][0] == 0) cout << "  ";
-            Console::setColor(white);
+           // else if (Map::map[this->x + i][this->y + j][0] == 0) cout << "  ";        //被击碎后输出空格
+           
         }
     }
+    Console::setColor(white);
 }
 
 //barries
 barries::barries(){ }
 barries::~barries(){ }
 
-void barries::initBarries()
+void barries::initBarries()               //初始化障碍物
 {
     b1 = new Brick();
     b1->show();
     b1->append();
     r1 = new River();
-    r1->x = Console::Random(17, 25);
+    r1->x = Console::Random(21, 25);
     r1->y = Console::Random(54, 62);
     r1->show();
     r1->append();
@@ -249,7 +247,7 @@ void barries::initBarries()
     w3->append();
 }
 
-void barries::refresh()
+void barries::refresh()           //刷新障碍物
 {
     this->b1->iShot();
     this->r1->append();

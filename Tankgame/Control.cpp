@@ -20,7 +20,7 @@ Control::~Control()
 {
 }
 
-void Control::tankl(int x, int y)
+void Control::tankl(int x, int y)       //左边坦克
 {
 	Console::setColor(yellow);
 	Console::setCursorPosition(x, y);
@@ -32,7 +32,7 @@ void Control::tankl(int x, int y)
 	Console::setColor(white);
 }
 
-void Control::tankr(int x, int y)
+void Control::tankr(int x, int y)        //右边坦克
 {
 	Console::setColor(red);
 	Console::setCursorPosition(x, y);
@@ -44,7 +44,7 @@ void Control::tankr(int x, int y)
 	Console::setColor(white);
 }
 
-void Control::clear(int x, int y)
+void Control::clear(int x, int y)        //清除
 {
 	Console::setCursorPosition(x, y);
 	cout << "      ";
@@ -54,8 +54,9 @@ void Control::clear(int x, int y)
 	cout << "      ";
 }
 
-void Control::animation()
+void Control::animation()                
 {
+    //撞击后清除
 	int x1 = 15, y1 = 26, x2 = 15, y2 = 86;
 	while (y1 + 6 <= y2)
 	{
@@ -191,7 +192,7 @@ void Control::animation()
 	Console::setColor(white);
 }
 
-int Control::menu()
+int Control::menu()                       //菜单
 {
 	char* n = u8"■";
 	Console::setCursorPosition(3, 51);
@@ -239,7 +240,7 @@ int Control::menu()
 		cout << Console::U2G(n);
 	}
 	int j = 1;
-	while (1)
+	while (1)                  //判断光标移动
 	{
 		char op = _getch();
 		switch (op)
@@ -302,7 +303,7 @@ int Control::menu()
 			}
 			break;
 		}
-		case 'y':
+		case 'y':                     //判断选择
 		{
 			if (j == 0) return 0;
 			else if (j == 2)
@@ -379,13 +380,13 @@ int Control::start() {				//主程序开始
 		Console console;				//初始化控制台
 		Map map;						//初始化地图
 		map.show();
-		TankUser mytank = TankUser();
-		TankEnemies enemies = TankEnemies();
-		props p = props();
-		barries b = barries();
+		TankUser mytank = TankUser();    //初始化用户坦克
+		TankEnemies enemies = TankEnemies();//初始化敌方坦克
+		props p = props();           //初始化道具群
+		barries b = barries();       //初始化障碍物群
 		b.initBarries();
-		mytank.show();
-		while (true)
+		mytank.show(); 
+		while (true)                 //计时循环！
 		{
 			console.checkKey(mytank);
 			mytank.bulletMove();
@@ -414,7 +415,7 @@ int Control::start() {				//主程序开始
 	return 0;
 }
 
-int Control::restart()
+int Control::restart()                 //重新开始
 {
 	system("cls");
     Console::setCursorPosition(9, 52);

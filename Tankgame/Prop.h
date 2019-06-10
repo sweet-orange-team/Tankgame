@@ -10,12 +10,12 @@ public:
     Prop(int x, int y, char*body);
     ~Prop();
     int IsGet(TankUser&Tank);                        //判断是否被捡到
-    virtual void isGet()=0;
-    virtual void Recover() = 0;
-	virtual void showProp();
-	void clearProp();
-	void append();
-	char* getBody();
+    virtual void isGet()=0;                          //被捡到后的操作
+    virtual void Recover() = 0;                      //效果恢复
+	virtual void showProp();                         //显示
+	void clearProp();                                //清除
+	void append();                                   //添加进地图
+	char* getBody();                                 //获取形状
 protected:
     int x, y;
     char*body;
@@ -54,18 +54,18 @@ class BloodProp :public Prop                          //回血
 };
 
 
-class props 
+class props               //道具群类
 {
 public:
     props();
     ~props();
-    static int count;
-    static int num;
-    static int isget;
-    static int judge;
-    static int timercount;
-    static void timer(); 
-    void initProp();
+    static int count;      //计数
+    static int num;        //判断道具种类
+    static int isget;      //是否被捡到
+    static int judge;      //判断状态
+    static int timercount; //计时
+    static void timer();   //计时器
+    void initProp();       //初始化
     void UseProp(TankUser&Tank);
     BulletProp*prop1;
     InvincibleProp*prop2;
